@@ -8,29 +8,39 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Binding var openScreen: String
-    
     var body: some View {
-        VStack {
-            Text("FlexComm")
-                .padding()
-            Button(action: {
-                self.openScreen = "start"
-            }) {
-                Text("Start")
-            }
-            Button(action: {
-                self.openScreen = "settings"
-            }) {
-                Text("Settings")
+        NavigationView {
+            VStack (alignment: .center, spacing: nil) {
+                Spacer()
+                Text("FlexComm")
+                    .padding(15)
+                    .font(.custom("SFProText-Thin", size: 90))
+                NavigationLink(
+                    destination: yesNoView(),
+                    label: {
+                        Text("Start")
+                            .font(.custom("SFProText-Thin", size: 35))
+                            .padding(5)
+                    })
+                NavigationLink(
+                    destination: SettingsView(),
+                    label: {
+                        Text("Settings")
+                            .font(.custom("SFProText-Thin", size: 35))
+                    })
+                Spacer()
+                Spacer()
+                Spacer()
             }
         }
+        .navigationBarBackButtonHidden(true)
+        .statusBar(hidden: true)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(openScreen: .constant("home"))
-            .previewLayout(.fixed(width: 1024, height: 768))
+        ContentView()
     }
 }

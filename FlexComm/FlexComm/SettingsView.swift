@@ -11,6 +11,7 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var responseValidate: responseValidator
     @State private var responseTime = ""
+    
     var body: some View {
         NavigationView {
             ZStack{
@@ -88,8 +89,9 @@ struct SettingsView: View {
                     
                 }
             }
-        .navigationBarTitle("Settings")
+            .navigationBarTitle("Settings")
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
