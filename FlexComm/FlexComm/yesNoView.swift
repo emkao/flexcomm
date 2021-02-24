@@ -37,7 +37,7 @@ struct yesNoView: View {
             
             Spacer()
             // cards in a hstack
-            HStack {
+            VStack {
                 Button(action: {
                     print("Play yes")
                 }) {
@@ -45,7 +45,7 @@ struct yesNoView: View {
                         .font(.largeTitle)
                         
                 }
-                .frame(width: 370, height: 200)
+                .frame(width: 200, height: 200)
                 .background(Color("LeafGreen"))
                 .padding(.all)
                 
@@ -57,7 +57,7 @@ struct yesNoView: View {
                         .font(.largeTitle)
                         
                 }
-                .frame(width: 370, height: 200)
+                .frame(width: 200, height: 200)
                 .background(Color(.red))
                 .padding(.all)
                 
@@ -76,7 +76,7 @@ struct yesNoView_Previews: PreviewProvider {
     static var previews: some View {
                 // change layout so it matches iPads Mini
                 yesNoView()
-                    .previewLayout(.fixed(width: 1024, height: 768))
+//                    .previewLayout(.fixed(width: 1024, height: 768))
             
         }
 
