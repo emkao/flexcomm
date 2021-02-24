@@ -8,14 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Binding var openScreen: String
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack {
+            Text("FlexComm")
+                .padding()
+            Button(action: {
+                self.openScreen = "start"
+            }) {
+                Text("Start")
+            }
+            Button(action: {
+                self.openScreen = "settings"
+            }) {
+                Text("Settings")
+            }
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(openScreen: .constant("home"))
+            .previewLayout(.fixed(width: 1024, height: 768))
     }
 }

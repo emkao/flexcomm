@@ -9,9 +9,19 @@ import SwiftUI
 
 @main
 struct FlexCommApp: App {
+    @State private var openScreen = "home"
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if openScreen == "home" {
+                ContentView(openScreen: $openScreen)
+            }
+            else if openScreen == "start" {
+                yesNoView()
+            }
+            else {
+                SettingsView()
+            }
         }
     }
 }
