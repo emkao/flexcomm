@@ -11,7 +11,11 @@ import SwiftUI
 struct SettingsView: View {
 //    @EnvironmentObject var responseValidate: responseValidator
     @State private var responseTime = ""
-//    
+    
+    init() {
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "SFProText-Thin", size: 50)!]
+    }
+
     var body: some View {
         NavigationView {
             ZStack{
@@ -19,8 +23,7 @@ struct SettingsView: View {
                 VStack{
                     HStack{
                         Text("Color Scheme:")
-                            .font(.headline)
-                            .fontWeight(.bold)
+                            .customFont(name: "SFProText-Thin", style: .headline, weight: .bold)
                         Button(action: {
                             print("Dark Mode tapped!")
                         }) {
@@ -41,20 +44,17 @@ struct SettingsView: View {
 
                         }
                     }
-
-                    .font(.body)
-                    .font(Font.body.bold())
+                    .customFont(name: "SFProText-Thin", style: .body)
                     .padding()
                     HStack{
                         Text("Font Size:")
-                            .font(.headline)
-                            .fontWeight(.bold)
+                            .customFont(name: "SFProText-Thin", style: .headline, weight: .bold)
                         Button(action: {
                             print("Small Font Tapped")
                         }) {
                             Text("Small Font")
                              .padding()
-                            .font(.body)
+                                .customFont(name: "SFProText-Thin", style: .body, weight: .bold)
                             .background(Color(UIColor.lightGray))
                             .foregroundColor(.black)
                             .cornerRadius(40)
@@ -65,20 +65,18 @@ struct SettingsView: View {
                         }) {
                             Text("Big Font")
                             .padding()
-                           .font(.title)
+                                .customFont(name: "SFProText-Thin", style: .title1, weight: .bold)
                             .background(Color(UIColor.lightGray))
                             .foregroundColor(.black)
                             .cornerRadius(40)
                         }
 
                     }
-                    .font(Font.body.bold())
 
 
                     HStack{
                         Text("Response Time:")
-                            .font(.headline)
-                            .fontWeight(.bold)
+                            .customFont(name: "SFProText-Thin", style: .headline, weight: .bold)
 
 //                        TextField("Number of Seconds", text: $responseValidate.responseTime)
                         TextField("Number of Seconds", text: $responseTime)
@@ -86,10 +84,11 @@ struct SettingsView: View {
                         Text("Seconds")
 
                     }
+                    .customFont(name: "SFProText-Thin", style: .body)
 
                 }
             }
-            .navigationBarTitle("Settings")
+            .navigationBarTitle(Text("Settings"), displayMode: .large)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

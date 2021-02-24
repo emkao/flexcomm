@@ -24,12 +24,10 @@ struct yesNoView: View {
                     print("Go to settings")
                 }) {
                     Text("Settings")
-                       // .font(.largeTitle)
                 }
              
                 
             }
-            .font(.largeTitle)
             .foregroundColor(.black)
             .padding(10.0)
             
@@ -42,7 +40,6 @@ struct yesNoView: View {
                     print("Play yes")
                 }) {
                     Text("YES")
-                        .font(.largeTitle)
                         
                 }
                 .frame(width: 200, height: 200)
@@ -54,7 +51,6 @@ struct yesNoView: View {
                     print("Play No")
                 }) {
                     Text("NO")
-                        .font(.largeTitle)
                         
                 }
                 .frame(width: 200, height: 200)
@@ -67,6 +63,7 @@ struct yesNoView: View {
             
             
         }
+        .customFont(name: "SFProText-Thin", style: .largeTitle)
         
     }
     

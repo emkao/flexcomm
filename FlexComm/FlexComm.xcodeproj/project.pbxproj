@@ -27,6 +27,7 @@
 		C52AAD4325E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD3125E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf */; };
 		C52AAD4425E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD3225E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf */; };
 		C5381BD725E60EBA002C09C3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5381BD625E60EBA002C09C3 /* SettingsView.swift */; };
+		C5C3DAE825E6D3430070BBB5 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C3DAE725E6D3430070BBB5 /* CustomFont.swift */; };
 		C5C88DA325E2C464009BB751 /* FlexCommApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C88DA225E2C464009BB751 /* FlexCommApp.swift */; };
 		C5C88DA525E2C464009BB751 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C88DA425E2C464009BB751 /* ContentView.swift */; };
 		C5C88DA725E2C466009BB751 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5C88DA625E2C466009BB751 /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 		C52AAD3125E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-ThinItalic.otf"; sourceTree = "<group>"; };
 		C52AAD3225E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-HeavyItalic.otf"; sourceTree = "<group>"; };
 		C5381BD625E60EBA002C09C3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C5C3DAE725E6D3430070BBB5 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		C5C88D9F25E2C464009BB751 /* FlexComm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlexComm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5C88DA225E2C464009BB751 /* FlexCommApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexCommApp.swift; sourceTree = "<group>"; };
 		C5C88DA425E2C464009BB751 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				C5DAA47825E6135B00178075 /* responseValidate.swift */,
 				C5C88DA225E2C464009BB751 /* FlexCommApp.swift */,
 				C5381BD625E60EBA002C09C3 /* SettingsView.swift */,
+				C5C3DAE725E6D3430070BBB5 /* CustomFont.swift */,
 				6D7CC39125E4514F00348A30 /* yesNoView.swift */,
 				C5C88DA425E2C464009BB751 /* ContentView.swift */,
 				C52AAD4625E6208F002E90D9 /* Fonts */,
@@ -230,6 +233,7 @@
 				6D7CC39225E4514F00348A30 /* yesNoView.swift in Sources */,
 				C5381BD725E60EBA002C09C3 /* SettingsView.swift in Sources */,
 				C5DAA47925E6135B00178075 /* responseValidate.swift in Sources */,
+				C5C3DAE825E6D3430070BBB5 /* CustomFont.swift in Sources */,
 				C5C88DA525E2C464009BB751 /* ContentView.swift in Sources */,
 				C5C88DA325E2C464009BB751 /* FlexCommApp.swift in Sources */,
 			);
