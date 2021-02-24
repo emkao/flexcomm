@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @EnvironmentObject var responseValidate: responseValidator
+//    @EnvironmentObject var responseValidate: responseValidator
     @State private var responseTime = ""
-    
+//    
     var body: some View {
         NavigationView {
             ZStack{
@@ -38,10 +38,10 @@ struct SettingsView: View {
                             .background(Color(UIColor.lightGray))
                             .foregroundColor(.black)
                             .cornerRadius(40)
-                            
+
                         }
                     }
-                    
+
                     .font(.body)
                     .font(Font.body.bold())
                     .padding()
@@ -58,7 +58,7 @@ struct SettingsView: View {
                             .background(Color(UIColor.lightGray))
                             .foregroundColor(.black)
                             .cornerRadius(40)
-                            
+
                         }
                         Button(action: {
                             print("Big Font Tapped")
@@ -70,23 +70,23 @@ struct SettingsView: View {
                             .foregroundColor(.black)
                             .cornerRadius(40)
                         }
-                       
+
                     }
                     .font(Font.body.bold())
-                    
-                    
+
+
                     HStack{
                         Text("Response Time:")
                             .font(.headline)
                             .fontWeight(.bold)
 
-                        TextField("Number of Seconds", text: $responseValidate.responseTime)
+//                        TextField("Number of Seconds", text: $responseValidate.responseTime)
+                        TextField("Number of Seconds", text: $responseTime)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
                         Text("Seconds")
-                        
+
                     }
-                    
+
                 }
             }
             .navigationBarTitle("Settings")
@@ -97,6 +97,7 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView().environmentObject(responseValidator())
+       // SettingsView().environmentObject(responseValidator())
+        SettingsView()
     }
 }
