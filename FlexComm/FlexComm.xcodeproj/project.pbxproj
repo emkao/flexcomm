@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6D7CC39225E4514F00348A30 /* yesNoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7CC39125E4514F00348A30 /* yesNoView.swift */; };
 		C52AAD3325E62083002E90D9 /* SF-Pro-Text-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD2125E62080002E90D9 /* SF-Pro-Text-Heavy.otf */; };
 		C52AAD3425E62083002E90D9 /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD2225E62080002E90D9 /* SF-Pro-Text-Bold.otf */; };
 		C52AAD3525E62083002E90D9 /* SF-Pro-Text-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD2325E62080002E90D9 /* SF-Pro-Text-Black.otf */; };
@@ -33,10 +32,11 @@
 		C5C88DA725E2C466009BB751 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5C88DA625E2C466009BB751 /* Assets.xcassets */; };
 		C5C88DAA25E2C466009BB751 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5C88DA925E2C466009BB751 /* Preview Assets.xcassets */; };
 		C5DAA47925E6135B00178075 /* responseValidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DAA47825E6135B00178075 /* responseValidate.swift */; };
+		C5EA510C25F13400005E0C4C /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA510B25F13400005E0C4C /* CustomButton.swift */; };
+		C5EA511025F1344B005E0C4C /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA510F25F1344B005E0C4C /* OptionsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6D7CC39125E4514F00348A30 /* yesNoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = yesNoView.swift; sourceTree = "<group>"; };
 		C52AAD2125E62080002E90D9 /* SF-Pro-Text-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Heavy.otf"; sourceTree = "<group>"; };
 		C52AAD2225E62080002E90D9 /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 		C52AAD2325E62080002E90D9 /* SF-Pro-Text-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Black.otf"; sourceTree = "<group>"; };
@@ -64,6 +64,8 @@
 		C5C88DA925E2C466009BB751 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C5C88DAB25E2C466009BB751 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C5DAA47825E6135B00178075 /* responseValidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = responseValidate.swift; sourceTree = "<group>"; };
+		C5EA510B25F13400005E0C4C /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		C5EA510F25F1344B005E0C4C /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +127,8 @@
 				C5C88DA225E2C464009BB751 /* FlexCommApp.swift */,
 				C5381BD625E60EBA002C09C3 /* SettingsView.swift */,
 				C5C3DAE725E6D3430070BBB5 /* CustomFont.swift */,
-				6D7CC39125E4514F00348A30 /* yesNoView.swift */,
+				C5EA510F25F1344B005E0C4C /* OptionsView.swift */,
+				C5EA510B25F13400005E0C4C /* CustomButton.swift */,
 				C5C88DA425E2C464009BB751 /* ContentView.swift */,
 				C52AAD4625E6208F002E90D9 /* Fonts */,
 				C5C88DA625E2C466009BB751 /* Assets.xcassets */,
@@ -230,10 +233,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D7CC39225E4514F00348A30 /* yesNoView.swift in Sources */,
 				C5381BD725E60EBA002C09C3 /* SettingsView.swift in Sources */,
 				C5DAA47925E6135B00178075 /* responseValidate.swift in Sources */,
+				C5EA511025F1344B005E0C4C /* OptionsView.swift in Sources */,
 				C5C3DAE825E6D3430070BBB5 /* CustomFont.swift in Sources */,
+				C5EA510C25F13400005E0C4C /* CustomButton.swift in Sources */,
 				C5C88DA525E2C464009BB751 /* ContentView.swift in Sources */,
 				C5C88DA325E2C464009BB751 /* FlexCommApp.swift in Sources */,
 			);

@@ -16,7 +16,7 @@ struct ContentView: View {
                     .padding(15)
                     .font(.custom("SFProText-Thin", size: 90))
                 NavigationLink(
-                    destination: yesNoView(),
+                    destination: OptionsView(),
                     label: {
                         Text("Start")
                             .font(.custom("SFProText-Thin", size: 35))
