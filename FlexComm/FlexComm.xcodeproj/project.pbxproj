@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6D7CC39225E4514F00348A30 /* yesNoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7CC39125E4514F00348A30 /* yesNoView.swift */; };
-		7FA6A950EE327270586EE54F /* Pods_FlexComm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15EA35F03C67ACBEC57D3BDA /* Pods_FlexComm.framework */; };
 		C52AAD3325E62083002E90D9 /* SF-Pro-Text-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD2125E62080002E90D9 /* SF-Pro-Text-Heavy.otf */; };
 		C52AAD3425E62083002E90D9 /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD2225E62080002E90D9 /* SF-Pro-Text-Bold.otf */; };
 		C52AAD3525E62083002E90D9 /* SF-Pro-Text-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD2325E62080002E90D9 /* SF-Pro-Text-Black.otf */; };
@@ -28,8 +27,6 @@
 		C52AAD4325E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD3125E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf */; };
 		C52AAD4425E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD3225E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf */; };
 		C5381BD725E60EBA002C09C3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5381BD625E60EBA002C09C3 /* SettingsView.swift */; };
-		C579FFB325EF430800453A87 /* GoogleService-Info (1).plist in Resources */ = {isa = PBXBuildFile; fileRef = C579FFB225EF430800453A87 /* GoogleService-Info (1).plist */; };
-		C579FFB625EF436300453A87 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C579FFB525EF436300453A87 /* Podfile */; };
 		C5C3DAE825E6D3430070BBB5 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C3DAE725E6D3430070BBB5 /* CustomFont.swift */; };
 		C5C88DA325E2C464009BB751 /* FlexCommApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C88DA225E2C464009BB751 /* FlexCommApp.swift */; };
 		C5C88DA525E2C464009BB751 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C88DA425E2C464009BB751 /* ContentView.swift */; };
@@ -39,9 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		15EA35F03C67ACBEC57D3BDA /* Pods_FlexComm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlexComm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7CC39125E4514F00348A30 /* yesNoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = yesNoView.swift; sourceTree = "<group>"; };
-		95C5F0B565BFB858C58A75A0 /* Pods-FlexComm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlexComm.debug.xcconfig"; path = "Target Support Files/Pods-FlexComm/Pods-FlexComm.debug.xcconfig"; sourceTree = "<group>"; };
 		C52AAD2125E62080002E90D9 /* SF-Pro-Text-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Heavy.otf"; sourceTree = "<group>"; };
 		C52AAD2225E62080002E90D9 /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 		C52AAD2325E62080002E90D9 /* SF-Pro-Text-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Black.otf"; sourceTree = "<group>"; };
@@ -61,8 +56,6 @@
 		C52AAD3125E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-ThinItalic.otf"; sourceTree = "<group>"; };
 		C52AAD3225E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-HeavyItalic.otf"; sourceTree = "<group>"; };
 		C5381BD625E60EBA002C09C3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		C579FFB225EF430800453A87 /* GoogleService-Info (1).plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info (1).plist"; sourceTree = "<group>"; };
-		C579FFB525EF436300453A87 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C5C3DAE725E6D3430070BBB5 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		C5C88D9F25E2C464009BB751 /* FlexComm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlexComm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5C88DA225E2C464009BB751 /* FlexCommApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexCommApp.swift; sourceTree = "<group>"; };
@@ -71,7 +64,6 @@
 		C5C88DA925E2C466009BB751 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C5C88DAB25E2C466009BB751 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C5DAA47825E6135B00178075 /* responseValidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = responseValidate.swift; sourceTree = "<group>"; };
-		DE6EBBACA78B84B1DE8C9D90 /* Pods-FlexComm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlexComm.release.xcconfig"; path = "Target Support Files/Pods-FlexComm/Pods-FlexComm.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,30 +71,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FA6A950EE327270586EE54F /* Pods_FlexComm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4826E8084D0EEA82F68B3808 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				95C5F0B565BFB858C58A75A0 /* Pods-FlexComm.debug.xcconfig */,
-				DE6EBBACA78B84B1DE8C9D90 /* Pods-FlexComm.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		5E3A57AABA254AED07A1EE99 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				15EA35F03C67ACBEC57D3BDA /* Pods_FlexComm.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		C52AAD4625E6208F002E90D9 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,11 +105,8 @@
 		C5C88D9625E2C464009BB751 = {
 			isa = PBXGroup;
 			children = (
-				C579FFB525EF436300453A87 /* Podfile */,
 				C5C88DA125E2C464009BB751 /* FlexComm */,
 				C5C88DA025E2C464009BB751 /* Products */,
-				4826E8084D0EEA82F68B3808 /* Pods */,
-				5E3A57AABA254AED07A1EE99 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -150,7 +121,6 @@
 		C5C88DA125E2C464009BB751 /* FlexComm */ = {
 			isa = PBXGroup;
 			children = (
-				C579FFB225EF430800453A87 /* GoogleService-Info (1).plist */,
 				C5DAA47825E6135B00178075 /* responseValidate.swift */,
 				C5C88DA225E2C464009BB751 /* FlexCommApp.swift */,
 				C5381BD625E60EBA002C09C3 /* SettingsView.swift */,
@@ -180,11 +150,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C5C88DAE25E2C466009BB751 /* Build configuration list for PBXNativeTarget "FlexComm" */;
 			buildPhases = (
-				643FB99E2497CCCD643F4852 /* [CP] Check Pods Manifest.lock */,
 				C5C88D9B25E2C464009BB751 /* Sources */,
 				C5C88D9C25E2C464009BB751 /* Frameworks */,
 				C5C88D9D25E2C464009BB751 /* Resources */,
-				453DA3121EA46C7733C2026A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -242,11 +210,9 @@
 				C52AAD3B25E62083002E90D9 /* SF-Pro-Text-Medium.otf in Resources */,
 				C52AAD3925E62083002E90D9 /* SF-Pro-Text-Ultralight.otf in Resources */,
 				C52AAD4225E62083002E90D9 /* SF-Pro-Text-Thin.otf in Resources */,
-				C579FFB625EF436300453A87 /* Podfile in Resources */,
 				C5C88DA725E2C466009BB751 /* Assets.xcassets in Resources */,
 				C52AAD3625E62083002E90D9 /* SF-Pro-Text-SemiboldItalic.otf in Resources */,
 				C52AAD3825E62083002E90D9 /* SF-Pro-Text-Regular.otf in Resources */,
-				C579FFB325EF430800453A87 /* GoogleService-Info (1).plist in Resources */,
 				C52AAD4025E62083002E90D9 /* SF-Pro-Text-BlackItalic.otf in Resources */,
 				C52AAD3D25E62083002E90D9 /* SF-Pro-Text-Semibold.otf in Resources */,
 				C52AAD4125E62083002E90D9 /* SF-Pro-Text-MediumItalic.otf in Resources */,
@@ -258,48 +224,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		453DA3121EA46C7733C2026A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FlexComm/Pods-FlexComm-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FlexComm/Pods-FlexComm-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlexComm/Pods-FlexComm-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		643FB99E2497CCCD643F4852 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FlexComm-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C5C88D9B25E2C464009BB751 /* Sources */ = {
@@ -436,7 +360,6 @@
 		};
 		C5C88DAF25E2C466009BB751 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 95C5F0B565BFB858C58A75A0 /* Pods-FlexComm.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -459,7 +382,6 @@
 		};
 		C5C88DB025E2C466009BB751 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE6EBBACA78B84B1DE8C9D90 /* Pods-FlexComm.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

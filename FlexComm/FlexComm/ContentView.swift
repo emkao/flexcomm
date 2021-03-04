@@ -12,7 +12,7 @@ struct ContentView: View {
         NavigationView {
             VStack (alignment: .center, spacing: nil) {
                 Spacer()
-                Text("CustomComm")
+                Text("FlexComm")
                     .padding(15)
                     .font(.custom("SFProText-Thin", size: 90))
                 NavigationLink(
