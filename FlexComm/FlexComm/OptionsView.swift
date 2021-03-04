@@ -8,63 +8,67 @@
 import SwiftUI
 
 struct OptionsView: View {
+    @ObservedObject var currentOptions = CurrentOptions()
+    private var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
+    
     var body: some View {
-        
         VStack {
-            //Menu Bar on top
             HStack {
                 Button(action: { // back button
                     print("Go back")
                 }) {
                     Text("Menu")
                 }
-                
                 Spacer()
-                Button(action: {// settings button
+                Button(action: { // add button
+                    print("Add button")
+                    currentOptions.addOption()
+                }) {
+                    Text("Add")
+                }
+                Spacer()
+                Button(action: { // delete button
+                    print("Delete button")
+                    currentOptions.deleteOption()
+                }) {
+                    Text("Delete")
+                }
+                Spacer()
+                Button(action: { // settings button
                     print("Go to settings")
                 }) {
                     Text("Settings")
                 }
-             
-                
             }
             .foregroundColor(.black)
             .padding(10.0)
-            
-            
-            
+
             Spacer()
-            // cards in a hstack
+            let optionCount = currentOptions.options.count
             VStack {
-                Button(action: {
-                    print("Play yes")
-                }) {
-                    Text("YES")
-                        
+                Spacer()
+                LazyVGrid(columns: gridItemLayout, alignment: .center, spacing: 0) {
+                    ForEach(0 ..< optionCount - (optionCount % 3), id: \.self) {
+                        Button(currentOptions.options[$0 % optionCount]) {}
+                            .buttonStyle(CustomButton())
+                    }
                 }
-                .frame(width: 200, height: 200)
-                .background(Color("LeafGreen"))
-                .padding(.all)
-                
-                
-                Button(action: {
-                    print("Play No")
-                }) {
-                    Text("NO")
-                        
+                if (optionCount % 3 != 0) {
+                    Spacer()
+                    LazyHStack(spacing: 0) {
+                        ForEach(optionCount - (optionCount % 3) ..< optionCount, id: \.self) {
+                            Button(currentOptions.options[$0 % optionCount]) {}
+                                .buttonStyle(CustomButton())
+                        }
+                    }
                 }
-                .frame(width: 200, height: 200)
-                .background(Color(.red))
-                .padding(.all)
-                
+                Spacer()
             }
-            .foregroundColor(.white)
             Spacer()
-            
-            
         }
         .customFont(name: "SFProText-Thin", style: .largeTitle)
-        
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 }
 

@@ -13,9 +13,10 @@ struct CustomButton: ButtonStyle {
         configuration
             .label
             .foregroundColor(.black)
-            .padding()
-            .background(Color.white)
+            .frame(width: 250, height: 250, alignment: .center)
             .border(Color.black, width: 2)
-            .cornerRadius(8)
+            .padding(20)
+            .background(Color.white)
+            .cornerRadius(12)
     }
 }

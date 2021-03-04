@@ -21,12 +21,16 @@ struct ContentView: View {
                         Text("Start")
                             .font(.custom("SFProText-Thin", size: 35))
                             .padding(5)
+                            .navigationBarTitle("")
+                            .navigationBarHidden(true)
                     })
                 NavigationLink(
                     destination: SettingsView(),
                     label: {
                         Text("Settings")
                             .font(.custom("SFProText-Thin", size: 35))
+                            .navigationBarTitle("")
+                            .navigationBarHidden(true)
                     })
                 Spacer()
                 Spacer()
