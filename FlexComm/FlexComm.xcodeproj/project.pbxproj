@@ -3,13 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		6D7CC39225E4514F00348A30 /* yesNoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7CC39125E4514F00348A30 /* yesNoView.swift */; };
 		7FA6A950EE327270586EE54F /* Pods_FlexComm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15EA35F03C67ACBEC57D3BDA /* Pods_FlexComm.framework */; };
-		C51F471925EF4D17007ECE8A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C51F471825EF4D17007ECE8A /* GoogleService-Info.plist */; };
 		C52AAD3325E62083002E90D9 /* SF-Pro-Text-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD2125E62080002E90D9 /* SF-Pro-Text-Heavy.otf */; };
 		C52AAD3425E62083002E90D9 /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD2225E62080002E90D9 /* SF-Pro-Text-Bold.otf */; };
 		C52AAD3525E62083002E90D9 /* SF-Pro-Text-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD2325E62080002E90D9 /* SF-Pro-Text-Black.otf */; };
@@ -29,6 +28,7 @@
 		C52AAD4325E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD3125E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf */; };
 		C52AAD4425E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD3225E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf */; };
 		C5381BD725E60EBA002C09C3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5381BD625E60EBA002C09C3 /* SettingsView.swift */; };
+		C579FFB325EF430800453A87 /* GoogleService-Info (1).plist in Resources */ = {isa = PBXBuildFile; fileRef = C579FFB225EF430800453A87 /* GoogleService-Info (1).plist */; };
 		C579FFB625EF436300453A87 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C579FFB525EF436300453A87 /* Podfile */; };
 		C5C3DAE825E6D3430070BBB5 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C3DAE725E6D3430070BBB5 /* CustomFont.swift */; };
 		C5C88DA325E2C464009BB751 /* FlexCommApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C88DA225E2C464009BB751 /* FlexCommApp.swift */; };
@@ -42,7 +42,6 @@
 		15EA35F03C67ACBEC57D3BDA /* Pods_FlexComm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlexComm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7CC39125E4514F00348A30 /* yesNoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = yesNoView.swift; sourceTree = "<group>"; };
 		95C5F0B565BFB858C58A75A0 /* Pods-FlexComm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlexComm.debug.xcconfig"; path = "Target Support Files/Pods-FlexComm/Pods-FlexComm.debug.xcconfig"; sourceTree = "<group>"; };
-		C51F471825EF4D17007ECE8A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C52AAD2125E62080002E90D9 /* SF-Pro-Text-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Heavy.otf"; sourceTree = "<group>"; };
 		C52AAD2225E62080002E90D9 /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 		C52AAD2325E62080002E90D9 /* SF-Pro-Text-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Black.otf"; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		C52AAD3125E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-ThinItalic.otf"; sourceTree = "<group>"; };
 		C52AAD3225E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-HeavyItalic.otf"; sourceTree = "<group>"; };
 		C5381BD625E60EBA002C09C3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C579FFB225EF430800453A87 /* GoogleService-Info (1).plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info (1).plist"; sourceTree = "<group>"; };
 		C579FFB525EF436300453A87 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C5C3DAE725E6D3430070BBB5 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		C5C88D9F25E2C464009BB751 /* FlexComm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlexComm.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,7 +150,7 @@
 		C5C88DA125E2C464009BB751 /* FlexComm */ = {
 			isa = PBXGroup;
 			children = (
-				C51F471825EF4D17007ECE8A /* GoogleService-Info.plist */,
+				C579FFB225EF430800453A87 /* GoogleService-Info (1).plist */,
 				C5DAA47825E6135B00178075 /* responseValidate.swift */,
 				C5C88DA225E2C464009BB751 /* FlexCommApp.swift */,
 				C5381BD625E60EBA002C09C3 /* SettingsView.swift */,
@@ -246,12 +246,12 @@
 				C5C88DA725E2C466009BB751 /* Assets.xcassets in Resources */,
 				C52AAD3625E62083002E90D9 /* SF-Pro-Text-SemiboldItalic.otf in Resources */,
 				C52AAD3825E62083002E90D9 /* SF-Pro-Text-Regular.otf in Resources */,
+				C579FFB325EF430800453A87 /* GoogleService-Info (1).plist in Resources */,
 				C52AAD4025E62083002E90D9 /* SF-Pro-Text-BlackItalic.otf in Resources */,
 				C52AAD3D25E62083002E90D9 /* SF-Pro-Text-Semibold.otf in Resources */,
 				C52AAD4125E62083002E90D9 /* SF-Pro-Text-MediumItalic.otf in Resources */,
 				C52AAD3C25E62083002E90D9 /* SF-Pro-Text-RegularItalic.otf in Resources */,
 				C52AAD3525E62083002E90D9 /* SF-Pro-Text-Black.otf in Resources */,
-				C51F471925EF4D17007ECE8A /* GoogleService-Info.plist in Resources */,
 				C52AAD3F25E62083002E90D9 /* SF-Pro-Text-Light.otf in Resources */,
 				C52AAD4325E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf in Resources */,
 			);
