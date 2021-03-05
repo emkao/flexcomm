@@ -17,31 +17,33 @@ struct ModalEditView: View {
             Text("Add Button")
                 .font(.custom("SFProText-Thin", size: 50))
                 .padding(20)
-            HStack {
-                Text("Text:")
-                    .SFProFont(style: .callout, weight: .regular)
-                TextField("Enter Button Text", text: $btnText)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .frame(width: 300)
+            Form {
+                Section(header: Text("Button Options")) {
+                    TextField("Enter Button Text", text: $btnText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
             }
+            .SFProFont(style: .body, weight: .regular)
+            
             HStack {
                 Button(action: {
                     print("close form")
-                    withAnimation {
-                        self.showEditModal.toggle()
-                    }
+                    self.showEditModal.toggle()
                 }, label: {
                     Text("Close")
                 })
+                .padding(30)
+                
+                Spacer()
+                
                 Button(action: {
                     print("add button from form")
                     currentOptions.addOption(text: btnText)
-                    withAnimation {
-                        self.showEditModal.toggle()
-                    }
+                    self.showEditModal.toggle()
                 }, label: {
-                    Text("Add Button")
+                    Text("Add")
                 })
+                .padding(30)
             }
         }
         Spacer()

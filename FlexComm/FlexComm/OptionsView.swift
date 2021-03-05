@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OptionsView: View {
     @State var showEditModal: Bool = false
+    @State var showDeleteModal: Bool = false
     @ObservedObject var currentOptions = CurrentOptions()
     private var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
     
@@ -25,14 +26,13 @@ struct OptionsView: View {
                     Button(action: { // add button
                         print("Add button")
                         self.showEditModal.toggle()
-//                        currentOptions.addOption()
                     }) {
                         Text("Add")
                     }
                     Spacer()
                     Button(action: { // delete button
                         print("Delete button")
-                        currentOptions.deleteOption()
+                        self.showDeleteModal.toggle()
                     }) {
                         Text("Delete")
                     }
@@ -82,7 +82,25 @@ struct OptionsView: View {
                     RoundedRectangle(cornerRadius: 16)
                         .foregroundColor(.white)
                         .frame(width: geometry.size.width, height: geometry.size.height)
-                        .overlay(ModalEditView(showEditModal: self.$showEditModal).environmentObject(self.currentOptions))
+                        .overlay(
+                            ModalEditView(showEditModal: self.$showEditModal)
+                                .environmentObject(self.currentOptions)).animation(.easeInOut)
+                }
+                .transition(.move(edge: .bottom))
+            }
+            
+            if showDeleteModal {
+                Rectangle()
+                    .foregroundColor(Color.black.opacity(0.5))
+                    .edgesIgnoringSafeArea(.all)
+                
+                GeometryReader { geometry in
+                    RoundedRectangle(cornerRadius: 16)
+                        .foregroundColor(.white)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .overlay(
+                            ModalDeleteView(showDeleteModal: self.$showDeleteModal)
+                                .environmentObject(self.currentOptions)).animation(.easeInOut)
                 }
                 .transition(.move(edge: .bottom))
             }

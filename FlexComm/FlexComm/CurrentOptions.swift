@@ -20,9 +20,10 @@ class CurrentOptions: ObservableObject {
         }
     }
     
-    func deleteOption() {
+    func deleteOption(selections: [String]) {
+        let set = Set(selections)
         if (self.options.count > 0) {
-            self.options.removeLast()
+            self.options = self.options.filter{ !set.contains($0) }
         }
     }
 }
