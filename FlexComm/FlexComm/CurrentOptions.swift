@@ -14,9 +14,9 @@ class CurrentOptions: ObservableObject {
         self.options = ["Yes", "No"]
     }
     
-    func addOption() {
+    func addOption(text: String) {
         if (self.options.count < 6) {
-            self.options.append("")
+            self.options.append(text)
         }
     }
     

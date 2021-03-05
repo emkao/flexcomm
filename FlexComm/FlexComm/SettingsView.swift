@@ -23,7 +23,7 @@ struct SettingsView: View {
                 VStack{
                     HStack{
                         Text("Color Scheme:")
-                            .customFont(name: "SFProText-Thin", style: .headline, weight: .bold)
+                            .SFProFont(style: .headline, weight: .bold)
                         Button(action: {
                             print("Dark Mode tapped!")
                         }) {
@@ -44,17 +44,17 @@ struct SettingsView: View {
 
                         }
                     }
-                    .customFont(name: "SFProText-Thin", style: .body)
+                    .SFProFont(style: .body, weight: .regular)
                     .padding()
                     HStack{
                         Text("Font Size:")
-                            .customFont(name: "SFProText-Thin", style: .headline, weight: .bold)
+                            .SFProFont(style: .headline, weight: .bold)
                         Button(action: {
                             print("Small Font Tapped")
                         }) {
                             Text("Small Font")
                              .padding()
-                                .customFont(name: "SFProText-Thin", style: .body, weight: .bold)
+                            .SFProFont(style: .body, weight: .bold)
                             .background(Color(UIColor.lightGray))
                             .foregroundColor(.black)
                             .cornerRadius(40)
@@ -65,7 +65,7 @@ struct SettingsView: View {
                         }) {
                             Text("Big Font")
                             .padding()
-                                .customFont(name: "SFProText-Thin", style: .title1, weight: .bold)
+                            .SFProFont(style: .title1, weight: .bold)
                             .background(Color(UIColor.lightGray))
                             .foregroundColor(.black)
                             .cornerRadius(40)
@@ -76,7 +76,7 @@ struct SettingsView: View {
 
                     HStack{
                         Text("Response Time:")
-                            .customFont(name: "SFProText-Thin", style: .headline, weight: .bold)
+                            .SFProFont(style: .headline, weight: .bold)
 
 //                        TextField("Number of Seconds", text: $responseValidate.responseTime)
                         TextField("Number of Seconds", text: $responseTime)
@@ -84,7 +84,7 @@ struct SettingsView: View {
                         Text("Seconds")
 
                     }
-                    .customFont(name: "SFProText-Thin", style: .body)
+                    .SFProFont(style: .body, weight: .regular)
 
                 }
             }

@@ -8,28 +8,31 @@
 import Foundation
 import SwiftUI
 
-@available(iOS 13, macCatalyst 13, tvOS 13, watchOS 6, *)
 struct CustomFont: ViewModifier {
-    @Environment(\.sizeCategory) var sizeCategory
-
-    var name: String
-    var style: UIFont.TextStyle
+    var style: UIFont.TextStyle = .body
     var weight: Font.Weight = .regular
+    
+//    var textColor: Color {
+//        switch style {
+//        case .title1:
+//            return .blue
+//        case .caption1:
+//            return Color.black.opacity(0.8)
+//        default:
+//            return .black
+//        }
+//    }
 
     func body(content: Content) -> some View {
-        return content.font(Font.custom(
-            name,
-            size: UIFont.preferredFont(forTextStyle: style).pointSize)
+        content
+            .font(Font.custom("SFProText-Thin", size: UIFont.preferredFont(forTextStyle: style).pointSize)
             .weight(weight))
+            .foregroundColor(.black)
     }
 }
 
-@available(iOS 13, macCatalyst 13, tvOS 13, watchOS 6, *)
 extension View {
-    func customFont(
-        name: String,
-        style: UIFont.TextStyle,
-        weight: Font.Weight = .regular) -> some View {
-        return self.modifier(CustomFont(name: name, style: style, weight: weight))
+    func SFProFont(style: UIFont.TextStyle, weight: Font.Weight) -> some View {
+        self.modifier(CustomFont(style: style, weight: weight))
     }
 }

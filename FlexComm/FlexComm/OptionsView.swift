@@ -8,67 +8,85 @@
 import SwiftUI
 
 struct OptionsView: View {
+    @State var showEditModal: Bool = false
     @ObservedObject var currentOptions = CurrentOptions()
     private var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
     
     var body: some View {
-        VStack {
-            HStack {
-                Button(action: { // back button
-                    print("Go back")
-                }) {
-                    Text("Menu")
-                }
-                Spacer()
-                Button(action: { // add button
-                    print("Add button")
-                    currentOptions.addOption()
-                }) {
-                    Text("Add")
-                }
-                Spacer()
-                Button(action: { // delete button
-                    print("Delete button")
-                    currentOptions.deleteOption()
-                }) {
-                    Text("Delete")
-                }
-                Spacer()
-                Button(action: { // settings button
-                    print("Go to settings")
-                }) {
-                    Text("Settings")
-                }
-            }
-            .foregroundColor(.black)
-            .padding(10.0)
-
-            Spacer()
-            let optionCount = currentOptions.options.count
+        ZStack {
             VStack {
-                Spacer()
-                LazyVGrid(columns: gridItemLayout, alignment: .center, spacing: 0) {
-                    ForEach(0 ..< optionCount - (optionCount % 3), id: \.self) {
-                        Button(currentOptions.options[$0 % optionCount]) {}
-                            .buttonStyle(CustomButton())
+                HStack {
+                    Button(action: { // back button
+                        print("Go back")
+                    }) {
+                        Text("Menu")
+                    }
+                    Spacer()
+                    Button(action: { // add button
+                        print("Add button")
+                        self.showEditModal.toggle()
+//                        currentOptions.addOption()
+                    }) {
+                        Text("Add")
+                    }
+                    Spacer()
+                    Button(action: { // delete button
+                        print("Delete button")
+                        currentOptions.deleteOption()
+                    }) {
+                        Text("Delete")
+                    }
+                    Spacer()
+                    Button(action: { // settings button
+                        print("Go to settings")
+                    }) {
+                        Text("Settings")
                     }
                 }
-                if (optionCount % 3 != 0) {
+                .foregroundColor(.black)
+                .padding(10.0)
+
+                Spacer()
+                let optionCount = currentOptions.options.count
+                VStack {
                     Spacer()
-                    LazyHStack(spacing: 0) {
-                        ForEach(optionCount - (optionCount % 3) ..< optionCount, id: \.self) {
+                    LazyVGrid(columns: gridItemLayout, alignment: .center, spacing: 0) {
+                        ForEach(0 ..< optionCount - (optionCount % 3), id: \.self) {
                             Button(currentOptions.options[$0 % optionCount]) {}
                                 .buttonStyle(CustomButton())
                         }
                     }
+                    if (optionCount % 3 != 0) {
+                        Spacer()
+                        LazyHStack(spacing: 0) {
+                            ForEach(optionCount - (optionCount % 3) ..< optionCount, id: \.self) {
+                                Button(currentOptions.options[$0 % optionCount]) {}
+                                    .buttonStyle(CustomButton())
+                            }
+                        }
+                    }
+                    Spacer()
                 }
                 Spacer()
             }
-            Spacer()
+            .SFProFont(style: .largeTitle, weight: .regular)
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+            
+            if showEditModal {
+                Rectangle()
+                    .foregroundColor(Color.black.opacity(0.5))
+                    .edgesIgnoringSafeArea(.all)
+                
+                GeometryReader { geometry in
+                    RoundedRectangle(cornerRadius: 16)
+                        .foregroundColor(.white)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .overlay(ModalEditView(showEditModal: self.$showEditModal).environmentObject(self.currentOptions))
+                }
+                .transition(.move(edge: .bottom))
+            }
         }
-        .customFont(name: "SFProText-Thin", style: .largeTitle)
-        .navigationBarTitle("")
-        .navigationBarHidden(true)
     }
 }
 
