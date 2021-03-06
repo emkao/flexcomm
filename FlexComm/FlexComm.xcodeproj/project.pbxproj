@@ -37,6 +37,7 @@
 		C5EA511525F17BBA005E0C4C /* CurrentOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA511425F17BBA005E0C4C /* CurrentOptions.swift */; };
 		C5EA511925F1A4B8005E0C4C /* ModalEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA511825F1A4B8005E0C4C /* ModalEditView.swift */; };
 		C5EA511E25F1C67D005E0C4C /* ModalDeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA511D25F1C67D005E0C4C /* ModalDeleteView.swift */; };
+		C5EA512325F31B6E005E0C4C /* ModalAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA512225F31B6E005E0C4C /* ModalAddView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		C5EA511425F17BBA005E0C4C /* CurrentOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentOptions.swift; sourceTree = "<group>"; };
 		C5EA511825F1A4B8005E0C4C /* ModalEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalEditView.swift; sourceTree = "<group>"; };
 		C5EA511D25F1C67D005E0C4C /* ModalDeleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDeleteView.swift; sourceTree = "<group>"; };
+		C5EA512225F31B6E005E0C4C /* ModalAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAddView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				C5381BD625E60EBA002C09C3 /* SettingsView.swift */,
 				C5EA510F25F1344B005E0C4C /* OptionsView.swift */,
 				C5EA511425F17BBA005E0C4C /* CurrentOptions.swift */,
+				C5EA512225F31B6E005E0C4C /* ModalAddView.swift */,
 				C5EA511825F1A4B8005E0C4C /* ModalEditView.swift */,
 				C5EA511D25F1C67D005E0C4C /* ModalDeleteView.swift */,
 				C5C88DA425E2C464009BB751 /* ContentView.swift */,
@@ -251,6 +254,7 @@
 				C5C88DA525E2C464009BB751 /* ContentView.swift in Sources */,
 				C5EA511525F17BBA005E0C4C /* CurrentOptions.swift in Sources */,
 				C5EA511925F1A4B8005E0C4C /* ModalEditView.swift in Sources */,
+				C5EA512325F31B6E005E0C4C /* ModalAddView.swift in Sources */,
 				C5C88DA325E2C464009BB751 /* FlexCommApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

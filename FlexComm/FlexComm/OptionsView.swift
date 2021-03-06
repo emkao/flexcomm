@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct OptionsView: View {
-    @State var showEditModal: Bool = false
+    @State var showAddModal: Bool = false
     @State var showDeleteModal: Bool = false
+    @State var showEditModal: Bool = false
     @ObservedObject var currentOptions = CurrentOptions()
     private var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
     
@@ -25,9 +26,16 @@ struct OptionsView: View {
                     Spacer()
                     Button(action: { // add button
                         print("Add button")
-                        self.showEditModal.toggle()
+                        self.showAddModal.toggle()
                     }) {
                         Text("Add")
+                    }
+                    Spacer()
+                    Button(action: { // add button
+                        print("Edit button")
+                        self.showEditModal.toggle()
+                    }) {
+                        Text("Edit")
                     }
                     Spacer()
                     Button(action: { // delete button
@@ -73,7 +81,7 @@ struct OptionsView: View {
             .navigationBarTitle("")
             .navigationBarHidden(true)
             
-            if showEditModal {
+            if showAddModal {
                 Rectangle()
                     .foregroundColor(Color.black.opacity(0.5))
                     .edgesIgnoringSafeArea(.all)
@@ -83,7 +91,7 @@ struct OptionsView: View {
                         .foregroundColor(.white)
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .overlay(
-                            ModalEditView(showEditModal: self.$showEditModal)
+                            ModalAddView(showAddModal: self.$showAddModal)
                                 .environmentObject(self.currentOptions)).animation(.easeInOut)
                 }
                 .transition(.move(edge: .bottom))
