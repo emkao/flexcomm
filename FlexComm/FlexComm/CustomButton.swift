@@ -14,9 +14,11 @@ struct CustomButton: ButtonStyle {
             .label
             .foregroundColor(.black)
             .frame(width: 250, height: 250, alignment: .center)
-            .border(Color.black, width: 2)
+            .overlay(
+                RoundedRectangle(cornerRadius: 50)
+                    .stroke(Color.black, lineWidth: 5)
+            )
             .padding(20)
             .background(Color.white)
-            .cornerRadius(12)
     }
 }
