@@ -25,21 +25,18 @@ struct OptionsView: View {
                     }
                     Spacer()
                     Button(action: { // add button
-                        print("Add button")
                         self.showAddModal.toggle()
                     }) {
                         Text("Add")
                     }
                     Spacer()
                     Button(action: { // add button
-                        print("Edit button")
                         self.showEditModal.toggle()
                     }) {
                         Text("Edit")
                     }
                     Spacer()
                     Button(action: { // delete button
-                        print("Delete button")
                         self.showDeleteModal.toggle()
                     }) {
                         Text("Delete")
@@ -60,7 +57,7 @@ struct OptionsView: View {
                     Spacer()
                     LazyVGrid(columns: gridItemLayout, alignment: .center, spacing: 0) {
                         ForEach(0 ..< optionCount - (optionCount % 3), id: \.self) {
-                            Button(currentOptions.options[$0 % optionCount]) {}
+                            Button(currentOptions.options[$0 % optionCount].text) {}
                                 .buttonStyle(CustomButton())
                         }
                     }
@@ -68,7 +65,7 @@ struct OptionsView: View {
                         Spacer()
                         LazyHStack(spacing: 0) {
                             ForEach(optionCount - (optionCount % 3) ..< optionCount, id: \.self) {
-                                Button(currentOptions.options[$0 % optionCount]) {}
+                                Button(currentOptions.options[$0 % optionCount].text) {}
                                     .buttonStyle(CustomButton())
                             }
                         }

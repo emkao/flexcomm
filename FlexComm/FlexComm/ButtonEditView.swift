@@ -15,7 +15,7 @@ struct ButtonEditView: View {
     
     var body: some View {
         VStack {
-            Text("Edit \(currentOptions.options[selectedButton])" as String)
+            Text("Edit \(currentOptions.options[selectedButton].text)" as String)
                 .font(.custom("SFProText-Thin", size: 50))
                 .padding(20)
             Form {

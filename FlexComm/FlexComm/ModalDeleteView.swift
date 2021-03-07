@@ -10,7 +10,7 @@ import SwiftUI
 struct ModalDeleteView: View {
     @EnvironmentObject var currentOptions: CurrentOptions
     @Binding var showDeleteModal: Bool
-    @State var selections: [String] = []
+    @State var selections: [Int] = []
     
     var body: some View {
         VStack {
@@ -19,13 +19,13 @@ struct ModalDeleteView: View {
                 .padding(20)
             
             List {
-                ForEach(self.currentOptions.options, id: \.self) { item in
-                    MultipleSelectionRow(title: item, isSelected: self.selections.contains(item)) {
-                        if self.selections.contains(item) {
-                            self.selections.removeAll(where: { $0 == item })
+                ForEach(self.currentOptions.options.indices, id: \.self) { index in
+                    MultipleSelectionRow(title: self.currentOptions.options[index].text, isSelected: self.selections.contains(index)) {
+                        if self.selections.contains(index) {
+                            self.selections.removeAll(where: { $0 == index })
                         }
                         else {
-                            self.selections.append(item)
+                            self.selections.append(index)
                         }
                     }
                 }
@@ -42,7 +42,7 @@ struct ModalDeleteView: View {
                 Spacer()
                 
                 Button(action: {
-                    currentOptions.deleteOption(selections: self.selections)
+                    currentOptions.deleteOption(removeIndices: self.selections)
                     self.showDeleteModal.toggle()
                 }, label: {
                     Text("Delete")

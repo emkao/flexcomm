@@ -29,7 +29,7 @@ struct ModalEditView: View {
             .padding(20)
         List(currentOptions.options.indices, id: \.self) { index in
             HStack {
-                Button(currentOptions.options[index]) {
+                Button(currentOptions.options[index].text) {
                     withAnimation{
                         print(selectedButton)
                         print(index)
