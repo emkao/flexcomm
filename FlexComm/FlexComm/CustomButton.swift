@@ -18,7 +18,7 @@ struct CustomButton: ButtonStyle {
                 RoundedRectangle(cornerRadius: 50)
                     .stroke(Color.black, lineWidth: 5)
             )
-            .padding(20)
+            .padding(2)
             .background(Color.white)
     }
 }

@@ -50,23 +50,38 @@ struct OptionsView: View {
                 }
                 .foregroundColor(.black)
                 .padding(10.0)
+                .onAppear{
+                    currentOptions.startTimer()
+                }
 
                 Spacer()
                 let optionCount = currentOptions.options.count
                 VStack {
                     Spacer()
                     LazyVGrid(columns: gridItemLayout, alignment: .center, spacing: 0) {
-                        ForEach(0 ..< optionCount - (optionCount % 3), id: \.self) {
-                            Button(currentOptions.options[$0 % optionCount].text) {}
+                        ForEach(0 ..< optionCount - (optionCount % 3), id: \.self) { index in
+                            let color: Color = (currentOptions.selectedBtn == index) ? Color.blue : Color.black
+                            Button(currentOptions.options[index % optionCount].text) {}
                                 .buttonStyle(CustomButton())
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 50)
+                                        .stroke(color, lineWidth: 3)
+                                )
+                                .padding(20)
                         }
                     }
                     if (optionCount % 3 != 0) {
                         Spacer()
                         LazyHStack(spacing: 0) {
-                            ForEach(optionCount - (optionCount % 3) ..< optionCount, id: \.self) {
-                                Button(currentOptions.options[$0 % optionCount].text) {}
+                            ForEach(optionCount - (optionCount % 3) ..< optionCount, id: \.self) { index in
+                                let color: Color = (currentOptions.selectedBtn == index) ? Color.blue : Color.black
+                                Button(currentOptions.options[index % optionCount].text) {}
                                     .buttonStyle(CustomButton())
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 50)
+                                            .stroke(color, lineWidth: 3)
+                                    )
+                                    .padding(20)
                             }
                         }
                     }

@@ -9,9 +9,17 @@ import Foundation
 
 class CurrentOptions: ObservableObject {
     @Published var options = [ButtonOption]()
+    @Published var selectedBtn: Int = 0
     
     init() {
         self.options = [ButtonOption(text: "Yes"), ButtonOption(text: "No")]
+    }
+    
+    func startTimer() {
+        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) {_ in
+            self.selectedBtn = (self.selectedBtn + 1) % self.options.count
+            print(self.selectedBtn)
+        }
     }
     
     func addOption(text: String) {
@@ -24,15 +32,10 @@ class CurrentOptions: ObservableObject {
         for (index, _) in removeIndices.reversed().enumerated() {
             self.options.remove(at: index)
         }
-//
-//        let rmIdx = Set(removeIndices)
-//        let keep_set = Set(options.indices).subtract(rmIdx)
-//        if (self.options.count > 0) {
-//            self.options = self.options.filter{ !set.contains($0) }
-//        }
     }
     
     func editOption(index: Int, text: String) {
         self.options[index].text = text
     }
 }
+
