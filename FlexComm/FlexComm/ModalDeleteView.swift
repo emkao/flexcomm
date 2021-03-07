@@ -33,17 +33,15 @@ struct ModalDeleteView: View {
             
             HStack {
                 Button(action: {
-                    print("close form")
                     self.showDeleteModal.toggle()
                 }, label: {
-                    Text("Close")
+                    Text("Cancel")
                 })
                 .padding(30)
                 
                 Spacer()
                 
                 Button(action: {
-                    print("delete button(s) from form")
                     currentOptions.deleteOption(selections: self.selections)
                     self.showDeleteModal.toggle()
                 }, label: {

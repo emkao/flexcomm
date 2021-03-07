@@ -97,6 +97,22 @@ struct OptionsView: View {
                 .transition(.move(edge: .bottom))
             }
             
+            if showEditModal {
+                Rectangle()
+                    .foregroundColor(Color.black.opacity(0.5))
+                    .edgesIgnoringSafeArea(.all)
+                
+                GeometryReader { geometry in
+                    RoundedRectangle(cornerRadius: 16)
+                        .foregroundColor(.white)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .overlay(
+                            ModalEditView(showEditModal: self.$showEditModal)
+                                .environmentObject(self.currentOptions)).animation(.easeInOut)
+                }
+                .transition(.move(edge: .bottom))
+            }
+            
             if showDeleteModal {
                 Rectangle()
                     .foregroundColor(Color.black.opacity(0.5))

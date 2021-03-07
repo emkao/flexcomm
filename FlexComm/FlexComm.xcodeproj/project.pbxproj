@@ -38,6 +38,7 @@
 		C5EA511925F1A4B8005E0C4C /* ModalEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA511825F1A4B8005E0C4C /* ModalEditView.swift */; };
 		C5EA511E25F1C67D005E0C4C /* ModalDeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA511D25F1C67D005E0C4C /* ModalDeleteView.swift */; };
 		C5EA512325F31B6E005E0C4C /* ModalAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA512225F31B6E005E0C4C /* ModalAddView.swift */; };
+		C5EA512725F4982A005E0C4C /* ButtonEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA512625F4982A005E0C4C /* ButtonEditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		C5EA511825F1A4B8005E0C4C /* ModalEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalEditView.swift; sourceTree = "<group>"; };
 		C5EA511D25F1C67D005E0C4C /* ModalDeleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDeleteView.swift; sourceTree = "<group>"; };
 		C5EA512225F31B6E005E0C4C /* ModalAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAddView.swift; sourceTree = "<group>"; };
+		C5EA512625F4982A005E0C4C /* ButtonEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonEditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 				C5EA511425F17BBA005E0C4C /* CurrentOptions.swift */,
 				C5EA512225F31B6E005E0C4C /* ModalAddView.swift */,
 				C5EA511825F1A4B8005E0C4C /* ModalEditView.swift */,
+				C5EA512625F4982A005E0C4C /* ButtonEditView.swift */,
 				C5EA511D25F1C67D005E0C4C /* ModalDeleteView.swift */,
 				C5C88DA425E2C464009BB751 /* ContentView.swift */,
 				C52AAD4625E6208F002E90D9 /* Fonts */,
@@ -249,6 +252,7 @@
 				C5DAA47925E6135B00178075 /* responseValidate.swift in Sources */,
 				C5EA511025F1344B005E0C4C /* OptionsView.swift in Sources */,
 				C5C3DAE825E6D3430070BBB5 /* CustomFont.swift in Sources */,
+				C5EA512725F4982A005E0C4C /* ButtonEditView.swift in Sources */,
 				C5EA510C25F13400005E0C4C /* CustomButton.swift in Sources */,
 				C5EA511E25F1C67D005E0C4C /* ModalDeleteView.swift in Sources */,
 				C5C88DA525E2C464009BB751 /* ContentView.swift in Sources */,

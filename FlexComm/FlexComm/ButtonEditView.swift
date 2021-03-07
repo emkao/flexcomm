@@ -1,20 +1,21 @@
 //
-//  ModalAddView.swift
+//  ButtonEditView.swift
 //  FlexComm
 //
-//  Created by emily kao on 3/5/21.
+//  Created by emily kao on 3/7/21.
 //
 
 import SwiftUI
 
-struct ModalAddView: View {
+struct ButtonEditView: View {
     @EnvironmentObject var currentOptions: CurrentOptions
-    @Binding var showAddModal: Bool
-    @State private var btnText: String = ""
+    @Binding var selectedButton: Int
+    @Binding var editButton: Bool
+    @State var btnText: String = ""
     
     var body: some View {
         VStack {
-            Text("Add Button")
+            Text("Edit \(currentOptions.options[selectedButton])" as String)
                 .font(.custom("SFProText-Thin", size: 50))
                 .padding(20)
             Form {
@@ -30,7 +31,7 @@ struct ModalAddView: View {
             
             HStack {
                 Button(action: {
-                    self.showAddModal.toggle()
+                    self.editButton.toggle()
                 }, label: {
                     Text("Cancel")
                 })
@@ -39,10 +40,10 @@ struct ModalAddView: View {
                 Spacer()
                 
                 Button(action: {
-                    currentOptions.addOption(text: btnText)
-                    self.showAddModal.toggle()
+                    currentOptions.editOption(index: selectedButton, text: btnText)
+                    self.editButton.toggle()
                 }, label: {
-                    Text("Add")
+                    Text("Done")
                 })
                 .padding(30)
             }

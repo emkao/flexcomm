@@ -26,4 +26,8 @@ class CurrentOptions: ObservableObject {
             self.options = self.options.filter{ !set.contains($0) }
         }
     }
+    
+    func editOption(index: Int, text: String) {
+        self.options[index] = text
+    }
 }
