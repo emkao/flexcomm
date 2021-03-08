@@ -51,6 +51,9 @@ struct SettingsView: View {
                             .SFProFont(style: .headline, weight: .bold)
                         Button(action: {
                             print("Small Font Tapped")
+                           // TextSizeStruct.smallTextOn = false
+                            
+                            
                         }) {
                             Text("Small Font")
                              .padding()
@@ -65,7 +68,7 @@ struct SettingsView: View {
                         }) {
                             Text("Big Font")
                             .padding()
-                            .SFProFont(style: .title1, weight: .bold)
+                            .SFProFontBig(style: .title1, weight: .bold)
                             .background(Color(UIColor.lightGray))
                             .foregroundColor(.black)
                             .cornerRadius(40)

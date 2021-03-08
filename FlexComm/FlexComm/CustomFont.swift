@@ -20,8 +20,25 @@ struct CustomFont: ViewModifier {
     }
 }
 
+struct CustomFontBig: ViewModifier {
+    //only change here is that size went up  x2
+    var style: UIFont.TextStyle = .body
+    var weight: Font.Weight = .regular
+
+    func body(content: Content) -> some View {
+        content
+            .font(Font.custom("SFProText-Light", size: UIFont.preferredFont(forTextStyle: style).pointSize * 1.25)
+            .weight(weight))
+            .foregroundColor(.black)
+    }
+}
+
+
 extension View {
     func SFProFont(style: UIFont.TextStyle, weight: Font.Weight) -> some View {
         self.modifier(CustomFont(style: style, weight: weight))
+    }
+    func SFProFontBig(style: UIFont.TextStyle, weight: Font.Weight) -> some View {
+        self.modifier(CustomFontBig(style: style, weight: weight))
     }
 }
