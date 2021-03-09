@@ -51,8 +51,8 @@ struct SettingsView: View {
                             .SFProFont(style: .headline, weight: .bold)
                         Button(action: {
                             print("Small Font Tapped")
-                           // TextSizeStruct.smallTextOn = false
-                            
+                            GlobalVars.bigFontOn = false
+                
                             
                         }) {
                             Text("Small Font")
@@ -65,6 +65,8 @@ struct SettingsView: View {
                         }
                         Button(action: {
                             print("Big Font Tapped")
+                            GlobalVars.bigFontOn = true
+                            print(GlobalVars.bigFontOn)
                         }) {
                             Text("Big Font")
                             .padding()

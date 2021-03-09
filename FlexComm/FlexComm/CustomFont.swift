@@ -36,9 +36,27 @@ struct CustomFontBig: ViewModifier {
 
 extension View {
     func SFProFont(style: UIFont.TextStyle, weight: Font.Weight) -> some View {
+
+        self.modifier(CustomFont(style: style, weight: weight))
+    }
+    func SFProFontSmall(style: UIFont.TextStyle, weight: Font.Weight) -> some View {
         self.modifier(CustomFont(style: style, weight: weight))
     }
     func SFProFontBig(style: UIFont.TextStyle, weight: Font.Weight) -> some View {
         self.modifier(CustomFontBig(style: style, weight: weight))
     }
+    
+//    func SFProFont(style: UIFont.TextStyle, weight: Font.Weight) -> some View {
+//
+// this causes an error ):
+//        if(GlobalVars.bigFontOn){
+//            return SFProFontBig(style: style, weight: weight)
+//
+//        }
+//        else{
+//            return SFProFontSmall(style: style, weight: weight)
+//
+//        }
+//    }
+    
 }
