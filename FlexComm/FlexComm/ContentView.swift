@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var globals = GlobalVars()
     var body: some View {
         NavigationView {
             VStack (alignment: .center, spacing: nil) {
@@ -23,6 +24,7 @@ struct ContentView: View {
                             .padding(5)
                             .navigationBarTitle("")
                             .navigationBarHidden(true)
+                            .environmentObject(globals)
                     })
                 NavigationLink(
                     destination: SettingsView(),
@@ -31,6 +33,7 @@ struct ContentView: View {
                             .font(.custom("SFProText-Thin", size: 35))
                             .navigationBarTitle("")
                             .navigationBarHidden(true)
+                            .environmentObject(globals)
                     })
                 Spacer()
                 Spacer()
