@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SettingsView: View {
 //    @EnvironmentObject var responseValidate: responseValidator
+    @EnvironmentObject var globals: GlobalVars
     @State private var responseTime = ""
     
     init() {
@@ -51,7 +52,9 @@ struct SettingsView: View {
                             .SFProFont(style: .headline, weight: .bold)
                         Button(action: {
                             print("Small Font Tapped")
-                            GlobalVars.bigFontOn = false
+                            
+                            self.globals.multiplier = 1.0
+//                            GlobalVars.bigFontOn = false
                 
                             
                         }) {
@@ -65,12 +68,13 @@ struct SettingsView: View {
                         }
                         Button(action: {
                             print("Big Font Tapped")
-                            GlobalVars.bigFontOn = true
-                            print(GlobalVars.bigFontOn)
+                            self.globals.multiplier = 1.25
+                            //GlobalVars.bigFontOn = true
+                           // print(GlobalVars.bigFontOn)
                         }) {
                             Text("Big Font")
                             .padding()
-                            .SFProFontBig(style: .title1, weight: .bold)
+                            .SFProFont(style: .title1, weight: .bold)
                             .background(Color(UIColor.lightGray))
                             .foregroundColor(.black)
                             .cornerRadius(40)
@@ -102,6 +106,6 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
        // SettingsView().environmentObject(responseValidator())
-        SettingsView()
+        SettingsView().environmentObject(GlobalVars())
     }
 }

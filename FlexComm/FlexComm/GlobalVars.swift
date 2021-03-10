@@ -6,6 +6,9 @@
 //
 
 import Foundation
-struct GlobalVars {
-    static var bigFontOn = false
+class GlobalVars: ObservableObject {
+   //static var bigFontOn = false
+    @Published var multiplier  = 1.0
+    
+    
 }
