@@ -15,13 +15,14 @@ struct OptionsView: View {
     //@EnvironmentObject var globals: GlobalVars
     @StateObject var globals = GlobalVars()
     private var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         ZStack {
             VStack {
                 HStack {
                     Button(action: { // back button
-                        print("Go back")
+                        presentationMode.wrappedValue.dismiss()
                     }) {
                         Text("Menu")
                     }
@@ -44,16 +45,20 @@ struct OptionsView: View {
                         Text("Delete")
                     }
                     Spacer()
-                    Button(action: { // settings button
-                        print("Go to settings")
-                    }) {
-                        Text("Settings")
-                    }
+                    NavigationLink(
+                        destination: SettingsView(),
+                        label: {
+                            Text("Settings")
+                        })
+                        .buttonStyle(PlainButtonStyle())
                 }
                 .foregroundColor(.black)
                 .padding(10.0)
                 .onAppear{
                     currentOptions.startTimer()
+                }
+                .onDisappear{
+                    currentOptions.stopTimer()
                 }
 
                 Spacer()
