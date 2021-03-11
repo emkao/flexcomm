@@ -42,6 +42,7 @@ struct ModalDeleteView: View {
                 Spacer()
                 
                 Button(action: {
+                    self.selections.sort()
                     currentOptions.deleteOption(removeIndices: self.selections)
                     self.showDeleteModal.toggle()
                 }, label: {

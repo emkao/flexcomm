@@ -33,8 +33,8 @@ class CurrentOptions: ObservableObject {
     }
     
     func deleteOption(removeIndices: [Int]) {
-        for (index, _) in removeIndices.reversed().enumerated() {
-            self.options.remove(at: index)
+        for index in stride(from: removeIndices.count - 1, to: -1, by: -1) {
+            self.options.remove(at: removeIndices[index])
         }
     }
     
