@@ -26,10 +26,11 @@ struct CustomFont: ViewModifier {
     //only change here is that size went up  x2
     var style: UIFont.TextStyle = .body
     var weight: Font.Weight = .regular
+    var multiplier: Double = 1.0
 
     func body(content: Content) -> some View {
         content
-            .font(Font.custom("SFProText-Light", size: UIFont.preferredFont(forTextStyle: style).pointSize * CGFloat(self.globals.multiplier))
+            .font(Font.custom("SFProText-Light", size: UIFont.preferredFont(forTextStyle: style).pointSize * CGFloat(multiplier))
             .weight(weight))
             .foregroundColor(.black)
     }
@@ -37,9 +38,9 @@ struct CustomFont: ViewModifier {
 
 
 extension View {
-    func SFProFont(style: UIFont.TextStyle, weight: Font.Weight) -> some View {
+    func SFProFont(style: UIFont.TextStyle, weight: Font.Weight, multiplier: Double) -> some View {
 
-        self.modifier(CustomFont(style: style, weight: weight))
+        self.modifier(CustomFont(style: style, weight: weight, multiplier: multiplier))
     }
 //    func SFProFontSmall(style: UIFont.TextStyle, weight: Font.Weight) -> some View {
 //        self.modifier(CustomFont(style: style, weight: weight))

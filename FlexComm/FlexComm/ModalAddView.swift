@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ModalAddView: View {
     @EnvironmentObject var currentOptions: CurrentOptions
+  //  @EnvironmentObject var globals_old
+    @StateObject var globals = GlobalVars()
     @Binding var showAddModal: Bool
     @State private var btnText: String = ""
     
@@ -26,7 +28,7 @@ struct ModalAddView: View {
                     }
                 }
             }
-            .SFProFont(style: .body, weight: .regular)
+            .SFProFont(style: .body, weight: .regular, multiplier: globals.multiplier)
             
             HStack {
                 Button(action: {

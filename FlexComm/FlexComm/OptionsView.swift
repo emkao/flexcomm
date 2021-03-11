@@ -12,7 +12,8 @@ struct OptionsView: View {
     @State var showDeleteModal: Bool = false
     @State var showEditModal: Bool = false
     @ObservedObject var currentOptions = CurrentOptions()
-    @EnvironmentObject var globals: GlobalVars
+    //@EnvironmentObject var globals: GlobalVars
+    @StateObject var globals = GlobalVars()
     private var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
     
     var body: some View {
@@ -90,7 +91,7 @@ struct OptionsView: View {
                 }
                 Spacer()
             }
-            .SFProFont(style: .largeTitle, weight: .regular)
+            .SFProFont(style: .largeTitle, weight: .regular, multiplier: globals.multiplier)
             .navigationBarTitle("")
             .navigationBarHidden(true)
             

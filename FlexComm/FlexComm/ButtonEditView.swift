@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ButtonEditView: View {
     @EnvironmentObject var currentOptions: CurrentOptions
+    @EnvironmentObject var globals: GlobalVars
     @Binding var selectedButton: Int
     @Binding var editButton: Bool
     @State var btnText: String = ""
@@ -27,7 +28,10 @@ struct ButtonEditView: View {
                     }
                 }
             }
-            .SFProFont(style: .body, weight: .regular)
+            .SFProFont(style: .body, weight: .regular, multiplier: globals.multiplier)
+            
+            
+            
             
             HStack {
                 Button(action: {

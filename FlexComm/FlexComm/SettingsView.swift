@@ -11,6 +11,7 @@ import SwiftUI
 struct SettingsView: View {
 //    @EnvironmentObject var responseValidate: responseValidator
     @EnvironmentObject var globals: GlobalVars
+    @StateObject var globals_Nav = GlobalVars()
     @State private var responseTime = ""
     
     init() {
@@ -18,13 +19,14 @@ struct SettingsView: View {
     }
 
     var body: some View {
+
         NavigationView {
             ZStack{
                 Color.white
                 VStack{
                     HStack{
                         Text("Color Scheme:")
-                            .SFProFont(style: .headline, weight: .bold)
+                            .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
                         Button(action: {
                             print("Dark Mode tapped!")
                         }) {
@@ -45,22 +47,23 @@ struct SettingsView: View {
 
                         }
                     }
-                    .SFProFont(style: .body, weight: .regular)
+                    .SFProFont(style: .body, weight: .regular, multiplier: globals_Nav.multiplier)
                     .padding()
                     HStack{
                         Text("Font Size:")
-                            .SFProFont(style: .headline, weight: .bold)
+                            .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
                         Button(action: {
                             print("Small Font Tapped")
                             
-                            self.globals.multiplier = 1.0
-//                            GlobalVars.bigFontOn = false
+                           // self.globals.multiplier = 1.0
+                            globals_Nav.multiplier = 1.0
+                            GlobalVars2.mult = 1.0
                 
                             
                         }) {
                             Text("Small Font")
                              .padding()
-                            .SFProFont(style: .body, weight: .bold)
+                                .SFProFont(style: .body, weight: .bold, multiplier: globals_Nav.multiplier)
                             .background(Color(UIColor.lightGray))
                             .foregroundColor(.black)
                             .cornerRadius(40)
@@ -68,13 +71,14 @@ struct SettingsView: View {
                         }
                         Button(action: {
                             print("Big Font Tapped")
-                            self.globals.multiplier = 1.25
-                            //GlobalVars.bigFontOn = true
+                           // self.globals.multiplier = 1.25
+                            globals_Nav.multiplier = 1.25
+                            GlobalVars2.mult = 1.25
                            // print(GlobalVars.bigFontOn)
                         }) {
                             Text("Big Font")
                             .padding()
-                            .SFProFont(style: .title1, weight: .bold)
+                            .SFProFont(style: .title1, weight: .bold, multiplier: globals_Nav.multiplier)
                             .background(Color(UIColor.lightGray))
                             .foregroundColor(.black)
                             .cornerRadius(40)
@@ -85,22 +89,28 @@ struct SettingsView: View {
 
                     HStack{
                         Text("Response Time:")
-                            .SFProFont(style: .headline, weight: .bold)
-
-//                        TextField("Number of Seconds", text: $responseValidate.responseTime)
+                            .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
                         TextField("Number of Seconds", text: $responseTime)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("Seconds")
 
                     }
-                    .SFProFont(style: .body, weight: .regular)
+                    .SFProFont(style: .body, weight: .regular, multiplier: globals_Nav.multiplier)
+                    .environmentObject(globals_Nav)
+                  // .environmentObject(globals)
 
                 }
+               // .environmentObject(globals)
             }
+   
             .navigationBarTitle(Text("Settings"), displayMode: .large)
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .environmentObject(globals_Nav)
+    
     }
+    //.environmentObject(globals)
+    
 }
 
 struct SettingsView_Previews: PreviewProvider {

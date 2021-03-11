@@ -8,7 +8,11 @@
 import Foundation
 class GlobalVars: ObservableObject {
    //static var bigFontOn = false
-    @Published var multiplier  = 1.0
+    @Published var multiplier  = GlobalVars2.mult
     
+    
+}
+struct GlobalVars2 {
+    static var mult =  1.0;
     
 }
