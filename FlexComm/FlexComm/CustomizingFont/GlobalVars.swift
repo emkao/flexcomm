@@ -7,12 +7,9 @@
 
 import Foundation
 class GlobalVars: ObservableObject {
-   //static var bigFontOn = false
-    @Published var multiplier  = GlobalVars2.mult
-    
-    
+    @Published var multiplier  = GlobalVars_Unifier.multiplier_unifier
 }
-struct GlobalVars2 {
-    static var mult =  1.0;
+struct GlobalVars_Unifier{
+    static var multiplier_unifier =  1.0;
     
 }

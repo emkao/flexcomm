@@ -54,10 +54,8 @@ struct SettingsView: View {
                             .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
                         Button(action: {
                             print("Small Font Tapped")
-                            
-                           // self.globals.multiplier = 1.0
                             globals_Nav.multiplier = 1.0
-                            GlobalVars2.mult = 1.0
+                            GlobalVars_Unifier.multiplier_unifier = 1.0
                 
                             
                         }) {
@@ -71,10 +69,8 @@ struct SettingsView: View {
                         }
                         Button(action: {
                             print("Big Font Tapped")
-                           // self.globals.multiplier = 1.25
                             globals_Nav.multiplier = 1.25
-                            GlobalVars2.mult = 1.25
-                           // print(GlobalVars.bigFontOn)
+                            GlobalVars_Unifier.multiplier_unifier = 1.25
                         }) {
                             Text("Big Font")
                             .padding()
@@ -97,10 +93,8 @@ struct SettingsView: View {
                     }
                     .SFProFont(style: .body, weight: .regular, multiplier: globals_Nav.multiplier)
                     .environmentObject(globals_Nav)
-                  // .environmentObject(globals)
 
                 }
-               // .environmentObject(globals)
             }
    
             .navigationBarTitle(Text("Settings"), displayMode: .large)
@@ -109,13 +103,11 @@ struct SettingsView: View {
         .environmentObject(globals_Nav)
     
     }
-    //.environmentObject(globals)
     
 }
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-       // SettingsView().environmentObject(responseValidator())
         SettingsView().environmentObject(GlobalVars())
     }
 }

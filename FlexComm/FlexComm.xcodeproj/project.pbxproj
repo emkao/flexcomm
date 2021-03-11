@@ -93,6 +93,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D4EFA0C25F9BB2300F58B91 /* CustomizingFont */ = {
+			isa = PBXGroup;
+			children = (
+				C5C3DAE725E6D3430070BBB5 /* CustomFont.swift */,
+				6D6055F925F7D80C00ABC5EC /* GlobalVars.swift */,
+			);
+			path = CustomizingFont;
+			sourceTree = "<group>";
+		};
 		C52AAD4625E6208F002E90D9 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,12 +146,11 @@
 		C5C88DA125E2C464009BB751 /* FlexComm */ = {
 			isa = PBXGroup;
 			children = (
-				C5C3DAE725E6D3430070BBB5 /* CustomFont.swift */,
+				6D4EFA0C25F9BB2300F58B91 /* CustomizingFont */,
 				C5EA510B25F13400005E0C4C /* CustomButton.swift */,
 				C5DAA47825E6135B00178075 /* responseValidate.swift */,
 				C5C88DA225E2C464009BB751 /* FlexCommApp.swift */,
 				C5381BD625E60EBA002C09C3 /* SettingsView.swift */,
-				6D6055F925F7D80C00ABC5EC /* GlobalVars.swift */,
 				C5EA512D25F4AC59005E0C4C /* ButtonOption.swift */,
 				C5EA511425F17BBA005E0C4C /* CurrentOptions.swift */,
 				C5EA510F25F1344B005E0C4C /* OptionsView.swift */,
