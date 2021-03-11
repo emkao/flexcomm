@@ -23,6 +23,8 @@ CustomComm allows for selection of different buttons through one flex movement, 
 - ”Small Font” Button to decrease text size 
 
 **On Options Screen:**
+- "Menu" Button to navigate to Home screen
 - "Add" Button to add an option to the screen 
 - "Edit" Button to edit an existing option on the screen 
 - "Delete" Button to delete one or more existing options on the screen 
+- "Settings" Button to navigate to Settings screen 
