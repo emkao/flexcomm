@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ButtonEditView: View {
     @EnvironmentObject var currentOptions: CurrentOptions
-    @EnvironmentObject var globals: GlobalVars
+    @StateObject var globals: GlobalVars
     @Binding var selectedButton: Int
     @Binding var editButton: Bool
     @State var btnText: String = ""
