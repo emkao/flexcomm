@@ -30,9 +30,6 @@ struct ButtonEditView: View {
             }
             .SFProFont(style: .body, weight: .regular, multiplier: globals.multiplier)
             
-            
-            
-            
             HStack {
                 Button(action: {
                     self.editButton.toggle()

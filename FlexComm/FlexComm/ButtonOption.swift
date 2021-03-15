@@ -8,6 +8,6 @@
 import Foundation
 import SwiftUI
 
-struct ButtonOption {
+struct ButtonOption: Encodable, Decodable {
     var text: String
 }
