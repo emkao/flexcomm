@@ -48,8 +48,10 @@ class CurrentOptions: ObservableObject, Codable {
     }
     
     func startTimer() {
-        self.timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) {_ in
-            self.selectedBtn = (self.selectedBtn + 1) % self.options.count
+        if (self.options.count != 0) {
+            self.timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) {_ in
+                self.selectedBtn = (self.selectedBtn + 1) % self.options.count
+            }
         }
     }
     

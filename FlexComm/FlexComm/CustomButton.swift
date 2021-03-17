@@ -12,13 +12,9 @@ struct CustomButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration
             .label
-            .foregroundColor(.black)
+            .foregroundColor(.white)
             .frame(width: 250, height: 250, alignment: .center)
-            .overlay(
-                RoundedRectangle(cornerRadius: 50)
-                    .stroke(Color.black, lineWidth: 5)
-            )
+            .cornerRadius(50)
             .padding(2)
-            .background(Color.white)
     }
 }

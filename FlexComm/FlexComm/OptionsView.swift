@@ -70,10 +70,7 @@ struct OptionsView: View {
                             let color: Color = (currentOptions.selectedBtn == index) ? Color.blue : Color.black
                             Button(currentOptions.options[index % optionCount].text) {}
                                 .buttonStyle(CustomButton())
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 50)
-                                        .stroke(color, lineWidth: 3)
-                                )
+                                .background(RoundedRectangle(cornerRadius: 50).fill(color))
                                 .padding(20)
                         }
                     }
@@ -84,10 +81,7 @@ struct OptionsView: View {
                                 let color: Color = (currentOptions.selectedBtn == index) ? Color.blue : Color.black
                                 Button(currentOptions.options[index % optionCount].text) {}
                                     .buttonStyle(CustomButton())
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 50)
-                                            .stroke(color, lineWidth: 3)
-                                    )
+                                    .background(RoundedRectangle(cornerRadius: 50).fill(color))
                                     .padding(20)
                             }
                         }
