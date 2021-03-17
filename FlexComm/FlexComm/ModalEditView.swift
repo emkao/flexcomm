@@ -23,11 +23,15 @@ struct ModalEditView: View {
     @State private var editButton: Bool = false
     @State private var selectedButton: Int = -1
     @StateObject var globals = GlobalVars()
+    @State var saved: [ButtonOption]
     
     var body: some View {
         Text("Edit Buttons")
             .font(.custom("SFProText-Thin", size: 50))
             .padding(20)
+            .onAppear(perform: {
+                saved = currentOptions.options
+            })
         List(currentOptions.options.indices, id: \.self) { index in
             HStack {
                 Button(currentOptions.options[index].text) {
@@ -46,11 +50,12 @@ struct ModalEditView: View {
         HStack {
             Button(action: {
                 self.showEditModal.toggle()
+                currentOptions.options = saved
             }, label: {
                 Text("Cancel")
             })
             .padding(30)
-            
+
             Spacer()
             
             Button(action: {
@@ -68,3 +73,4 @@ struct ModalEditView: View {
         }
     }
 }
+

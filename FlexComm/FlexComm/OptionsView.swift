@@ -120,7 +120,7 @@ struct OptionsView: View {
                         .foregroundColor(.white)
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .overlay(
-                            ModalEditView(showEditModal: self.$showEditModal)
+                            ModalEditView(showEditModal: self.$showEditModal, saved: self.currentOptions.options)
                                 .environmentObject(self.currentOptions)).animation(.easeInOut)
                 }
                 .transition(.move(edge: .bottom))
