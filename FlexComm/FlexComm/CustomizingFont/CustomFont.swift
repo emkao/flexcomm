@@ -14,7 +14,7 @@ struct CustomFont: ViewModifier {
     
     var style: UIFont.TextStyle = .body
     var weight: Font.Weight = .regular
-    var multiplier: Double = 1.0
+    var multiplier: Double = GlobalVars_Unifier.multiplier_unifier
 
     func body(content: Content) -> some View {
         content

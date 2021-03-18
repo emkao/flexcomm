@@ -52,6 +52,7 @@ struct OptionsView: View {
                         })
                         .buttonStyle(PlainButtonStyle())
                 }
+                .SFProFont(style: .largeTitle, weight: .regular, multiplier: GlobalVars_Unifier.multiplier_unifier / 2.0) //made it not as extreme for text, but still changing
                 .foregroundColor(.black)
                 .padding(10.0)
                 .onAppear{
@@ -74,6 +75,8 @@ struct OptionsView: View {
                                 .padding(20)
                         }
                     }
+                    .SFProFont(style: .largeTitle, weight: .regular, multiplier: GlobalVars_Unifier.multiplier_unifier)
+                    
                     if (optionCount % 3 != 0) {
                         Spacer()
                         LazyHStack(spacing: 0) {
@@ -85,12 +88,14 @@ struct OptionsView: View {
                                     .padding(20)
                             }
                         }
+                        .SFProFont(style: .largeTitle, weight: .regular, multiplier: GlobalVars_Unifier.multiplier_unifier)
                     }
-                    Spacer()
+                   
                 }
                 Spacer()
+                
             }
-            .SFProFont(style: .largeTitle, weight: .regular, multiplier: globals.multiplier)
+            
             .navigationBarTitle("")
             .navigationBarHidden(true)
             

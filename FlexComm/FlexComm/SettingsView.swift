@@ -13,7 +13,7 @@ struct SettingsView: View {
     @EnvironmentObject var globals: GlobalVars
     @StateObject var globals_Nav = GlobalVars()
     @State private var responseTime = ""
-    
+    @State private var sliderValue  = GlobalVars_Unifier.multiplier_unifier
     init() {
         UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "SFProText-Thin", size: 50)!]
     }
@@ -52,29 +52,45 @@ struct SettingsView: View {
                     HStack{
                         Text("Font Size:")
                             .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
+                        
+//                        Button(action: {
+//                            print("Small Font Tapped")
+//                            globals_Nav.multiplier = 1.1
+//                            GlobalVars_Unifier.multiplier_unifier = 1.1
+//
+//
+//                        }) {
+//                            Text("Small Font")
+//                             .padding()
+//                                .SFProFont(style: .body, weight: .bold, multiplier: globals_Nav.multiplier)
+//                            .background(Color(UIColor.lightGray))
+//                            .foregroundColor(.black)
+//                            .cornerRadius(40)
+//
+//                        }
+//                        Button(action: {
+//                            print("Big Font Tapped")
+//                            globals_Nav.multiplier = 3.50
+//                            GlobalVars_Unifier.multiplier_unifier = 3.50
+//                        }) {
+//                            Text("Big Font")
+//                            .padding()
+//                            .SFProFont(style: .title1, weight: .bold, multiplier: globals_Nav.multiplier)
+//                            .background(Color(UIColor.lightGray))
+//                            .foregroundColor(.black)
+//                            .cornerRadius(40)
+//                        }
+                        Slider (value: $sliderValue, in: 1.0...3.5)
                         Button(action: {
-                            print("Small Font Tapped")
-                            globals_Nav.multiplier = 1.0
-                            GlobalVars_Unifier.multiplier_unifier = 1.0
-                
-                            
+                            //slider updates the constant and this updates the page
+                            //so if user forgets to hit it it's not huge deal
+                            print("Update Size")
+                            globals_Nav.multiplier = sliderValue
+                            GlobalVars_Unifier.multiplier_unifier = sliderValue
                         }) {
-                            Text("Small Font")
-                             .padding()
-                                .SFProFont(style: .body, weight: .bold, multiplier: globals_Nav.multiplier)
-                            .background(Color(UIColor.lightGray))
-                            .foregroundColor(.black)
-                            .cornerRadius(40)
-
-                        }
-                        Button(action: {
-                            print("Big Font Tapped")
-                            globals_Nav.multiplier = 1.25
-                            GlobalVars_Unifier.multiplier_unifier = 1.25
-                        }) {
-                            Text("Big Font")
+                            Text("Update Size")
                             .padding()
-                            .SFProFont(style: .title1, weight: .bold, multiplier: globals_Nav.multiplier)
+                            .SFProFont(style: .body, weight: .bold, multiplier: globals_Nav.multiplier)
                             .background(Color(UIColor.lightGray))
                             .foregroundColor(.black)
                             .cornerRadius(40)
