@@ -10,17 +10,19 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var globals = GlobalVars()
     var body: some View {
+        
         NavigationView {
             VStack (alignment: .center, spacing: nil) {
                 Spacer()
                 Text("FlexComm")
                     .padding(15)
+                    //.font(.custom("SFProText-Thin", size: CGFloat(90 * GlobalVars_Unifier.multiplier_unifier )))
                     .font(.custom("SFProText-Thin", size: 90))
                 NavigationLink(
                     destination: OptionsView(),
                     label: {
                         Text("Start")
-                            .font(.custom("SFProText-Thin", size: 35))
+                            .font(.custom("SFProText-Thin", size: 35 ))
                             .padding(5)
                             .navigationBarTitle("")
                             .navigationBarHidden(true)

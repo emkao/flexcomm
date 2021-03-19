@@ -53,34 +53,13 @@ struct SettingsView: View {
                         Text("Font Size:")
                             .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
                         
-//                        Button(action: {
-//                            print("Small Font Tapped")
-//                            globals_Nav.multiplier = 1.1
-//                            GlobalVars_Unifier.multiplier_unifier = 1.1
-//
-//
-//                        }) {
-//                            Text("Small Font")
-//                             .padding()
-//                                .SFProFont(style: .body, weight: .bold, multiplier: globals_Nav.multiplier)
-//                            .background(Color(UIColor.lightGray))
-//                            .foregroundColor(.black)
-//                            .cornerRadius(40)
-//
-//                        }
-//                        Button(action: {
-//                            print("Big Font Tapped")
-//                            globals_Nav.multiplier = 3.50
-//                            GlobalVars_Unifier.multiplier_unifier = 3.50
-//                        }) {
-//                            Text("Big Font")
-//                            .padding()
-//                            .SFProFont(style: .title1, weight: .bold, multiplier: globals_Nav.multiplier)
-//                            .background(Color(UIColor.lightGray))
-//                            .foregroundColor(.black)
-//                            .cornerRadius(40)
-//                        }
-                        Slider (value: $sliderValue, in: 1.0...3.5)
+                        VStack{
+                            Slider (value: $sliderValue, in: 1.0...3.5)
+                            Text("Example Text Size")
+                                .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
+                        }
+                        
+                        
                         Button(action: {
                             //slider updates the constant and this updates the page
                             //so if user forgets to hit it it's not huge deal
