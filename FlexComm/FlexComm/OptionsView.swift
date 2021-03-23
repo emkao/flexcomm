@@ -23,34 +23,44 @@ struct OptionsView: View {
                 HStack {
                     Button(action: { // back button
                         presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Text("Menu")
-                    }
-                    Spacer()
-                    Button(action: {
-                        currentOptions.clickSelectedBtn()
                     }, label: {
-                        Text("Moved Flex Sensor")
+                        Text("Menu")
                     })
                     Spacer()
-                    Button(action: { // add button
-                        self.showAddModal.toggle()
-                    }) {
-                        Text("Add")
+                    Group {
+                        Button(action: {
+                            currentOptions.prevOptions()
+                        }, label: {
+                            Text("Prev Options")
+                        })
+                        Spacer()
+                        Button(action: {
+                            currentOptions.clickSelectedBtn()
+                        }, label: {
+                            Text("Moved Flex Sensor")
+                        })
+                        Spacer()
                     }
-                    Spacer()
-                    Button(action: { // add button
-                        self.showEditModal.toggle()
-                    }) {
-                        Text("Edit")
+                    Group {
+                        Button(action: { // add button
+                            self.showAddModal.toggle()
+                        }, label:  {
+                            Text("Add")
+                        })
+                        Spacer()
+                        Button(action: { // add button
+                            self.showEditModal.toggle()
+                        }, label:  {
+                            Text("Edit")
+                        })
+                        Spacer()
+                        Button(action: { // delete button
+                            self.showDeleteModal.toggle()
+                        }, label:  {
+                            Text("Delete")
+                        })
+                        Spacer()
                     }
-                    Spacer()
-                    Button(action: { // delete button
-                        self.showDeleteModal.toggle()
-                    }) {
-                        Text("Delete")
-                    }
-                    Spacer()
                     NavigationLink(
                         destination: SettingsView(),
                         label: {

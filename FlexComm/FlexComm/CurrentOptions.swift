@@ -32,8 +32,24 @@ class CurrentOptions: ObservableObject, Codable {
 //            self.parent.addChildren(children: [ButtonOption(text: "Yes"), ButtonOption(text: "No")])
 //            self.options = self.parent.children
 //        }
-        self.parent = ButtonOption(text: "root")
-        self.parent.addChildren(children: [ButtonOption(text: "Yes"), ButtonOption(text: "No")])
+        self.parent = ButtonOption(text: "root", isFolder: true)
+        
+        let responses = ButtonOption(text: "Responses", isFolder: true)
+        responses.addChildren(children: [ButtonOption(text: "Yes", isFolder: false), ButtonOption(text: "No", isFolder: false)])
+        
+        let toys = ButtonOption(text: "Toys", isFolder: true)
+        toys.addChildren(children: [ButtonOption(text: "Juno", isFolder: false), ButtonOption(text: "Bumper Car", isFolder: false)])
+        
+        let movies = ButtonOption(text: "Movies/Shows", isFolder: true)
+        movies.addChildren(children: [ButtonOption(text: "Frozen", isFolder: false), ButtonOption(text: "AlphaBlocks", isFolder: false)])
+        
+        let classical = ButtonOption(text: "Classical", isFolder: true)
+        classical.addChildren(children: [ButtonOption(text: "Beethoven", isFolder: false), ButtonOption(text: "Mozart", isFolder: false), ButtonOption(text: "Mendelssohn", isFolder: false), ButtonOption(text: "Tchaikovsky", isFolder: false)])
+        
+        let music = ButtonOption(text: "Music", isFolder: true)
+        music.addChildren(children: [classical, ButtonOption(text: "Country", isFolder: false), ButtonOption(text: "Rock and Roll", isFolder: false)])
+        
+        self.parent.addChildren(children: [responses, toys, movies, music])
         self.options = self.parent.children
     }
     
@@ -50,16 +66,34 @@ class CurrentOptions: ObservableObject, Codable {
 //            return
 //        }
         
-        self.parent = ButtonOption(text: "root")
-        self.parent.addChildren(children: [ButtonOption(text: "Yes"), ButtonOption(text: "No")])
+        self.parent = ButtonOption(text: "root", isFolder: true)
+        
+        let responses = ButtonOption(text: "Responses", isFolder: true)
+        responses.addChildren(children: [ButtonOption(text: "Yes", isFolder: false), ButtonOption(text: "No", isFolder: false)])
+        
+        let toys = ButtonOption(text: "Toys", isFolder: true)
+        toys.addChildren(children: [ButtonOption(text: "Juno", isFolder: false), ButtonOption(text: "Bumper Car", isFolder: false)])
+        
+        let movies = ButtonOption(text: "Movies/Shows", isFolder: true)
+        movies.addChildren(children: [ButtonOption(text: "Frozen", isFolder: false), ButtonOption(text: "AlphaBlocks", isFolder: false)])
+        
+        let classical = ButtonOption(text: "Classical", isFolder: true)
+        classical.addChildren(children: [ButtonOption(text: "Beethoven", isFolder: false), ButtonOption(text: "Mozart", isFolder: false), ButtonOption(text: "Mendelssohn", isFolder: false), ButtonOption(text: "Tchaikovsky", isFolder: false)])
+        
+        let music = ButtonOption(text: "Music", isFolder: true)
+        music.addChildren(children: [classical, ButtonOption(text: "Country", isFolder: false), ButtonOption(text: "Rock and Roll", isFolder: false)])
+        
+        self.parent.addChildren(children: [responses, toys, movies, music])
         self.options = self.parent.children
-//        self.options = [ButtonOption(text: "Yes"), ButtonOption(text: "No")]
     }
     
     func startTimer() {
-        if (self.options.count != 0) {
-            self.timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) {_ in
+        self.timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) {_ in
+            if self.options.count != 0 {
                 self.selectedBtn = (self.selectedBtn + 1) % self.options.count
+            }
+            else {
+                self.selectedBtn = 0
             }
         }
     }
@@ -68,13 +102,15 @@ class CurrentOptions: ObservableObject, Codable {
         self.timer?.invalidate()
     }
     
-    func addOption(text: String) {
+    func addOption(text: String, isFolder: Bool) {
         if (self.options.count < 6) {
-            let newOption = ButtonOption(text: text)
-            self.parent.addChild(child: newOption)
+            let newOption = ButtonOption(text: text, isFolder: isFolder)
             for child in self.parent.children {
                 child.addSibling(sibling: newOption)
+                newOption.addSibling(sibling: child)
             }
+            newOption.addSibling(sibling: newOption)
+            self.parent.addChild(child: newOption)
             self.options = self.parent.children
         }
     }
@@ -95,8 +131,23 @@ class CurrentOptions: ObservableObject, Codable {
         }
     }
     
+    func prevOptions() {
+        if (self.parent.text != "root") {
+            self.options = self.parent.siblings
+            self.parent = self.options[0].parent!
+        }
+    }
+    
     func clickSelectedBtn() {
-        print(self.options[self.selectedBtn].text)
+        if (self.options[self.selectedBtn].isFolder) {
+            // folder
+            self.parent = self.options[self.selectedBtn]
+            self.options = self.parent.children
+        }
+        else {
+            // not folder
+            print(self.options[self.selectedBtn].text)
+        }
     }
 }
 

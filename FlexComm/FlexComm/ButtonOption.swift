@@ -13,34 +13,31 @@ final class ButtonOption: Encodable, Decodable {
     private(set) var children: [ButtonOption]
     private(set) var siblings: [ButtonOption]
     var parent: ButtonOption?
+    var isFolder: Bool
     
     init() {
         self.text = ""
         self.children = []
         self.siblings = []
+        self.isFolder = false
     }
     
-    init(text: String) {
+    init(text: String, isFolder: Bool) {
         self.text = text
         self.children = []
         self.siblings = []
-    }
-    
-    init(text: String, children: [ButtonOption], siblings: [ButtonOption], parent: ButtonOption) {
-        self.text = text
-        self.children = children
-        self.siblings = siblings
-        self.parent = parent
+        self.isFolder = isFolder
     }
     
     func addChild(child: ButtonOption) {
         children.append(child)
+        child.parent = self
     }
     
     func addChildren(children: [ButtonOption]) {
         for child in children {
-            addChild(child: child)
             child.siblings = children
+            addChild(child: child)
         }
     }
     

@@ -14,7 +14,7 @@ struct ModalDeleteView: View {
     
     var body: some View {
         VStack {
-            Text("Delete Button(s)")
+            Text("Delete Option(s)")
                 .font(.custom("SFProText-Thin", size: 50))
                 .padding(20)
             

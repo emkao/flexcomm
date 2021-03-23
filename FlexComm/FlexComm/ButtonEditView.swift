@@ -13,6 +13,8 @@ struct ButtonEditView: View {
     @Binding var selectedButton: Int
     @Binding var editButton: Bool
     @State var btnText: String = ""
+    @State private var btnIsFolder: Int = 0
+    var isFolderOptions = ["Option", "Folder"]
     
     var body: some View {
         VStack {
@@ -20,11 +22,16 @@ struct ButtonEditView: View {
                 .font(.custom("SFProText-Thin", size: 50))
                 .padding(20)
             Form {
-                Section(header: Text("Button Options")) {
+                Section(header: Text("Options")) {
                     HStack {
-                        Text("Button Text: ")
-                        TextField("Enter Button Text", text: $btnText)
+                        Text("Option Text: ")
+                        TextField("Enter Option Text", text: $btnText)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
+                    Picker(selection: $btnIsFolder, label: Text("Option is a ")) {
+                        ForEach(0 ..< isFolderOptions.count) {
+                            Text(self.isFolderOptions[$0])
+                        }
                     }
                 }
             }
@@ -49,6 +56,14 @@ struct ButtonEditView: View {
                 .padding(30)
             }
         }
+        .onAppear(perform: {
+            if currentOptions.options[selectedButton].isFolder {
+                btnIsFolder = 1
+            }
+            else {
+                btnIsFolder = 0
+            }
+        })
         Spacer()
     }
 }

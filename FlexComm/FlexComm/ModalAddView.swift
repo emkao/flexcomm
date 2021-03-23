@@ -13,18 +13,25 @@ struct ModalAddView: View {
     @StateObject var globals = GlobalVars()
     @Binding var showAddModal: Bool
     @State private var btnText: String = ""
+    @State private var btnIsFolder: Int = 0
+    var isFolderOptions = ["Option", "Folder"]
     
     var body: some View {
         VStack {
-            Text("Add Button")
+            Text("Add Option")
                 .font(.custom("SFProText-Thin", size: 50))
                 .padding(20)
             Form {
-                Section(header: Text("Button Options")) {
+                Section(header: Text("Option")) {
                     HStack {
-                        Text("Button Text: ")
-                        TextField("Enter Button Text", text: $btnText)
+                        Text("Option Text: ")
+                        TextField("Enter Option Text", text: $btnText)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
+                    }
+                    Picker(selection: $btnIsFolder, label: Text("Option is a ")) {
+                        ForEach(0 ..< isFolderOptions.count) {
+                            Text(self.isFolderOptions[$0])
+                        }
                     }
                 }
             }
@@ -41,7 +48,7 @@ struct ModalAddView: View {
                 Spacer()
                 
                 Button(action: {
-                    currentOptions.addOption(text: btnText)
+                    currentOptions.addOption(text: btnText, isFolder: (btnIsFolder == 1))
                     self.showAddModal.toggle()
                 }, label: {
                     Text("Add")

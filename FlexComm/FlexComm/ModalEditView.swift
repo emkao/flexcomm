@@ -26,7 +26,7 @@ struct ModalEditView: View {
     @State var saved: [ButtonOption]
     
     var body: some View {
-        Text("Edit Buttons")
+        Text("Edit Options")
             .font(.custom("SFProText-Thin", size: 50))
             .padding(20)
             .onAppear(perform: {
