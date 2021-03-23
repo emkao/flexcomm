@@ -27,6 +27,12 @@ struct OptionsView: View {
                         Text("Menu")
                     }
                     Spacer()
+                    Button(action: {
+                        currentOptions.clickSelectedBtn()
+                    }, label: {
+                        Text("Moved Flex Sensor")
+                    })
+                    Spacer()
                     Button(action: { // add button
                         self.showAddModal.toggle()
                     }) {
@@ -76,9 +82,8 @@ struct OptionsView: View {
                         }
                     }
                     .SFProFont(style: .largeTitle, weight: .regular, multiplier: GlobalVars_Unifier.multiplier_unifier)
-                    
+                    Spacer()
                     if (optionCount % 3 != 0) {
-                        Spacer()
                         LazyHStack(spacing: 0) {
                             ForEach(optionCount - (optionCount % 3) ..< optionCount, id: \.self) { index in
                                 let color: Color = (currentOptions.selectedBtn == index) ? Color.blue : Color.black
@@ -93,7 +98,6 @@ struct OptionsView: View {
                    
                 }
                 Spacer()
-                
             }
             
             .navigationBarTitle("")
@@ -152,6 +156,7 @@ struct OptionsView: View {
 
 struct OptionsView_Previews: PreviewProvider {
     static var previews: some View {
-        OptionsView().environmentObject(GlobalVars())
+        OptionsView()
+            .environmentObject(GlobalVars())
     }
 }

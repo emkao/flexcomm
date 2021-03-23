@@ -12,24 +12,29 @@ class CurrentOptions: ObservableObject, Codable {
         case options
     }
     
-    @Published var options = [ButtonOption]() {
-        didSet {
-            print("savingggg")
-            save()
-        }
-    }
+    @Published var parent: ButtonOption
+    @Published var options = [ButtonOption]() //{
+//        didSet {
+//            save()
+//        }
+    //}
     @Published var selectedBtn: Int = 0
     var timer: Timer?
     
     init() {
-        if let options = UserDefaults.standard.data(forKey: "saved_options") {
-            let decoder = PropertyListDecoder()
-            if let decoded = try? decoder.decode([ButtonOption].self, from: options) {
-                self.options = decoded
-                return
-            }
-            self.options = [ButtonOption(text: "Yes"), ButtonOption(text: "No")]
-        }
+//        if let options = UserDefaults.standard.data(forKey: "saved_options") {
+//            let decoder = PropertyListDecoder()
+//            if let decoded = try? decoder.decode([ButtonOption].self, from: options) {
+//                self.options = decoded
+//                return
+//            }
+//            self.parent = ButtonOption(text: "root")
+//            self.parent.addChildren(children: [ButtonOption(text: "Yes"), ButtonOption(text: "No")])
+//            self.options = self.parent.children
+//        }
+        self.parent = ButtonOption(text: "root")
+        self.parent.addChildren(children: [ButtonOption(text: "Yes"), ButtonOption(text: "No")])
+        self.options = self.parent.children
     }
     
     func encode(to encoder: Encoder) throws {
@@ -38,13 +43,17 @@ class CurrentOptions: ObservableObject, Codable {
     }
     
     required init(from decoder: Decoder) throws {
-        let options = try decoder.container(keyedBy: CodingOptions.self)
-
-        if let decoded = try? options.decode([ButtonOption].self, forKey: .options) {
-            self.options = decoded
-            return
-        }
-        self.options = [ButtonOption(text: "Yes"), ButtonOption(text: "No")]
+//        let options = try decoder.container(keyedBy: CodingOptions.self)
+//
+//        if let decoded = try? options.decode([ButtonOption].self, forKey: .options) {
+//            self.options = decoded
+//            return
+//        }
+        
+        self.parent = ButtonOption(text: "root")
+        self.parent.addChildren(children: [ButtonOption(text: "Yes"), ButtonOption(text: "No")])
+        self.options = self.parent.children
+//        self.options = [ButtonOption(text: "Yes"), ButtonOption(text: "No")]
     }
     
     func startTimer() {
@@ -61,24 +70,33 @@ class CurrentOptions: ObservableObject, Codable {
     
     func addOption(text: String) {
         if (self.options.count < 6) {
-            self.options.append(ButtonOption(text: text))
+            let newOption = ButtonOption(text: text)
+            self.parent.addChild(child: newOption)
+            for child in self.parent.children {
+                child.addSibling(sibling: newOption)
+            }
+            self.options = self.parent.children
         }
     }
     
     func deleteOption(removeIndices: [Int]) {
-        for index in stride(from: removeIndices.count - 1, to: -1, by: -1) {
-            self.options.remove(at: removeIndices[index])
-        }
+        self.parent.removeChildren(removeIndices: removeIndices)
+        self.options = self.parent.children
     }
     
     func editOption(index: Int, text: String) {
-        self.options[index].text = text
+        self.parent.children[index].text = text
+        self.options = self.parent.children
     }
     
     func save() {
         if let encoded = try? PropertyListEncoder().encode(options) {
             UserDefaults.standard.set(encoded, forKey: "saved_options")
         }
+    }
+    
+    func clickSelectedBtn() {
+        print(self.options[self.selectedBtn].text)
     }
 }
 
