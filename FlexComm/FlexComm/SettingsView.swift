@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct SettingsView: View {
-//    @EnvironmentObject var responseValidate: responseValidator
     @EnvironmentObject var globals: GlobalVars
     @StateObject var globals_Nav = GlobalVars()
     @State private var responseTime = ""
-    @State private var sliderValue  = GlobalVars_Unifier.multiplier_unifier
+    @State private var sliderValue  = GlobalVars().multiplier
     init() {
         UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "SFProText-Thin", size: 50)!]
+        sliderValue = GlobalVars_Unifier.multiplier_unifier //reinit the value
     }
 
     var body: some View {
@@ -44,7 +44,6 @@ struct SettingsView: View {
                             .background(Color(UIColor.lightGray))
                             .foregroundColor(.black)
                             .cornerRadius(40)
-
                         }
                     }
                     .SFProFont(style: .body, weight: .regular, multiplier: globals_Nav.multiplier)
@@ -52,18 +51,17 @@ struct SettingsView: View {
                     HStack{
                         Text("Font Size:")
                             .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
-                        
                         VStack{
                             Slider (value: $sliderValue, in: 1.0...3.5)
                             Text("Example Text Size")
                                 .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
                         }
-                        
-                        
                         Button(action: {
                             //slider updates the constant and this updates the page
                             //so if user forgets to hit it it's not huge deal
                             print("Update Size")
+                            print("new value: ", sliderValue)
+                            print("old value: ", GlobalVars_Unifier.multiplier_unifier)
                             globals_Nav.multiplier = sliderValue
                             GlobalVars_Unifier.multiplier_unifier = sliderValue
                         }) {
@@ -74,10 +72,7 @@ struct SettingsView: View {
                             .foregroundColor(.black)
                             .cornerRadius(40)
                         }
-
                     }
-
-
                     HStack{
                         Text("Response Time:")
                             .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
@@ -96,6 +91,10 @@ struct SettingsView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .environmentObject(globals_Nav)
+        
+        .onAppear(perform: {
+            sliderValue = GlobalVars_Unifier.multiplier_unifier
+        })
     
     }
     
