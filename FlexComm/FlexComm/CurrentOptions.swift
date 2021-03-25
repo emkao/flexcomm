@@ -19,6 +19,7 @@ class CurrentOptions: ObservableObject, Codable {
 //        }
     //}
     @Published var selectedBtn: Int = 0
+    @Published var confirmSelected: Bool = false
     var timer: Timer?
     
     init() {
@@ -139,15 +140,23 @@ class CurrentOptions: ObservableObject, Codable {
     }
     
     func clickSelectedBtn() {
-        if (self.options[self.selectedBtn].isFolder) {
-            // folder
-            self.parent = self.options[self.selectedBtn]
-            self.options = self.parent.children
-        }
-        else {
-            // not folder
-            print(self.options[self.selectedBtn].text)
+        self.stopTimer()
+        self.options[self.selectedBtn].selected = true
+        self.confirmSelected = true
+        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {_ in
+            self.options[self.selectedBtn].selected = false
+            if (self.options[self.selectedBtn].isFolder) {
+                // folder
+                self.parent = self.options[self.selectedBtn]
+                self.options = self.parent.children
+                self.selectedBtn = 0
+            }
+            else {
+                // not folder
+                print(self.options[self.selectedBtn].text)
+            }
+            self.confirmSelected = false
+            self.startTimer()
         }
     }
 }
-

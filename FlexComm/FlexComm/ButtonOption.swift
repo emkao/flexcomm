@@ -14,12 +14,14 @@ final class ButtonOption: Encodable, Decodable {
     private(set) var siblings: [ButtonOption]
     var parent: ButtonOption?
     var isFolder: Bool
+    var selected: Bool
     
     init() {
         self.text = ""
         self.children = []
         self.siblings = []
         self.isFolder = false
+        self.selected = false
     }
     
     init(text: String, isFolder: Bool) {
@@ -27,6 +29,7 @@ final class ButtonOption: Encodable, Decodable {
         self.children = []
         self.siblings = []
         self.isFolder = isFolder
+        self.selected = false
     }
     
     func addChild(child: ButtonOption) {

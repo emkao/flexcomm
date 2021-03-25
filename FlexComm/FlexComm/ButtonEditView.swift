@@ -57,6 +57,7 @@ struct ButtonEditView: View {
             }
         }
         .onAppear(perform: {
+            btnText = currentOptions.options[selectedButton].text
             if currentOptions.options[selectedButton].isFolder {
                 btnIsFolder = 1
             }

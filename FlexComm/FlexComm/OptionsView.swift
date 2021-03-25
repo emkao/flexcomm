@@ -84,11 +84,7 @@ struct OptionsView: View {
                     Spacer()
                     LazyVGrid(columns: gridItemLayout, alignment: .center, spacing: 0) {
                         ForEach(0 ..< optionCount - (optionCount % 3), id: \.self) { index in
-                            let color: Color = (currentOptions.selectedBtn == index) ? Color.blue : Color.black
-                            Button(currentOptions.options[index % optionCount].text) {}
-                                .buttonStyle(CustomButton())
-                                .background(RoundedRectangle(cornerRadius: 50).fill(color))
-                                .padding(20)
+                            returnOption(index: index)
                         }
                     }
                     .SFProFont(style: .largeTitle, weight: .regular, multiplier: GlobalVars_Unifier.multiplier_unifier)
@@ -96,11 +92,7 @@ struct OptionsView: View {
                     if (optionCount % 3 != 0) {
                         LazyHStack(spacing: 0) {
                             ForEach(optionCount - (optionCount % 3) ..< optionCount, id: \.self) { index in
-                                let color: Color = (currentOptions.selectedBtn == index) ? Color.blue : Color.black
-                                Button(currentOptions.options[index % optionCount].text) {}
-                                    .buttonStyle(CustomButton())
-                                    .background(RoundedRectangle(cornerRadius: 50).fill(color))
-                                    .padding(20)
+                                returnOption(index: index)
                             }
                         }
                         .SFProFont(style: .largeTitle, weight: .regular, multiplier: GlobalVars_Unifier.multiplier_unifier)
@@ -160,6 +152,32 @@ struct OptionsView: View {
                 }
                 .transition(.move(edge: .bottom))
             }
+        }
+    }
+    
+    func returnOption(index: Int) -> some View {
+        let selectedIdx = currentOptions.selectedBtn
+        let isSelected = currentOptions.options[currentOptions.selectedBtn].selected
+        var color: Color = (selectedIdx == index) ? Color.blue : Color.black
+        color = (isSelected && (selectedIdx == index)) ? Color.green : color
+        let optionCount = currentOptions.options.count
+        var xOffset: CGFloat = 0
+        var yOffset: CGFloat = 0
+        var cornerRadius: CGFloat = 50
+        if (currentOptions.options[index].isFolder) {
+            cornerRadius = 20
+            xOffset = -53
+            yOffset = -30
+        }
+        return ZStack {
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .fill(color)
+                .frame(width: 150, height: 240, alignment: .bottomLeading)
+                .offset(x: xOffset, y: yOffset)
+            Button(currentOptions.options[index % optionCount].text) {}
+                .buttonStyle(CustomButton())
+                .background(RoundedRectangle(cornerRadius: cornerRadius).fill(color))
+                .padding(20)
         }
     }
 }
