@@ -12,7 +12,7 @@ struct ButtonEditView: View {
     @StateObject var globals: GlobalVars
     @Binding var selectedButton: Int
     @Binding var editButton: Bool
-    @State var btnText: String = ""
+    @State private var btnText: String = ""
     @State private var btnIsFolder: Int = 0
     var isFolderOptions = ["Option", "Folder"]
     
@@ -23,15 +23,17 @@ struct ButtonEditView: View {
                 .padding(20)
             Form {
                 Section(header: Text("Options")) {
+                    Picker(selection: $btnIsFolder, label: Text("Option is a ")) {
+                        ForEach(0 ..< isFolderOptions.count) {
+                            Text(self.isFolderOptions[$0]).tag($0)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    
                     HStack {
                         Text("Option Text: ")
                         TextField("Enter Option Text", text: $btnText)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                    }
-                    Picker(selection: $btnIsFolder, label: Text("Option is a ")) {
-                        ForEach(0 ..< isFolderOptions.count) {
-                            Text(self.isFolderOptions[$0])
-                        }
                     }
                 }
             }
@@ -48,7 +50,7 @@ struct ButtonEditView: View {
                 Spacer()
                 
                 Button(action: {
-                    currentOptions.editOption(index: selectedButton, text: btnText)
+                    currentOptions.editOption(index: selectedButton, text: btnText, isFolder: (btnIsFolder == 1))
                     self.editButton.toggle()
                 }, label: {
                     Text("Done")

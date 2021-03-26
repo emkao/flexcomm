@@ -36,10 +36,7 @@ struct ModalEditView: View {
             HStack {
                 Button(currentOptions.options[index].text) {
                     withAnimation{
-                        print(selectedButton)
-                        print(index)
                         selectedButton = index
-                        print(selectedButton)
                         editButton.toggle()
                     }
                 }

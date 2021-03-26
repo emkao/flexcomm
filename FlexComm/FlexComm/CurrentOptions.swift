@@ -121,8 +121,13 @@ class CurrentOptions: ObservableObject, Codable {
         self.options = self.parent.children
     }
     
-    func editOption(index: Int, text: String) {
-        self.parent.children[index].text = text
+    func editOption(index: Int, text: String, isFolder: Bool) {
+        let btn = self.parent.children[index]
+        btn.text = text
+        btn.isFolder = isFolder
+        if (!isFolder) {
+            btn.children = []
+        }
         self.options = self.parent.children
     }
     

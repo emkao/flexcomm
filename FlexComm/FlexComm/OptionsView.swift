@@ -156,8 +156,11 @@ struct OptionsView: View {
     }
     
     func returnOption(index: Int) -> some View {
-        let selectedIdx = currentOptions.selectedBtn
-        let isSelected = currentOptions.options[currentOptions.selectedBtn].selected
+        var selectedIdx = currentOptions.selectedBtn
+        if (selectedIdx >= currentOptions.options.count) {
+            selectedIdx = currentOptions.options.count - 1
+        }
+        let isSelected = currentOptions.options[selectedIdx].selected
         var color: Color = (selectedIdx == index) ? Color.blue : Color.black
         color = (isSelected && (selectedIdx == index)) ? Color.green : color
         let optionCount = currentOptions.options.count
@@ -166,7 +169,7 @@ struct OptionsView: View {
         var cornerRadius: CGFloat = 50
         if (currentOptions.options[index].isFolder) {
             cornerRadius = 20
-            xOffset = -53
+            xOffset = -52
             yOffset = -30
         }
         return ZStack {

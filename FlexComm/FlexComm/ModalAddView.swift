@@ -23,15 +23,17 @@ struct ModalAddView: View {
                 .padding(20)
             Form {
                 Section(header: Text("Option")) {
-                    HStack {
-                        Text("Option Text: ")
-                        TextField("Enter Option Text", text: $btnText)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                    }
                     Picker(selection: $btnIsFolder, label: Text("Option is a ")) {
                         ForEach(0 ..< isFolderOptions.count) {
                             Text(self.isFolderOptions[$0])
                         }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    
+                    HStack {
+                        Text("Option Text: ")
+                        TextField("Enter Option Text", text: $btnText)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
                     }
                 }
             }

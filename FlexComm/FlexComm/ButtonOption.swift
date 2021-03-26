@@ -10,8 +10,8 @@ import SwiftUI
 
 final class ButtonOption: Encodable, Decodable {
     var text: String
-    private(set) var children: [ButtonOption]
-    private(set) var siblings: [ButtonOption]
+    var children: [ButtonOption]
+    var siblings: [ButtonOption]
     var parent: ButtonOption?
     var isFolder: Bool
     var selected: Bool
