@@ -79,7 +79,7 @@ class CurrentOptions: ObservableObject, Codable {
         toys.addChildren(children: [ButtonOption(text: "Juno", image: "hare.fill", isFolder: false), ButtonOption(text: "Bumper Car", image: "car.fill", isFolder: false)])
         
         let movies = ButtonOption(text: "Movies/Shows", image: "play.rectangle.fill", isFolder: true)
-        movies.addChildren(children: [ButtonOption(text: "Frozen", image: "staroflife.fill", isFolder: false), ButtonOption(text: "AlphaBlocks", image: "abc", isFolder: false)])
+        movies.addChildren(children: [ButtonOption(text: "Frozen", image: "snow", isFolder: false), ButtonOption(text: "AlphaBlocks", image: "abc", isFolder: false)])
         
         let classical = ButtonOption(text: "Classical", image: "music.quarternote.3", isFolder: true)
         classical.addChildren(children: [ButtonOption(text: "Beethoven", isFolder: false), ButtonOption(text: "Mozart", isFolder: false), ButtonOption(text: "Mendelssohn", isFolder: false), ButtonOption(text: "Tchaikovsky", isFolder: false)])

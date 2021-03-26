@@ -29,12 +29,6 @@ struct OptionsView: View {
                     Spacer()
                     Group {
                         Button(action: {
-                            currentOptions.prevOptions()
-                        }, label: {
-                            Text("Prev Options")
-                        })
-                        Spacer()
-                        Button(action: {
                             currentOptions.clickSelectedBtn()
                         }, label: {
                             Text("Moved Flex Sensor")
@@ -100,6 +94,37 @@ struct OptionsView: View {
                    
                 }
                 Spacer()
+                
+                HStack() {
+                    Button(action: {
+                        currentOptions.prevOptions()
+                    }, label: {
+                        HStack() {
+                            Text("BACK")
+                            Image(systemName: "arrow.uturn.backward")
+                        }
+                        .foregroundColor(.white)
+                        .SFProFont(style: .largeTitle, weight: .regular, multiplier: GlobalVars_Unifier.multiplier_unifier)
+                        .padding(10)
+                        .background(Color.blue)
+                    })
+                    
+                    Spacer()
+                    
+                    Button(action: { // help button
+                        print("HELP")
+                    }, label:  {
+                        HStack() {
+                            Text("HELP")
+                            Image(systemName: "phone.fill")
+                        }
+                        .foregroundColor(.white)
+                        .SFProFont(style: .largeTitle, weight: .regular, multiplier: GlobalVars_Unifier.multiplier_unifier)
+                        .padding(10)
+                        .background(Color.red)
+                    })
+                }
+                .padding(10)
             }
             
             .navigationBarTitle("")
