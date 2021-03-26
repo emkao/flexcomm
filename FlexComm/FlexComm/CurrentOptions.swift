@@ -34,23 +34,7 @@ class CurrentOptions: ObservableObject, Codable {
 //            self.options = self.parent.children
 //        }
         self.parent = ButtonOption(text: "root", isFolder: true)
-        
-        let responses = ButtonOption(text: "Responses", isFolder: true)
-        responses.addChildren(children: [ButtonOption(text: "Yes", isFolder: false), ButtonOption(text: "No", isFolder: false)])
-        
-        let toys = ButtonOption(text: "Toys", isFolder: true)
-        toys.addChildren(children: [ButtonOption(text: "Juno", isFolder: false), ButtonOption(text: "Bumper Car", isFolder: false)])
-        
-        let movies = ButtonOption(text: "Movies/Shows", isFolder: true)
-        movies.addChildren(children: [ButtonOption(text: "Frozen", isFolder: false), ButtonOption(text: "AlphaBlocks", isFolder: false)])
-        
-        let classical = ButtonOption(text: "Classical", isFolder: true)
-        classical.addChildren(children: [ButtonOption(text: "Beethoven", isFolder: false), ButtonOption(text: "Mozart", isFolder: false), ButtonOption(text: "Mendelssohn", isFolder: false), ButtonOption(text: "Tchaikovsky", isFolder: false)])
-        
-        let music = ButtonOption(text: "Music", isFolder: true)
-        music.addChildren(children: [classical, ButtonOption(text: "Country", isFolder: false), ButtonOption(text: "Rock and Roll", isFolder: false)])
-        
-        self.parent.addChildren(children: [responses, toys, movies, music])
+        initializeOptions()
         self.options = self.parent.children
     }
     
@@ -68,23 +52,7 @@ class CurrentOptions: ObservableObject, Codable {
 //        }
         
         self.parent = ButtonOption(text: "root", isFolder: true)
-        
-        let responses = ButtonOption(text: "Responses", isFolder: true)
-        responses.addChildren(children: [ButtonOption(text: "Yes", isFolder: false), ButtonOption(text: "No", isFolder: false)])
-        
-        let toys = ButtonOption(text: "Toys", isFolder: true)
-        toys.addChildren(children: [ButtonOption(text: "Juno", isFolder: false), ButtonOption(text: "Bumper Car", isFolder: false)])
-        
-        let movies = ButtonOption(text: "Movies/Shows", isFolder: true)
-        movies.addChildren(children: [ButtonOption(text: "Frozen", isFolder: false), ButtonOption(text: "AlphaBlocks", isFolder: false)])
-        
-        let classical = ButtonOption(text: "Classical", isFolder: true)
-        classical.addChildren(children: [ButtonOption(text: "Beethoven", isFolder: false), ButtonOption(text: "Mozart", isFolder: false), ButtonOption(text: "Mendelssohn", isFolder: false), ButtonOption(text: "Tchaikovsky", isFolder: false)])
-        
-        let music = ButtonOption(text: "Music", isFolder: true)
-        music.addChildren(children: [classical, ButtonOption(text: "Country", isFolder: false), ButtonOption(text: "Rock and Roll", isFolder: false)])
-        
-        self.parent.addChildren(children: [responses, toys, movies, music])
+        initializeOptions()
         self.options = self.parent.children
     }
     
@@ -101,6 +69,25 @@ class CurrentOptions: ObservableObject, Codable {
     
     func stopTimer() {
         self.timer?.invalidate()
+    }
+    
+    func initializeOptions() {
+        let responses = ButtonOption(text: "Responses", image: "bubble.left.fill", isFolder: true)
+        responses.addChildren(children: [ButtonOption(text: "Yes", image: "checkmark.circle.fill", isFolder: false), ButtonOption(text: "No", image: "xmark.circle.fill", isFolder: false)])
+        
+        let toys = ButtonOption(text: "Toys", image: "gamecontroller.fill", isFolder: true)
+        toys.addChildren(children: [ButtonOption(text: "Juno", image: "hare.fill", isFolder: false), ButtonOption(text: "Bumper Car", image: "car.fill", isFolder: false)])
+        
+        let movies = ButtonOption(text: "Movies/Shows", image: "play.rectangle.fill", isFolder: true)
+        movies.addChildren(children: [ButtonOption(text: "Frozen", image: "staroflife.fill", isFolder: false), ButtonOption(text: "AlphaBlocks", image: "abc", isFolder: false)])
+        
+        let classical = ButtonOption(text: "Classical", image: "music.quarternote.3", isFolder: true)
+        classical.addChildren(children: [ButtonOption(text: "Beethoven", isFolder: false), ButtonOption(text: "Mozart", isFolder: false), ButtonOption(text: "Mendelssohn", isFolder: false), ButtonOption(text: "Tchaikovsky", isFolder: false)])
+        
+        let music = ButtonOption(text: "Music", image: "music.note", isFolder: true)
+        music.addChildren(children: [classical, ButtonOption(text: "Country", isFolder: false), ButtonOption(text: "Rock and Roll", image: "music.mic", isFolder: false)])
+        
+        self.parent.addChildren(children: [responses, toys, movies, music])
     }
     
     func addOption(text: String, isFolder: Bool) {

@@ -160,10 +160,9 @@ struct OptionsView: View {
         if (selectedIdx >= currentOptions.options.count) {
             selectedIdx = currentOptions.options.count - 1
         }
-        let isSelected = currentOptions.options[selectedIdx].selected
+        let isSelected = currentOptions.options[index].selected
         var color: Color = (selectedIdx == index) ? Color.blue : Color.black
-        color = (isSelected && (selectedIdx == index)) ? Color.green : color
-        let optionCount = currentOptions.options.count
+        color = isSelected ? Color.green : color
         var xOffset: CGFloat = 0
         var yOffset: CGFloat = 0
         var cornerRadius: CGFloat = 50
@@ -177,10 +176,20 @@ struct OptionsView: View {
                 .fill(color)
                 .frame(width: 150, height: 240, alignment: .bottomLeading)
                 .offset(x: xOffset, y: yOffset)
-            Button(currentOptions.options[index % optionCount].text) {}
-                .buttonStyle(CustomButton())
-                .background(RoundedRectangle(cornerRadius: cornerRadius).fill(color))
-                .padding(20)
+            Button(action: {}) {
+                VStack(spacing: 20) {
+                    Text(currentOptions.options[index].text)
+                    Group {
+                        Image(systemName: currentOptions.options[index].image)
+                            .resizable()
+                            .scaledToFit()
+                    }
+                    .frame(width: 100, height: 100, alignment: .center)
+                }
+            }
+            .buttonStyle(CustomButton())
+            .background(RoundedRectangle(cornerRadius: cornerRadius).fill(color))
+            .padding(20)
         }
     }
 }
