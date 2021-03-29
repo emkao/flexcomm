@@ -14,6 +14,8 @@ struct ButtonEditView: View {
     @Binding var editButton: Bool
     @State private var btnText: String = ""
     @State private var btnIsFolder: Int = 0
+    @State private var btnImage: UIImage = UIImage()
+    @State private var imageSource: activeSheet?
     var isFolderOptions = ["Option", "Folder"]
     
     var body: some View {
@@ -35,6 +37,56 @@ struct ButtonEditView: View {
                         TextField("Enter Option Text", text: $btnText)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     }
+                    
+                    VStack(spacing: 10) {
+                        HStack {
+                            Text("Option Image: ")
+                            Spacer()
+                            Image(uiImage: self.btnImage)
+                                .resizable()
+                                .padding(10)
+                                .frame(minWidth: 0, maxWidth: 250, minHeight: 0, maxHeight: 250)
+                                .scaledToFit()
+                            Spacer()
+                        }
+                        Button(action: {
+                            imageSource = .first
+                        }, label: {
+                            HStack {
+                                Image(systemName: "camera")
+                                Text("Camera")
+                            }
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 45, maxHeight: 45)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(20)
+                            .padding(.horizontal)
+                        })
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        Button(action: {
+                            imageSource = .second
+                        }, label: {
+                            HStack {
+                                Image(systemName: "photo")
+                                Text("Photo Library")
+                            }
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 45, maxHeight: 45)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(20)
+                            .padding(.horizontal)
+                        })
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                    .sheet(item: $imageSource) {item in
+                        switch item {
+                        case .first:
+                            ImagePicker(sourceType: .camera, selectedImage: self.$btnImage)
+                        case .second:
+                            ImagePicker(sourceType: .photoLibrary, selectedImage: self.$btnImage)
+                        }
+                    }
                 }
             }
             .SFProFont(style: .body, weight: .regular, multiplier: globals.multiplier)
@@ -50,7 +102,7 @@ struct ButtonEditView: View {
                 Spacer()
                 
                 Button(action: {
-                    currentOptions.editOption(index: selectedButton, text: btnText, isFolder: (btnIsFolder == 1))
+                    currentOptions.editOption(index: selectedButton, text: btnText, image: btnImage, isFolder: (btnIsFolder == 1))
                     self.editButton.toggle()
                 }, label: {
                     Text("Done")
@@ -60,6 +112,7 @@ struct ButtonEditView: View {
         }
         .onAppear(perform: {
             btnText = currentOptions.options[selectedButton].text
+            btnImage = currentOptions.options[selectedButton].image
             if currentOptions.options[selectedButton].isFolder {
                 btnIsFolder = 1
             }

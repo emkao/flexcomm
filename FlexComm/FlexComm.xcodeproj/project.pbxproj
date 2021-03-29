@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6D6055FA25F7D80C00ABC5EC /* GlobalVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6055F925F7D80C00ABC5EC /* GlobalVars.swift */; };
+		C50B9DE22611AF1900F7DC96 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50B9DE12611AF1900F7DC96 /* ImagePicker.swift */; };
 		C52AAD3325E62083002E90D9 /* SF-Pro-Text-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD2125E62080002E90D9 /* SF-Pro-Text-Heavy.otf */; };
 		C52AAD3425E62083002E90D9 /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD2225E62080002E90D9 /* SF-Pro-Text-Bold.otf */; };
 		C52AAD3525E62083002E90D9 /* SF-Pro-Text-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD2325E62080002E90D9 /* SF-Pro-Text-Black.otf */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		6D6055F925F7D80C00ABC5EC /* GlobalVars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVars.swift; sourceTree = "<group>"; };
+		C50B9DE12611AF1900F7DC96 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		C52AAD2125E62080002E90D9 /* SF-Pro-Text-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Heavy.otf"; sourceTree = "<group>"; };
 		C52AAD2225E62080002E90D9 /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 		C52AAD2325E62080002E90D9 /* SF-Pro-Text-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Black.otf"; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				C5EA511825F1A4B8005E0C4C /* ModalEditView.swift */,
 				C5EA512625F4982A005E0C4C /* ButtonEditView.swift */,
 				C5EA511D25F1C67D005E0C4C /* ModalDeleteView.swift */,
+				C50B9DE12611AF1900F7DC96 /* ImagePicker.swift */,
 				C5C88DA425E2C464009BB751 /* ContentView.swift */,
 				C52AAD4625E6208F002E90D9 /* Fonts */,
 				C5C88DA625E2C466009BB751 /* Assets.xcassets */,
@@ -274,6 +277,7 @@
 				C5C88DA525E2C464009BB751 /* ContentView.swift in Sources */,
 				C5EA511525F17BBA005E0C4C /* CurrentOptions.swift in Sources */,
 				C5EA511925F1A4B8005E0C4C /* ModalEditView.swift in Sources */,
+				C50B9DE22611AF1900F7DC96 /* ImagePicker.swift in Sources */,
 				C5EA512325F31B6E005E0C4C /* ModalAddView.swift in Sources */,
 				C5C88DA325E2C464009BB751 /* FlexCommApp.swift in Sources */,
 			);

@@ -8,9 +8,9 @@
 import Foundation
 import SwiftUI
 
-final class ButtonOption: Encodable, Decodable {
+final class ButtonOption { // Encodable, Decodable
     var text: String
-    var image: String // SF Symbols system name
+    var image: UIImage
     var children: [ButtonOption]
     var siblings: [ButtonOption]
     var parent: ButtonOption?
@@ -19,7 +19,7 @@ final class ButtonOption: Encodable, Decodable {
     
     init() {
         self.text = ""
-        self.image = ""
+        self.image = UIImage()
         self.children = []
         self.siblings = []
         self.isFolder = false
@@ -28,7 +28,7 @@ final class ButtonOption: Encodable, Decodable {
     
     init(text: String, isFolder: Bool) {
         self.text = text
-        self.image = ""
+        self.image = UIImage()
         self.children = []
         self.siblings = []
         self.isFolder = isFolder
@@ -36,6 +36,17 @@ final class ButtonOption: Encodable, Decodable {
     }
     
     init(text: String, image: String, isFolder: Bool) {
+        self.text = text
+        let config = UIImage.SymbolConfiguration(pointSize: 24)
+        self.image = UIImage(systemName: image)?.withRenderingMode(.alwaysTemplate).withConfiguration(config) ?? UIImage()
+        self.image.withTintColor(.white)
+        self.children = []
+        self.siblings = []
+        self.isFolder = isFolder
+        self.selected = false
+    }
+    
+    init(text: String, image: UIImage, isFolder: Bool) {
         self.text = text
         self.image = image
         self.children = []

@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
-class CurrentOptions: ObservableObject, Codable {
+class CurrentOptions: ObservableObject { // Codable
     enum CodingOptions: CodingKey {
         case options
     }
@@ -38,10 +39,10 @@ class CurrentOptions: ObservableObject, Codable {
         self.options = self.parent.children
     }
     
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingOptions.self)
-        try container.encode(self.options, forKey: .options)
-    }
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingOptions.self)
+//        try container.encode(self.options, forKey: .options)
+//    }
     
     required init(from decoder: Decoder) throws {
 //        let options = try decoder.container(keyedBy: CodingOptions.self)
@@ -90,9 +91,9 @@ class CurrentOptions: ObservableObject, Codable {
         self.parent.addChildren(children: [responses, toys, movies, music])
     }
     
-    func addOption(text: String, isFolder: Bool) {
+    func addOption(text: String, image: UIImage, isFolder: Bool) {
         if (self.options.count < 6) {
-            let newOption = ButtonOption(text: text, isFolder: isFolder)
+            let newOption = ButtonOption(text: text, image: image, isFolder: isFolder)
             for child in self.parent.children {
                 child.addSibling(sibling: newOption)
                 newOption.addSibling(sibling: child)
@@ -108,9 +109,10 @@ class CurrentOptions: ObservableObject, Codable {
         self.options = self.parent.children
     }
     
-    func editOption(index: Int, text: String, isFolder: Bool) {
+    func editOption(index: Int, text: String, image: UIImage, isFolder: Bool) {
         let btn = self.parent.children[index]
         btn.text = text
+        btn.image = image
         btn.isFolder = isFolder
         if (!isFolder) {
             btn.children = []
@@ -118,11 +120,11 @@ class CurrentOptions: ObservableObject, Codable {
         self.options = self.parent.children
     }
     
-    func save() {
-        if let encoded = try? PropertyListEncoder().encode(options) {
-            UserDefaults.standard.set(encoded, forKey: "saved_options")
-        }
-    }
+//    func save() {
+//        if let encoded = try? PropertyListEncoder().encode(options) {
+//            UserDefaults.standard.set(encoded, forKey: "saved_options")
+//        }
+//    }
     
     func prevOptions() {
         if (self.parent.text != "root") {

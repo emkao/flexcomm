@@ -205,9 +205,9 @@ struct OptionsView: View {
                 VStack(spacing: 20) {
                     Text(currentOptions.options[index].text)
                     Group {
-                        Image(systemName: currentOptions.options[index].image)
+                        Image(uiImage: currentOptions.options[index].image)
                             .resizable()
-                            .scaledToFit()
+                            .scaledToFill()
                     }
                     .frame(width: 100, height: 100, alignment: .center)
                 }
