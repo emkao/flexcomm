@@ -24,8 +24,6 @@ struct ModalAddView: View {
     @State private var btnIsFolder: Int = 0
     @State private var btnImage: UIImage = UIImage()
     @State private var imageSource: activeSheet?
-//    @State private var isShowCamera: Bool = false
-//    @State private var isShowPhotoLibrary: Bool = false
     var isFolderOptions = ["Option", "Folder"]
     
     var body: some View {

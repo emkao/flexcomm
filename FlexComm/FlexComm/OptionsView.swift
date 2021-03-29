@@ -24,7 +24,7 @@ struct OptionsView: View {
                     Button(action: { // back button
                         presentationMode.wrappedValue.dismiss()
                     }, label: {
-                        Text("Menu")
+                        Image(systemName: "house")
                     })
                     Spacer()
                     Group {
@@ -58,7 +58,7 @@ struct OptionsView: View {
                     NavigationLink(
                         destination: SettingsView(),
                         label: {
-                            Text("Settings")
+                            Image(systemName: "gearshape")
                         })
                         .buttonStyle(PlainButtonStyle())
                 }
