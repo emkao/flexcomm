@@ -20,7 +20,7 @@ struct ButtonEditView: View {
     
     var body: some View {
         VStack {
-            Text("Edit \(currentOptions.options[selectedButton].text)" as String)
+            Text("Edit \(currentOptions.allOptions[currentOptions.options[selectedButton]]!.text)" as String)
                 .font(.custom("SFProText-Thin", size: 50))
                 .padding(20)
             Form {
@@ -111,9 +111,9 @@ struct ButtonEditView: View {
             }
         }
         .onAppear(perform: {
-            btnText = currentOptions.options[selectedButton].text
-            btnImage = currentOptions.options[selectedButton].image
-            if currentOptions.options[selectedButton].isFolder {
+            btnText = currentOptions.allOptions[currentOptions.options[selectedButton]]!.text
+            btnImage = currentOptions.allOptions[currentOptions.options[selectedButton]]!.image.getImage()
+            if currentOptions.allOptions[currentOptions.options[selectedButton]]!.isFolder {
                 btnIsFolder = 1
             }
             else {

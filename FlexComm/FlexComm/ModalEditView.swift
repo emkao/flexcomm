@@ -23,7 +23,7 @@ struct ModalEditView: View {
     @State private var editButton: Bool = false
     @State private var selectedButton: Int = -1
     @StateObject var globals = GlobalVars()
-    @State var saved: [ButtonOption]
+    @State var saved: [Int]
     
     var body: some View {
         Text("Edit Options")
@@ -34,7 +34,7 @@ struct ModalEditView: View {
             })
         List(currentOptions.options.indices, id: \.self) { index in
             HStack {
-                Button(currentOptions.options[index].text) {
+                Button(currentOptions.allOptions[currentOptions.options[index]]!.text) {
                     withAnimation{
                         selectedButton = index
                         editButton.toggle()

@@ -6,55 +6,88 @@
 //
 
 import Foundation
+import SwiftUI
 import UIKit
 
-class CurrentOptions: ObservableObject { // Codable
-    enum CodingOptions: CodingKey {
-        case options
+class CurrentOptions: ObservableObject, Codable {
+    private enum CodingOptions: CodingKey {
+        case parent, options, allOptions
     }
     
-    @Published var parent: ButtonOption
-    @Published var options = [ButtonOption]() //{
-//        didSet {
-//            save()
-//        }
-    //}
+    @Published var parent: Int {
+        didSet {
+            save()
+        }
+    }
+    @Published var options = [Int]() {
+        didSet {
+            save()
+        }
+    }
     @Published var selectedBtn: Int = 0
     @Published var confirmSelected: Bool = false
     var timer: Timer?
-    
-    init() {
-//        if let options = UserDefaults.standard.data(forKey: "saved_options") {
-//            let decoder = PropertyListDecoder()
-//            if let decoded = try? decoder.decode([ButtonOption].self, from: options) {
-//                self.options = decoded
-//                return
-//            }
-//            self.parent = ButtonOption(text: "root")
-//            self.parent.addChildren(children: [ButtonOption(text: "Yes"), ButtonOption(text: "No")])
-//            self.options = self.parent.children
-//        }
-        self.parent = ButtonOption(text: "root", isFolder: true)
-        initializeOptions()
-        self.options = self.parent.children
+    var allOptions: [Int: ButtonOption] = [:] {
+        didSet {
+            save()
+        }
     }
     
-//    func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingOptions.self)
-//        try container.encode(self.options, forKey: .options)
-//    }
+    init() {
+        print("init")
+        let decoder = PropertyListDecoder()
+        if let ops = UserDefaults.standard.data(forKey: "saved_options") {
+            print("ops")
+            if let decoded_options = try? decoder.decode([Int].self, from: ops) {
+                self.options = decoded_options
+                print("decoded options")
+                if let prt = UserDefaults.standard.data(forKey: "saved_parent") {
+                    if let decoded_parent = try? decoder.decode(Int.self, from: prt) {
+                        self.parent = decoded_parent
+                        print("decoded parent")
+                        if let all = UserDefaults.standard.data(forKey: "saved_all") {
+                            if let decoded_all = try? decoder.decode([Int:ButtonOption].self, from: all) {
+                                self.allOptions = decoded_all
+                                print("decoded all")
+                                return
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        print("initialize")
+        self.parent = 0
+        allOptions[self.parent] = ButtonOption(text: "root", isFolder: true, index: self.parent)
+        initializeOptions()
+        self.options = allOptions[0]!.children
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        print("encode")
+        var container = encoder.container(keyedBy: CodingOptions.self)
+        try container.encode(self.parent, forKey: .parent)
+        try container.encode(self.options, forKey: .options)
+        try container.encode(self.allOptions, forKey: .allOptions)
+    }
     
     required init(from decoder: Decoder) throws {
-//        let options = try decoder.container(keyedBy: CodingOptions.self)
-//
-//        if let decoded = try? options.decode([ButtonOption].self, forKey: .options) {
-//            self.options = decoded
-//            return
-//        }
-        
-        self.parent = ButtonOption(text: "root", isFolder: true)
+        print("required decode")
+        let ops = try decoder.container(keyedBy: CodingOptions.self)
+        if let decoded_parent = try? ops.decode(Int.self, forKey: .parent) {
+            self.parent = decoded_parent
+            if let decoded_all = try? ops.decode([Int:ButtonOption].self, forKey: .allOptions) {
+                self.allOptions = decoded_all
+                if let decoded_options = try? ops.decode([Int].self, forKey: .options) {
+                    self.options = decoded_options
+                    return
+                }
+            }
+        }
+        self.parent = 0
+        allOptions[self.parent] = ButtonOption(text: "root", isFolder: true, index: self.parent)
         initializeOptions()
-        self.options = self.parent.children
+        self.options = allOptions[0]!.children
     }
     
     func startTimer() {
@@ -73,81 +106,120 @@ class CurrentOptions: ObservableObject { // Codable
     }
     
     func initializeOptions() {
-        let responses = ButtonOption(text: "Responses", image: "bubble.left.fill", isFolder: true)
-        responses.addChildren(children: [ButtonOption(text: "Yes", image: "checkmark.circle.fill", isFolder: false), ButtonOption(text: "No", image: "xmark.circle.fill", isFolder: false)])
+        allOptions[1] = ButtonOption(text: "Responses", image: "bubble.left.fill", isFolder: true, index: 1)
+        allOptions[2] = ButtonOption(text: "Yes", image: "checkmark.circle.fill", isFolder: false, index: 2)
+        allOptions[3] = ButtonOption(text: "No", image: "xmark.circle.fill", isFolder: false, index: 3)
+        allOptions[1]!.addChildren(allOptions: allOptions, children: [2, 3])
+//        let responses = ButtonOption(text: "Responses", image: "bubble.left.fill", isFolder: true)
+//        responses.addChildren(children: [ButtonOption(text: "Yes", image: "checkmark.circle.fill", isFolder: false), ButtonOption(text: "No", image: "xmark.circle.fill", isFolder: false)])
         
-        let toys = ButtonOption(text: "Toys", image: "gamecontroller.fill", isFolder: true)
-        toys.addChildren(children: [ButtonOption(text: "Juno", image: "hare.fill", isFolder: false), ButtonOption(text: "Bumper Car", image: "car.fill", isFolder: false)])
+        allOptions[4] = ButtonOption(text: "Toys", image: "gamecontroller.fill", isFolder: true, index: 4)
+//        let toys = ButtonOption(text: "Toys", image: "gamecontroller.fill", isFolder: true)
+        allOptions[5] = ButtonOption(text: "Juno", image: "hare.fill", isFolder: false, index: 5)
+        allOptions[6] = ButtonOption(text: "Bumper Car", image: "car.fill", isFolder: false, index: 6)
+        allOptions[4]!.addChildren(allOptions: allOptions, children: [5, 6])
+//        toys.addChildren(children: [ButtonOption(text: "Juno", image: "hare.fill", isFolder: false), ButtonOption(text: "Bumper Car", image: "car.fill", isFolder: false)])
         
-        let movies = ButtonOption(text: "Movies/Shows", image: "play.rectangle.fill", isFolder: true)
-        movies.addChildren(children: [ButtonOption(text: "Frozen", image: "snow", isFolder: false), ButtonOption(text: "AlphaBlocks", image: "abc", isFolder: false)])
+        allOptions[7] = ButtonOption(text: "Movies/Shows", image: "play.rectangle.fill", isFolder: true, index: 7)
+//        let movies = ButtonOption(text: "Movies/Shows", image: "play.rectangle.fill", isFolder: true)
+        allOptions[8] = ButtonOption(text: "Frozen", image: "snow", isFolder: false, index: 8)
+        allOptions[9] = ButtonOption(text: "AlphaBlocks", image: "abc", isFolder: false, index: 9)
+        allOptions[7]!.addChildren(allOptions: allOptions, children: [8, 9])
+//        movies.addChildren(children: [ButtonOption(text: "Frozen", image: "snow", isFolder: false), ButtonOption(text: "AlphaBlocks", image: "abc", isFolder: false)])
         
-        let classical = ButtonOption(text: "Classical", image: "music.quarternote.3", isFolder: true)
-        classical.addChildren(children: [ButtonOption(text: "Beethoven", isFolder: false), ButtonOption(text: "Mozart", isFolder: false), ButtonOption(text: "Mendelssohn", isFolder: false), ButtonOption(text: "Tchaikovsky", isFolder: false)])
+        allOptions[10] = ButtonOption(text: "Classical", image: "music.quarternote.3", isFolder: true, index: 10)
+//        let classical = ButtonOption(text: "Classical", image: "music.quarternote.3", isFolder: true)
+        allOptions[11] = ButtonOption(text: "Beethoven", isFolder: false, index: 11)
+        allOptions[12] = ButtonOption(text: "Mozart", isFolder: false, index: 12)
+        allOptions[13] = ButtonOption(text: "Mendelssohn", isFolder: false, index: 13)
+        allOptions[14] = ButtonOption(text: "Tchaikovsky", isFolder: false, index: 14)
+        allOptions[10]!.addChildren(allOptions: allOptions, children: [11, 12, 13, 14])
+//        classical.addChildren(children: [ButtonOption(text: "Beethoven", isFolder: false), ButtonOption(text: "Mozart", isFolder: false), ButtonOption(text: "Mendelssohn", isFolder: false), ButtonOption(text: "Tchaikovsky", isFolder: false)])
         
-        let music = ButtonOption(text: "Music", image: "music.note", isFolder: true)
-        music.addChildren(children: [classical, ButtonOption(text: "Country", isFolder: false), ButtonOption(text: "Rock and Roll", image: "music.mic", isFolder: false)])
+        allOptions[15] = ButtonOption(text: "Music", image: "music.note", isFolder: true, index: 15)
+//        let music = ButtonOption(text: "Music", image: "music.note", isFolder: true)
+        allOptions[16] = ButtonOption(text: "Country", isFolder: false, index: 16)
+        allOptions[17] = ButtonOption(text: "Rock and Roll", image: "music.mic", isFolder: false, index: 17)
+        allOptions[15]?.addChildren(allOptions: allOptions, children: [10, 16, 17])
+//        music.addChildren(children: [classical, ButtonOption(text: "Country", isFolder: false), ButtonOption(text: "Rock and Roll", image: "music.mic", isFolder: false)])
         
-        self.parent.addChildren(children: [responses, toys, movies, music])
+        allOptions[0]!.addChildren(allOptions: allOptions, children: [1, 4, 7, 15])
+//        self.parent.addChildren(children: [responses, toys, movies, music])
     }
     
     func addOption(text: String, image: UIImage, isFolder: Bool) {
         if (self.options.count < 6) {
-            let newOption = ButtonOption(text: text, image: image, isFolder: isFolder)
-            for child in self.parent.children {
-                child.addSibling(sibling: newOption)
-                newOption.addSibling(sibling: child)
+            let newOption = allOptions.count
+            allOptions[newOption] = ButtonOption(text: text, image: image, isFolder: isFolder, index: newOption)
+//            let newOption = ButtonOption(text: text, image: image, isFolder: isFolder)
+            for child in allOptions[self.parent]!.children {
+                allOptions[child]!.addSibling(sibling: newOption)
+                allOptions[newOption]!.addSibling(sibling: child)
             }
-            newOption.addSibling(sibling: newOption)
-            self.parent.addChild(child: newOption)
-            self.options = self.parent.children
+            allOptions[newOption]!.addSibling(sibling: newOption)
+            allOptions[self.parent]!.addChild(allOptions: allOptions, child: newOption)
+            self.options = allOptions[self.parent]!.children
         }
     }
     
     func deleteOption(removeIndices: [Int]) {
-        self.parent.removeChildren(removeIndices: removeIndices)
-        self.options = self.parent.children
+        allOptions[self.parent]!.removeChildren(allOptions: allOptions, removeIndices: removeIndices)
+        self.options = allOptions[self.parent]!.children
     }
     
     func editOption(index: Int, text: String, image: UIImage, isFolder: Bool) {
-        let btn = self.parent.children[index]
+        let btn = allOptions[allOptions[self.parent]!.children[index]]!
         btn.text = text
-        btn.image = image
+        btn.image = CustomImage(withImage: image, withSystem: false)
         btn.isFolder = isFolder
         if (!isFolder) {
             btn.children = []
         }
-        self.options = self.parent.children
+        self.options = allOptions[self.parent]!.children
     }
     
-//    func save() {
-//        if let encoded = try? PropertyListEncoder().encode(options) {
-//            UserDefaults.standard.set(encoded, forKey: "saved_options")
-//        }
-//    }
+    func save() {
+        if let encoded_options = try? PropertyListEncoder().encode(self.options) {
+            UserDefaults.standard.set(encoded_options, forKey: "saved_options")
+            print("encoded options")
+        }
+        if let encoded_parent = try? PropertyListEncoder().encode(self.parent) {
+            UserDefaults.standard.set(encoded_parent, forKey: "saved_parent")
+            print("encoded parent")
+        }
+        if let encoded_all_options = try? PropertyListEncoder().encode(self.allOptions) {
+            UserDefaults.standard.set(encoded_all_options, forKey: "saved_all")
+            print("encoded all")
+        }
+    }
     
     func prevOptions() {
-        if (self.parent.text != "root") {
-            self.options = self.parent.siblings
-            self.parent = self.options[0].parent!
+        if (self.parent != 0) {
+            self.options = allOptions[self.parent]!.siblings
+            self.parent = allOptions[self.options[0]]!.parent!
         }
+//        if (self.parent.text != "root") {
+//            self.options = self.parent.siblings
+//            self.parent = self.options[0].parent!
+//        }
     }
     
     func clickSelectedBtn() {
         self.stopTimer()
-        self.options[self.selectedBtn].selected = true
+        let selectedBtn = self.allOptions[self.options[self.selectedBtn]]!
+        selectedBtn.selected = true
         self.confirmSelected = true
         Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {_ in
-            self.options[self.selectedBtn].selected = false
-            if (self.options[self.selectedBtn].isFolder) {
+            selectedBtn.selected = false
+            if (selectedBtn.isFolder) {
                 // folder
                 self.parent = self.options[self.selectedBtn]
-                self.options = self.parent.children
+                self.options = self.allOptions[self.parent]!.children
                 self.selectedBtn = 0
             }
             else {
                 // not folder
-                print(self.options[self.selectedBtn].text)
+                print(selectedBtn.text)
             }
             self.confirmSelected = false
             self.startTimer()

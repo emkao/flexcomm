@@ -185,13 +185,15 @@ struct OptionsView: View {
         if (selectedIdx >= currentOptions.options.count) {
             selectedIdx = currentOptions.options.count - 1
         }
-        let isSelected = currentOptions.options[index].selected
+        let allOptions = currentOptions.allOptions
+        let selectedBtn = allOptions[currentOptions.options[index]]!
+        let isSelected = selectedBtn.selected
         var color: Color = (selectedIdx == index) ? Color.blue : Color.black
         color = isSelected ? Color.green : color
         var xOffset: CGFloat = 0
         var yOffset: CGFloat = 0
         var cornerRadius: CGFloat = 50
-        if (currentOptions.options[index].isFolder) {
+        if (selectedBtn.isFolder) {
             cornerRadius = 20
             xOffset = -52
             yOffset = -30
@@ -203,9 +205,9 @@ struct OptionsView: View {
                 .offset(x: xOffset, y: yOffset)
             Button(action: {}) {
                 VStack(spacing: 20) {
-                    Text(currentOptions.options[index].text)
+                    Text(selectedBtn.text)
                     Group {
-                        Image(uiImage: currentOptions.options[index].image)
+                        Image(uiImage: selectedBtn.image.getImage())
                             .resizable()
                             .scaledToFill()
                     }

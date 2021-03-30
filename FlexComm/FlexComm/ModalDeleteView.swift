@@ -20,7 +20,7 @@ struct ModalDeleteView: View {
             
             List {
                 ForEach(self.currentOptions.options.indices, id: \.self) { index in
-                    MultipleSelectionRow(title: self.currentOptions.options[index].text, isSelected: self.selections.contains(index)) {
+                    MultipleSelectionRow(title: self.currentOptions.allOptions[self.currentOptions.options[index]]!.text, isSelected: self.selections.contains(index)) {
                         if self.selections.contains(index) {
                             self.selections.removeAll(where: { $0 == index })
                         }
