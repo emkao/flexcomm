@@ -34,5 +34,5 @@ CustomComm allows for selection of different buttons through one flex movement, 
 **Options Customization**
 - "Folder": Can make a folder to transition between screens
 - "Images": Can add images to options from Camera or Photo Library
-- "sIcons": Some pre set options come with iconagraphy
+- "Icons": Some pre set options come with iconagraphy
 
