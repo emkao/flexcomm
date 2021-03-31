@@ -62,7 +62,7 @@ struct OptionsView: View {
                         })
                         .buttonStyle(PlainButtonStyle())
                 }
-                .SFProFont(style: .largeTitle, weight: .regular, multiplier: GlobalVars_Unifier.multiplier_unifier / 2.95) //made it not as extreme for text, but still changing
+                .SFProFont(style: .largeTitle, weight: .regular, multiplier: GlobalVars_Unifier.multiplier_unifier / 1.18) //made it not as extreme for text, but still changing
                 .foregroundColor(.black)
                 .padding(10.0)
                 .onAppear{

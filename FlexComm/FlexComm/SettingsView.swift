@@ -52,7 +52,7 @@ struct SettingsView: View {
                         Text("Font Size:")
                             .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
                         VStack{
-                            Slider (value: $sliderValue, in: 1.0...3.5)
+                            Slider (value: $sliderValue, in: 1.0...1.97)
                             Text("Example Text Size")
                                 .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
                         }
@@ -102,6 +102,9 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView().environmentObject(GlobalVars())
+        Group {
+            SettingsView().environmentObject(GlobalVars())
+            SettingsView().environmentObject(GlobalVars())
+        }
     }
 }
