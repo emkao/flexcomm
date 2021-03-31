@@ -19,12 +19,20 @@ CustomComm allows for selection of different buttons through one flex movement, 
 - Navigate to Settings using "Menu Button 
 
 **On Settings Screen:**
-- ”Big Font” Button to increase text size for easier readability 
-- ”Small Font” Button to decrease text size 
+- "Slider Font Size": Change the font size with a slider and then tap "Update Size"
 
 **On Options Screen:**
-- "Menu" Button to navigate to Home screen
+- "Home" Button to navigate to Home screen
+- "Moved Flex Sensor" Button to mimic flex sensor moving through touch
 - "Add" Button to add an option to the screen 
 - "Edit" Button to edit an existing option on the screen 
 - "Delete" Button to delete one or more existing options on the screen 
 - "Settings" Button to navigate to Settings screen 
+- "Help" Button to call for help
+- "Back" Button to go to previous screen
+
+**Options Customization**
+- "Folder": Can make a folder to transition between screens
+- "Images": Can add images to options from Camera or Photo Library
+- "Icons": Some pre set options come with iconagraphy
+
