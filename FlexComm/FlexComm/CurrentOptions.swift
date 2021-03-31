@@ -34,21 +34,17 @@ class CurrentOptions: ObservableObject, Codable {
     }
     
     init() {
-        print("init")
-        let decoder = PropertyListDecoder()
+        let property_decoder = PropertyListDecoder()
+        let json_decoder = JSONDecoder()
         if let ops = UserDefaults.standard.data(forKey: "saved_options") {
-            print("ops")
-            if let decoded_options = try? decoder.decode([Int].self, from: ops) {
+            if let decoded_options = try? property_decoder.decode([Int].self, from: ops) {
                 self.options = decoded_options
-                print("decoded options")
                 if let prt = UserDefaults.standard.data(forKey: "saved_parent") {
-                    if let decoded_parent = try? decoder.decode(Int.self, from: prt) {
+                    if let decoded_parent = try? json_decoder.decode(Int.self, from: prt) {
                         self.parent = decoded_parent
-                        print("decoded parent")
                         if let all = UserDefaults.standard.data(forKey: "saved_all") {
-                            if let decoded_all = try? decoder.decode([Int:ButtonOption].self, from: all) {
+                            if let decoded_all = try? property_decoder.decode([Int:ButtonOption].self, from: all) {
                                 self.allOptions = decoded_all
-                                print("decoded all")
                                 return
                             }
                         }
@@ -56,7 +52,6 @@ class CurrentOptions: ObservableObject, Codable {
                 }
             }
         }
-        print("initialize")
         self.parent = 0
         allOptions[self.parent] = ButtonOption(text: "root", isFolder: true, index: self.parent)
         initializeOptions()
@@ -64,7 +59,6 @@ class CurrentOptions: ObservableObject, Codable {
     }
     
     func encode(to encoder: Encoder) throws {
-        print("encode")
         var container = encoder.container(keyedBy: CodingOptions.self)
         try container.encode(self.parent, forKey: .parent)
         try container.encode(self.options, forKey: .options)
@@ -72,7 +66,6 @@ class CurrentOptions: ObservableObject, Codable {
     }
     
     required init(from decoder: Decoder) throws {
-        print("required decode")
         let ops = try decoder.container(keyedBy: CodingOptions.self)
         if let decoded_parent = try? ops.decode(Int.self, forKey: .parent) {
             self.parent = decoded_parent
@@ -110,48 +103,36 @@ class CurrentOptions: ObservableObject, Codable {
         allOptions[2] = ButtonOption(text: "Yes", image: "checkmark.circle.fill", isFolder: false, index: 2)
         allOptions[3] = ButtonOption(text: "No", image: "xmark.circle.fill", isFolder: false, index: 3)
         allOptions[1]!.addChildren(allOptions: allOptions, children: [2, 3])
-//        let responses = ButtonOption(text: "Responses", image: "bubble.left.fill", isFolder: true)
-//        responses.addChildren(children: [ButtonOption(text: "Yes", image: "checkmark.circle.fill", isFolder: false), ButtonOption(text: "No", image: "xmark.circle.fill", isFolder: false)])
         
         allOptions[4] = ButtonOption(text: "Toys", image: "gamecontroller.fill", isFolder: true, index: 4)
-//        let toys = ButtonOption(text: "Toys", image: "gamecontroller.fill", isFolder: true)
         allOptions[5] = ButtonOption(text: "Juno", image: "hare.fill", isFolder: false, index: 5)
         allOptions[6] = ButtonOption(text: "Bumper Car", image: "car.fill", isFolder: false, index: 6)
         allOptions[4]!.addChildren(allOptions: allOptions, children: [5, 6])
-//        toys.addChildren(children: [ButtonOption(text: "Juno", image: "hare.fill", isFolder: false), ButtonOption(text: "Bumper Car", image: "car.fill", isFolder: false)])
         
         allOptions[7] = ButtonOption(text: "Movies/Shows", image: "play.rectangle.fill", isFolder: true, index: 7)
-//        let movies = ButtonOption(text: "Movies/Shows", image: "play.rectangle.fill", isFolder: true)
         allOptions[8] = ButtonOption(text: "Frozen", image: "snow", isFolder: false, index: 8)
         allOptions[9] = ButtonOption(text: "AlphaBlocks", image: "abc", isFolder: false, index: 9)
         allOptions[7]!.addChildren(allOptions: allOptions, children: [8, 9])
-//        movies.addChildren(children: [ButtonOption(text: "Frozen", image: "snow", isFolder: false), ButtonOption(text: "AlphaBlocks", image: "abc", isFolder: false)])
         
         allOptions[10] = ButtonOption(text: "Classical", image: "music.quarternote.3", isFolder: true, index: 10)
-//        let classical = ButtonOption(text: "Classical", image: "music.quarternote.3", isFolder: true)
         allOptions[11] = ButtonOption(text: "Beethoven", isFolder: false, index: 11)
         allOptions[12] = ButtonOption(text: "Mozart", isFolder: false, index: 12)
         allOptions[13] = ButtonOption(text: "Mendelssohn", isFolder: false, index: 13)
         allOptions[14] = ButtonOption(text: "Tchaikovsky", isFolder: false, index: 14)
         allOptions[10]!.addChildren(allOptions: allOptions, children: [11, 12, 13, 14])
-//        classical.addChildren(children: [ButtonOption(text: "Beethoven", isFolder: false), ButtonOption(text: "Mozart", isFolder: false), ButtonOption(text: "Mendelssohn", isFolder: false), ButtonOption(text: "Tchaikovsky", isFolder: false)])
         
         allOptions[15] = ButtonOption(text: "Music", image: "music.note", isFolder: true, index: 15)
-//        let music = ButtonOption(text: "Music", image: "music.note", isFolder: true)
         allOptions[16] = ButtonOption(text: "Country", isFolder: false, index: 16)
         allOptions[17] = ButtonOption(text: "Rock and Roll", image: "music.mic", isFolder: false, index: 17)
         allOptions[15]?.addChildren(allOptions: allOptions, children: [10, 16, 17])
-//        music.addChildren(children: [classical, ButtonOption(text: "Country", isFolder: false), ButtonOption(text: "Rock and Roll", image: "music.mic", isFolder: false)])
         
         allOptions[0]!.addChildren(allOptions: allOptions, children: [1, 4, 7, 15])
-//        self.parent.addChildren(children: [responses, toys, movies, music])
     }
     
     func addOption(text: String, image: UIImage, isFolder: Bool) {
         if (self.options.count < 6) {
             let newOption = allOptions.count
             allOptions[newOption] = ButtonOption(text: text, image: image, isFolder: isFolder, index: newOption)
-//            let newOption = ButtonOption(text: text, image: image, isFolder: isFolder)
             for child in allOptions[self.parent]!.children {
                 allOptions[child]!.addSibling(sibling: newOption)
                 allOptions[newOption]!.addSibling(sibling: child)
@@ -181,15 +162,12 @@ class CurrentOptions: ObservableObject, Codable {
     func save() {
         if let encoded_options = try? PropertyListEncoder().encode(self.options) {
             UserDefaults.standard.set(encoded_options, forKey: "saved_options")
-            print("encoded options")
         }
-        if let encoded_parent = try? PropertyListEncoder().encode(self.parent) {
+        if let encoded_parent = try? JSONEncoder().encode(self.parent) {
             UserDefaults.standard.set(encoded_parent, forKey: "saved_parent")
-            print("encoded parent")
         }
         if let encoded_all_options = try? PropertyListEncoder().encode(self.allOptions) {
             UserDefaults.standard.set(encoded_all_options, forKey: "saved_all")
-            print("encoded all")
         }
     }
     
@@ -198,10 +176,6 @@ class CurrentOptions: ObservableObject, Codable {
             self.options = allOptions[self.parent]!.siblings
             self.parent = allOptions[self.options[0]]!.parent!
         }
-//        if (self.parent.text != "root") {
-//            self.options = self.parent.siblings
-//            self.parent = self.options[0].parent!
-//        }
     }
     
     func clickSelectedBtn() {

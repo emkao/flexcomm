@@ -17,11 +17,7 @@ final class ButtonOption: Codable {
     var parent: Int?
     var isFolder: Bool
     var selected: Bool
-    
-//    private enum CodingOptions: CodingKey {
-//        case text, image, children, isFolder
-//    }
-    
+
     init() {
         self.index = 0
         self.text = ""
@@ -97,21 +93,31 @@ final class ButtonOption: Codable {
             removeChild(allOptions: allOptions, index: removeIndices[index])
         }
     }
-    
-//    func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingOptions.self)
-//        try container.encode(self.text, forKey: .text)
-//        try container.encode(self.image, forKey: .image)
-//        try container.encode(self.children, forKey: .children)
-////        try container.encode(self.siblings, forKey: .siblings)
-////        try container.encode(self.parent, forKey: .parent)
-//        try container.encode(self.isFolder, forKey: .isFolder)
-//    }
 }
 
 struct CustomImage: Codable {
     var image: UIImage = UIImage()
     var system: Bool
+    
+    private enum CodingOptions: CodingKey {
+        case image, system
+    }
+    
+    init() {
+        if let img = UserDefaults.standard.object(forKey: "image") {
+            if let decoded_img = try? JSONDecoder().decode(Data.self, from: img as! Data) {
+                self.image = UIImage(data: decoded_img) ?? UIImage()
+                if let sys = UserDefaults.standard.data(forKey: "system") {
+                    if let decoded_system = try? JSONDecoder().decode(Bool.self, from: sys) {
+                        self.system = decoded_system
+                        return
+                    }
+                }
+            }
+        }
+        self.image = UIImage()
+        self.system = true
+    }
     
     init(withImage image: UIImage, withSystem system: Bool) {
         self.image = image
@@ -130,24 +136,32 @@ struct CustomImage: Codable {
     }
     
     public init(from decoder: Decoder) throws {
-        if let imageData = UserDefaults.standard.object(forKey: "image") as? Data,
-           let image = UIImage(data: imageData) {
-            self.image = image
-            
-            let systemData = UserDefaults.standard.objectIsForced(forKey: "system")
-            self.system = systemData
+        let img = try decoder.container(keyedBy: CodingOptions.self)
+        if let decoded_img = try? img.decode(Data.self, forKey: .image) {
+            self.image = UIImage(data: decoded_img) ?? UIImage()
+            if let decoded_sys = try? img.decode(Bool.self, forKey: .system) {
+                self.system = decoded_sys
+                return
+            }
         }
-        
         self.image = UIImage()
         self.system = true
     }
     
     public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingOptions.self)
+        try container.encode(self.image.pngData(), forKey: .image)
+        try container.encode(self.system, forKey: .system)
+    }
+    
+    func save() {
         if let png = self.image.pngData() {
-            UserDefaults.standard.set(png, forKey: "image")
+            if let encoded_png = try? JSONEncoder().encode(png) {
+                UserDefaults.standard.set(encoded_png, forKey: "image")
+            }
         }
-        UserDefaults.standard.set(self.system, forKey: "system")
-        
-//        try container.encode(self.parent, forKey: .parent)
+        if let system = try? JSONEncoder().encode(self.system) {
+            UserDefaults.standard.set(system, forKey: "system")
+        }
     }
 }
