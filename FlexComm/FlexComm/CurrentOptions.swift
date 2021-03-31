@@ -16,12 +16,12 @@ class CurrentOptions: ObservableObject, Codable {
     
     @Published var parent: Int {
         didSet {
-            save()
+            save_parent()
         }
     }
     @Published var options = [Int]() {
         didSet {
-            save()
+            save_options()
         }
     }
     @Published var selectedBtn: Int = 0
@@ -29,7 +29,7 @@ class CurrentOptions: ObservableObject, Codable {
     var timer: Timer?
     var allOptions: [Int: ButtonOption] = [:] {
         didSet {
-            save()
+            save_all_options()
         }
     }
     
@@ -140,12 +140,16 @@ class CurrentOptions: ObservableObject, Codable {
             allOptions[newOption]!.addSibling(sibling: newOption)
             allOptions[self.parent]!.addChild(allOptions: allOptions, child: newOption)
             self.options = allOptions[self.parent]!.children
+            save_all_options()
+            save_options()
         }
     }
     
     func deleteOption(removeIndices: [Int]) {
         allOptions[self.parent]!.removeChildren(allOptions: allOptions, removeIndices: removeIndices)
         self.options = allOptions[self.parent]!.children
+        save_all_options()
+        save_options()
     }
     
     func editOption(index: Int, text: String, image: UIImage, isFolder: Bool) {
@@ -157,15 +161,23 @@ class CurrentOptions: ObservableObject, Codable {
             btn.children = []
         }
         self.options = allOptions[self.parent]!.children
+        save_all_options()
+        save_options()
     }
     
-    func save() {
+    func save_options() {
         if let encoded_options = try? PropertyListEncoder().encode(self.options) {
             UserDefaults.standard.set(encoded_options, forKey: "saved_options")
         }
+    }
+    
+    func save_parent() {
         if let encoded_parent = try? JSONEncoder().encode(self.parent) {
             UserDefaults.standard.set(encoded_parent, forKey: "saved_parent")
         }
+    }
+    
+    func save_all_options() {
         if let encoded_all_options = try? PropertyListEncoder().encode(self.allOptions) {
             UserDefaults.standard.set(encoded_all_options, forKey: "saved_all")
         }
@@ -174,7 +186,9 @@ class CurrentOptions: ObservableObject, Codable {
     func prevOptions() {
         if (self.parent != 0) {
             self.options = allOptions[self.parent]!.siblings
-            self.parent = allOptions[self.options[0]]!.parent!
+            self.parent = allOptions[self.options[0]]!.parent
+            save_options()
+            save_parent()
         }
     }
     
