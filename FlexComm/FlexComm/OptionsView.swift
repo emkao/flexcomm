@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct OptionsView: View {
     @State var showAddModal: Bool = false
@@ -193,6 +194,13 @@ struct OptionsView: View {
         var xOffset: CGFloat = 0
         var yOffset: CGFloat = 0
         var cornerRadius: CGFloat = 50
+        // read out text of selected button
+//        if(selectedIdx == index){
+//            let utterance = AVSpeechUtterance(string: selectedBtn.text)
+//            let synthesizer = AVSpeechSynthesizer()
+//            synthesizer.speak(utterance)
+//        }
+       
         if (selectedBtn.isFolder) {
             cornerRadius = 20
             xOffset = -52
