@@ -30,7 +30,9 @@ struct OptionsView: View {
                     Spacer()
                     Group {
                         Button(action: {
-                            currentOptions.clickSelectedBtn()
+                            if (currentOptions.options.count != 0) {
+                                currentOptions.clickSelectedBtn()
+                            }
                         }, label: {
                             Text("Moved Flex Sensor")
                         })
@@ -98,7 +100,12 @@ struct OptionsView: View {
                 
                 HStack() {
                     Button(action: {
-                        currentOptions.prevOptions()
+                        if (currentOptions.parent != 0) {
+                            currentOptions.prevOptions()
+                        }
+                        else {
+                            presentationMode.wrappedValue.dismiss()
+                        }
                     }, label: {
                         HStack() {
                             Text("BACK")

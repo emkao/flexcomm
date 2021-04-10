@@ -34,24 +34,34 @@ class CurrentOptions: ObservableObject, Codable {
     }
     
     init() {
+//        let property_decoder = PropertyListDecoder()
+//        let json_decoder = JSONDecoder()
+//        if let ops = UserDefaults.standard.data(forKey: "saved_options") {
+//            if let decoded_options = try? property_decoder.decode([Int].self, from: ops) {
+//                self.options = decoded_options
+//                if let prt = UserDefaults.standard.data(forKey: "saved_parent") {
+//                    if let decoded_parent = try? json_decoder.decode(Int.self, from: prt) {
+//                        self.parent = decoded_parent
+//                        if let all = UserDefaults.standard.data(forKey: "saved_all") {
+//                            if let decoded_all = try? property_decoder.decode([Int:ButtonOption].self, from: all) {
+//                                self.allOptions = decoded_all
+//                                return
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
         let property_decoder = PropertyListDecoder()
-        let json_decoder = JSONDecoder()
-        if let ops = UserDefaults.standard.data(forKey: "saved_options") {
-            if let decoded_options = try? property_decoder.decode([Int].self, from: ops) {
-                self.options = decoded_options
-                if let prt = UserDefaults.standard.data(forKey: "saved_parent") {
-                    if let decoded_parent = try? json_decoder.decode(Int.self, from: prt) {
-                        self.parent = decoded_parent
-                        if let all = UserDefaults.standard.data(forKey: "saved_all") {
-                            if let decoded_all = try? property_decoder.decode([Int:ButtonOption].self, from: all) {
-                                self.allOptions = decoded_all
-                                return
-                            }
-                        }
-                    }
-                }
+        if let all = UserDefaults.standard.data(forKey: "saved_all") {
+            if let decoded_all = try? property_decoder.decode([Int:ButtonOption].self, from: all) {
+                self.allOptions = decoded_all
+                self.parent = 0
+                self.options = self.allOptions[0]!.children
+                return
             }
         }
+        
         self.parent = 0
         allOptions[self.parent] = ButtonOption(text: "root", isFolder: true, index: self.parent)
         initializeOptions()
@@ -60,23 +70,31 @@ class CurrentOptions: ObservableObject, Codable {
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingOptions.self)
-        try container.encode(self.parent, forKey: .parent)
-        try container.encode(self.options, forKey: .options)
+//        try container.encode(self.parent, forKey: .parent)
+//        try container.encode(self.options, forKey: .options)
         try container.encode(self.allOptions, forKey: .allOptions)
     }
     
     required init(from decoder: Decoder) throws {
+//        let ops = try decoder.container(keyedBy: CodingOptions.self)
+//        if let decoded_parent = try? ops.decode(Int.self, forKey: .parent) {
+//            self.parent = decoded_parent
+//            if let decoded_all = try? ops.decode([Int:ButtonOption].self, forKey: .allOptions) {
+//                self.allOptions = decoded_all
+//                if let decoded_options = try? ops.decode([Int].self, forKey: .options) {
+//                    self.options = decoded_options
+//                    return
+//                }
+//            }
+//        }
         let ops = try decoder.container(keyedBy: CodingOptions.self)
-        if let decoded_parent = try? ops.decode(Int.self, forKey: .parent) {
-            self.parent = decoded_parent
-            if let decoded_all = try? ops.decode([Int:ButtonOption].self, forKey: .allOptions) {
-                self.allOptions = decoded_all
-                if let decoded_options = try? ops.decode([Int].self, forKey: .options) {
-                    self.options = decoded_options
-                    return
-                }
-            }
+        if let decoded_all = try? ops.decode([Int:ButtonOption].self, forKey: .allOptions) {
+            self.allOptions = decoded_all
+            self.parent = 0
+            self.options = self.allOptions[0]!.children
+            return
         }
+        
         self.parent = 0
         allOptions[self.parent] = ButtonOption(text: "root", isFolder: true, index: self.parent)
         initializeOptions()
@@ -193,7 +211,11 @@ class CurrentOptions: ObservableObject, Codable {
     }
     
     func clickSelectedBtn() {
+        if (self.timer == nil) {
+            return
+        }
         self.stopTimer()
+        self.timer = nil
         let selectedBtn = self.allOptions[self.options[self.selectedBtn]]!
         selectedBtn.selected = true
         self.confirmSelected = true
