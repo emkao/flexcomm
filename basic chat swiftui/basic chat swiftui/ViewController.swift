@@ -25,27 +25,66 @@ class ViewController: UIViewController, ObservableObject {
     @Published var peripheralText: String = ""
     @Published var rssiText: String = ""
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    var peripheralManager: CBPeripheralManager?
+    var peripheral: CBPeripheral?
+    var peripheralTXCharacteristic: CBCharacteristic?
+    
+    @Published var serviceText: String = ""
+    @Published var txText: String = ""
+    @Published var rxText: String = ""
+    @Published var consoleTextView: String!
+    @Published var consoleText: String = ""
+    
+    func loadViewController() {
         self.centralManager = CBCentralManager(delegate: self, queue: nil)
+//        Static.instance.centralManager = CBCentralManager(delegate: self, queue: nil)
+        self.changeView = false
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        disconnectFromDevice()
+    func loadConsoleController() {
+        keyboardNotifications()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.appendRxDataToTextView(notification:)), name: NSNotification.Name(rawValue: "Notify"), object: nil)
+        
+//        BlePeripheral.connectedPeripheral = Static.instance.bluefruitPeripheral
+        
+        print("consolev")
+//        print(Static.instance.bluefruitPeripheral)
+        print(BlePeripheral.connectedPeripheral)
+//        print(BlePeripheral.connectedPeripheral?.name)
+        
+        peripheralText = (BlePeripheral.connectedPeripheral?.name!)!
+//        peripheralText = Static.instance.bluefruitPeripheral.name!
+        
+        txText = "TX:\(String(BlePeripheral.connectedTXChar!.uuid.uuidString))"
+        rxText = "RX:\(String(BlePeripheral.connectedRXChar!.uuid.uuidString))"
+        
+        if let service = BlePeripheral.connectedService {
+            serviceText = "Number of Services: \(String((BlePeripheral.connectedPeripheral?.services!.count)!))"
+        }
+        else {
+            print("Service was not found")
+        }
     }
-    
+
     func connectToDevice() -> Void {
         centralManager?.connect(bluefruitPeripheral!, options: nil)
+//        Static.instance.centralManager?.connect(Static.instance.bluefruitPeripheral!, options: nil)
     }
     
     func disconnectFromDevice() -> Void {
         if bluefruitPeripheral != nil {
             centralManager?.cancelPeripheralConnection(bluefruitPeripheral!)
+//            Static.instance.centralManager?.cancelPeripheralConnection(Static.instance.bluefruitPeripheral!)
         }
+//        if Static.instance.bluefruitPeripheral != nil {
+//            Static.instance.centralManager?.cancelPeripheralConnection(Static.instance.bluefruitPeripheral!)
+//        }
     }
     
     func removeArrayData() -> Void {
         centralManager.cancelPeripheralConnection(bluefruitPeripheral)
+//        Static.instance.centralManager.cancelPeripheralConnection(Static.instance.bluefruitPeripheral)
         rssiArray.removeAll()
         peripheralArray.removeAll()
     }
@@ -56,6 +95,7 @@ class ViewController: UIViewController, ObservableObject {
         rssiArray.removeAll()
         // start scanning
         centralManager?.scanForPeripherals(withServices: [CBUUIDs.BLEService_UUID])
+//        Static.instance.centralManager?.scanForPeripherals(withServices: [CBUUIDs.BLEService_UUID])
         self.scanningText = "Scanning..."
         self.scanningBtnDisabled = true
         Timer.scheduledTimer(withTimeInterval: 15, repeats: false) {_ in
@@ -68,6 +108,7 @@ class ViewController: UIViewController, ObservableObject {
         peripheralArray.removeAll()
         rssiArray.removeAll()
         // start scanning
+//        Static.instance.centralManager?.scanForPeripherals(withServices: [], options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
         centralManager?.scanForPeripherals(withServices: [], options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
         self.scanningText = "Scanning..."
         
@@ -78,10 +119,9 @@ class ViewController: UIViewController, ObservableObject {
     
     func writeOutgoingValue(data: String) {
         let valueString = (data as NSString).data(using: String.Encoding.utf8.rawValue)
-        
-        if let bluefruitPeripheral = bluefruitPeripheral {
-            if let txCharacteristic = txCharacteristic {
-                bluefruitPeripheral.writeValue(valueString!, for: txCharacteristic, type: CBCharacteristicWriteType.withResponse)
+        if let blePeripheral = BlePeripheral.connectedPeripheral {
+            if let txCharacteristic = BlePeripheral.connectedTXChar {
+                blePeripheral.writeValue(valueString!, for: txCharacteristic, type: CBCharacteristicWriteType.withResponse)
             }
         }
     }
@@ -94,12 +134,16 @@ class ViewController: UIViewController, ObservableObject {
     func stopScanning() -> Void {
         self.scanningText = ""
         self.scanningBtnDisabled = false
+//        Static.instance.centralManager?.stopScan()
         centralManager?.stopScan()
     }
     
     func delayedConnection() -> Void {
         BlePeripheral.connectedPeripheral = bluefruitPeripheral
+//        Static.instance.bluefruitPeripheral = BlePeripheral
         self.changeView = true
+//        print(Static.instance.bluefruitPeripheral)
+        print(BlePeripheral.connectedPeripheral)
         // double check this
     }
     
@@ -109,8 +153,55 @@ class ViewController: UIViewController, ObservableObject {
     
     func selectPeripheral(index: Int) -> Void {
         bluefruitPeripheral = peripheralArray[index]
+//        Static.instance.bluefruitPeripheral = peripheralArray[index]
         BlePeripheral.connectedPeripheral = bluefruitPeripheral
+//        Static.instance.bluefruitPeripheral = BlePeripheral
         connectToDevice()
+    }
+    
+    @objc func appendRxDataToTextView(notification: Notification) -> Void {
+        consoleTextView.append("\n[Recv]: \(notification.object!) \n")
+    }
+    
+    func appendTxDataToTextView() {
+        consoleTextView.append("\n[Sent]: \(String(consoleText)) \n")
+    }
+    
+    func keyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: UIResponder.keyboardDidHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    @objc func keyboardWillChange(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            let keyboardHeight = keyboardSize.height
+            print(keyboardHeight)
+            view.frame.origin.y = (-keyboardHeight + 50)
+        }
+    }
+    
+    @objc func keyboardDidHide(notification: Notification) {
+        view.frame.origin.y = 0
+    }
+    
+    @objc func disconnectPeripheral() {
+        print("Disconnect for peripheral")
+    }
+    
+    func writeCharacteristic(incomingValue: Int8) {
+        var val = incomingValue
+        
+        let outgoingData = NSData(bytes: &val, length: MemoryLayout<Int8>.size)
+        peripheral?.writeValue(outgoingData as Data, for: BlePeripheral.connectedTXChar!, type: CBCharacteristicWriteType.withResponse)
     }
 }
 
@@ -182,7 +273,9 @@ extension ViewController: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
+        print("discovered")
         bluefruitPeripheral = peripheral
+//        Static.instance.bluefruitPeripheral = peripheral
         
         if peripheralArray.contains(peripheral) {
             print("Duplicate Found.")
@@ -192,6 +285,7 @@ extension ViewController: CBCentralManagerDelegate {
         }
         
         self.peripheralText = "Peripherals Found: \(peripheralArray.count)"
+//        Static.instance.bluefruitPeripheral.delegate = self
         bluefruitPeripheral.delegate = self
         
         print("Peripheral Discovered: \(peripheral)")
@@ -199,12 +293,14 @@ extension ViewController: CBCentralManagerDelegate {
         print("Advertisement Data: \(advertisementData)")
         
         centralManager?.connect(bluefruitPeripheral, options: nil)
+//        Static.instance.centralManager?.connect(Static.instance.bluefruitPeripheral, options: nil)
         // TODO
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         stopScanning()
         bluefruitPeripheral.discoverServices([CBUUIDs.BLEService_UUID])
+//        Static.instance.bluefruitPeripheral.discoverServices([CBUUIDs.BLEService_UUID])
     }
 }
 

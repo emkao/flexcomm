@@ -9,35 +9,66 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewController = ViewController()
+    @State private var message = ""
+    @State private var textStyle = UIFont.TextStyle.body
     
     var body: some View {
-        NavigationView {
-            VStack {
-                HStack {
-                    Text("Basic Chat")
+        if (viewController.changeView == false) {
+            NavigationView {
+                VStack {
+                    HStack {
+                        Text("Basic Chat")
+                            .padding()
+                        Spacer()
+                        Button(action: {
+                            viewController.startScanning()
+                        }, label: {
+                            Text("Scan")
+                        })
+                        .disabled(viewController.scanningBtnDisabled)
                         .padding()
-                    Spacer()
+                    }
+                    Text(viewController.scanningText)
+                    TableList(viewController: viewController)
                     Button(action: {
-                        viewController.startScanning()
+                        viewController.writeOutgoingValue(data: "Hello World")
                     }, label: {
-                        Text("Scan")
+                        Text("hello world")
                     })
-                    .disabled(viewController.scanningBtnDisabled)
-                    .padding()
+                    .padding(20)
+                    Spacer()
                 }
-                Text(viewController.scanningText)
-                TableList(viewController: viewController)
-                Button(action: {
-                    viewController.writeOutgoingValue(data: "Hello World")
-                }, label: {
-                    Text("hello world")
-                })
-                .padding(20)
-                Spacer()
             }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+            .onAppear(perform: {
+                viewController.loadViewController()
+            })
         }
-        .navigationBarTitle("")
-        .navigationBarHidden(true)
+        else {
+            VStack {
+                Text(viewController.peripheralText)
+                Text(viewController.serviceText)
+                Text(viewController.txText)
+                Text(viewController.rxText)
+            }
+            .onAppear(perform: {
+                viewController.loadConsoleController()
+            })
+            TextView(text: $message, textStyle: $textStyle)
+                .padding(.horizontal)
+            TextField(
+                "start chatting... ",
+                text: $message,
+                onEditingChanged: {_ in
+                    message = ""
+                }, onCommit: {
+                    viewController.writeOutgoingValue(data: message)
+                    viewController.appendTxDataToTextView()
+                    message = ""
+            })
+            Spacer()
+        }
     }
 }
 

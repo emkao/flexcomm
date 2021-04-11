@@ -19,14 +19,11 @@ struct ConsoleView: View {
             Text(consoleController.txText)
             Text(consoleController.rxText)
         }
+        .onAppear(perform: {
+            consoleController.load()
+        })
         TextView(text: $message, textStyle: $textStyle)
             .padding(.horizontal)
-        TextField(
-            "start chatting... ",
-            text: $message
-        )
-            .disableAutocorrection(true)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
         TextField(
             "start chatting... ",
             text: $message,
@@ -37,6 +34,7 @@ struct ConsoleView: View {
                 consoleController.appendTxDataToTextView()
                 message = ""
         })
+        Spacer()
     }
 }
 

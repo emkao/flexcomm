@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C50CD775262394A2001069D7 /* Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50CD774262394A2001069D7 /* Static.swift */; };
 		C513C958261D744E0012CC5D /* basic_chat_swiftuiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C513C957261D744E0012CC5D /* basic_chat_swiftuiApp.swift */; };
 		C513C95A261D744E0012CC5D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C513C959261D744E0012CC5D /* ContentView.swift */; };
 		C513C95C261D74500012CC5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C513C95B261D74500012CC5D /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C50CD774262394A2001069D7 /* Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Static.swift; sourceTree = "<group>"; };
 		C513C954261D744E0012CC5D /* basic chat swiftui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "basic chat swiftui.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C513C957261D744E0012CC5D /* basic_chat_swiftuiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = basic_chat_swiftuiApp.swift; sourceTree = "<group>"; };
 		C513C959261D744E0012CC5D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				C5B270E0261E56E600947A26 /* TableRow.swift */,
 				C5B270E3261E575900947A26 /* TableList.swift */,
 				C5B270EE261E723800947A26 /* TextView.swift */,
+				C50CD774262394A2001069D7 /* Static.swift */,
 			);
 			path = "basic chat swiftui";
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 			files = (
 				C5B270EC261E678B00947A26 /* ConsoleController.swift in Sources */,
 				C520B2D3261D80720000EF88 /* ViewController.swift in Sources */,
+				C50CD775262394A2001069D7 /* Static.swift in Sources */,
 				C513C95A261D744E0012CC5D /* ContentView.swift in Sources */,
 				C5B270E9261E669100947A26 /* ConsoleView.swift in Sources */,
 				C5B270E4261E575900947A26 /* TableList.swift in Sources */,

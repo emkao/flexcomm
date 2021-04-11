@@ -13,7 +13,7 @@ struct TableList: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(0..<viewController.numPeripherals()) { i in
+                ForEach(0..<viewController.numPeripherals(), id: \.self) { i in
                     NavigationLink(
                         destination: ConsoleView(),
                         label: {

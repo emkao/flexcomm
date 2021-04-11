@@ -15,12 +15,38 @@ class ConsoleController: UIViewController, ObservableObject {
     var peripheral: CBPeripheral?
     var peripheralTXCharacteristic: CBCharacteristic?
     
-    @Published var peripheralText: String!
-    @Published var serviceText: String!
-    @Published var txText: String!
-    @Published var rxText: String!
+    @Published var peripheralText: String = ""
+    @Published var serviceText: String = ""
+    @Published var txText: String = ""
+    @Published var rxText: String = ""
     @Published var consoleTextView: String!
-    @Published var consoleText: String!
+    @Published var consoleText: String = ""
+    
+    func load() {
+        keyboardNotifications()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.appendRxDataToTextView(notification:)), name: NSNotification.Name(rawValue: "Notify"), object: nil)
+        
+//        BlePeripheral.connectedPeripheral = Static.instance.bluefruitPeripheral
+        
+        print("consolev")
+//        print(Static.instance.bluefruitPeripheral)
+        print(BlePeripheral.connectedPeripheral)
+//        print(BlePeripheral.connectedPeripheral?.name)
+        
+        peripheralText = BlePeripheral.connectedPeripheral?.name ?? "none"
+//        peripheralText = Static.instance.bluefruitPeripheral.name!
+        
+        txText = "TX:\(String(BlePeripheral.connectedTXChar!.uuid.uuidString))"
+        rxText = "RX:\(String(BlePeripheral.connectedRXChar!.uuid.uuidString))"
+        
+        if let service = BlePeripheral.connectedService {
+            serviceText = "Number of Services: \(String((BlePeripheral.connectedPeripheral?.services!.count)!))"
+        }
+        else {
+            print("Service was not found")
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +55,7 @@ class ConsoleController: UIViewController, ObservableObject {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.appendRxDataToTextView(notification:)), name: NSNotification.Name(rawValue: "Notify"), object: nil)
         
-        peripheralText = BlePeripheral.connectedPeripheral?.name
+        peripheralText = (BlePeripheral.connectedPeripheral?.name)!
         
         txText = "TX:\(String(BlePeripheral.connectedTXChar!.uuid.uuidString))"
         rxText = "RX:\(String(BlePeripheral.connectedRXChar!.uuid.uuidString))"
