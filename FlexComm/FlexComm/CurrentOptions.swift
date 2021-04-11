@@ -202,7 +202,8 @@ class CurrentOptions: ObservableObject, Codable {
     }
     
     func prevOptions() {
-        if (self.parent != 0) {
+        if (self.parent != 0) { // or isn't null?
+           // print(self.parent)
             self.options = allOptions[self.parent]!.siblings
             self.parent = allOptions[self.options[0]]!.parent
             save_options()

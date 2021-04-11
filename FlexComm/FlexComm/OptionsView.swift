@@ -13,7 +13,6 @@ struct OptionsView: View {
     @State var showDeleteModal: Bool = false
     @State var showEditModal: Bool = false
     @ObservedObject var currentOptions = CurrentOptions()
-    //@EnvironmentObject var globals: GlobalVars
     @StateObject var globals = GlobalVars()
     private var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -202,11 +201,11 @@ struct OptionsView: View {
         var yOffset: CGFloat = 0
         var cornerRadius: CGFloat = 50
         // read out text of selected button
-//        if(selectedIdx == index){
-//            let utterance = AVSpeechUtterance(string: selectedBtn.text)
-//            let synthesizer = AVSpeechSynthesizer()
-//            synthesizer.speak(utterance)
-//        }
+        if(selectedIdx == index && GlobalVars_Unifier.text_unifier){
+            let utterance = AVSpeechUtterance(string: selectedBtn.text)
+            let synthesizer = AVSpeechSynthesizer()
+            synthesizer.speak(utterance)
+        }
        
         if (selectedBtn.isFolder) {
             cornerRadius = 20

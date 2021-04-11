@@ -13,6 +13,7 @@ struct SettingsView: View {
     @StateObject var globals_Nav = GlobalVars()
     @State private var responseTime = ""
     @State private var sliderValue  = GlobalVars().multiplier
+    @State private var textToSpeech = false
     init() {
         UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "SFProText-Thin", size: 50)!]
         sliderValue = GlobalVars_Unifier.multiplier_unifier //reinit the value
@@ -59,9 +60,9 @@ struct SettingsView: View {
                         Button(action: {
                             //slider updates the constant and this updates the page
                             //so if user forgets to hit it it's not huge deal
-                            print("Update Size")
-                            print("new value: ", sliderValue)
-                            print("old value: ", GlobalVars_Unifier.multiplier_unifier)
+//                            print("Update Size")
+//                            print("new value: ", sliderValue)
+//                            print("old value: ", GlobalVars_Unifier.multiplier_unifier)
                             globals_Nav.multiplier = sliderValue
                             GlobalVars_Unifier.multiplier_unifier = sliderValue
                         }) {
@@ -81,6 +82,34 @@ struct SettingsView: View {
                         Text("Seconds")
 
                     }
+                    HStack {
+                        Text("Turn on Text to Speech:")
+                            .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
+                        Button("CHANGE", action: {
+
+                            textToSpeech = !textToSpeech
+                            globals_Nav.text = textToSpeech
+                            GlobalVars_Unifier.text_unifier = textToSpeech
+                            print("chagned val to ", textToSpeech)
+                            
+                        })
+                        .background(Color(UIColor.lightGray))
+                        .foregroundColor(.black)
+                        
+
+                        if (textToSpeech) {
+                            Text("ON").SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
+
+                        }
+                        else {
+                            Text("OFF").SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
+
+                        }
+    
+                     
+                    }
+                    
+                    
                     .SFProFont(style: .body, weight: .regular, multiplier: globals_Nav.multiplier)
                     .environmentObject(globals_Nav)
 
@@ -94,6 +123,7 @@ struct SettingsView: View {
         
         .onAppear(perform: {
             sliderValue = GlobalVars_Unifier.multiplier_unifier
+            textToSpeech = GlobalVars_Unifier.text_unifier
         })
     
     }
