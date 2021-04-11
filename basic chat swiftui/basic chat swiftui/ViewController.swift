@@ -43,14 +43,13 @@ class ViewController: UIViewController, ObservableObject {
     
     func loadConsoleController() {
         keyboardNotifications()
+        consoleTextView = ""
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.appendRxDataToTextView(notification:)), name: NSNotification.Name(rawValue: "Notify"), object: nil)
         
 //        BlePeripheral.connectedPeripheral = Static.instance.bluefruitPeripheral
         
-        print("consolev")
 //        print(Static.instance.bluefruitPeripheral)
-        print(BlePeripheral.connectedPeripheral)
 //        print(BlePeripheral.connectedPeripheral?.name)
         
         peripheralText = (BlePeripheral.connectedPeripheral?.name!)!
@@ -143,7 +142,6 @@ class ViewController: UIViewController, ObservableObject {
 //        Static.instance.bluefruitPeripheral = BlePeripheral
         self.changeView = true
 //        print(Static.instance.bluefruitPeripheral)
-        print(BlePeripheral.connectedPeripheral)
         // double check this
     }
     
@@ -168,17 +166,17 @@ class ViewController: UIViewController, ObservableObject {
     }
     
     func keyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: UIResponder.keyboardDidHideNotification, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: UIResponder.keyboardDidHideNotification, object: nil)
+
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
-    
+
     deinit {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+      NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+      NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
+      NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     @objc func keyboardWillChange(notification: Notification) {
@@ -319,6 +317,7 @@ extension ViewController: CBPeripheralDelegate {
         for service in services {
             peripheral.discoverCharacteristics(nil, for: service)
         }
+        BlePeripheral.connectedService = services[0]
         print("Discovered Services: \(services)")
     }
     
@@ -332,6 +331,8 @@ extension ViewController: CBPeripheralDelegate {
             if characteristic.uuid.isEqual(CBUUIDs.BLE_Characteristic_uuid_Rx) {
                 rxCharacteristic = characteristic
                 
+                BlePeripheral.connectedRXChar = rxCharacteristic
+                
                 peripheral.setNotifyValue(true, for: rxCharacteristic!)
                 peripheral.readValue(for: characteristic)
                 
@@ -340,7 +341,7 @@ extension ViewController: CBPeripheralDelegate {
             
             if characteristic.uuid.isEqual(CBUUIDs.BLE_Characteristic_uuid_Tx) {
                 txCharacteristic = characteristic
-                
+                BlePeripheral.connectedTXChar = txCharacteristic
                 print("TX Characteristic: \(txCharacteristic.uuid)")
             }
         }
@@ -348,17 +349,18 @@ extension ViewController: CBPeripheralDelegate {
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        let characteristicASCIIValue = NSString()
-        
+
+        var characteristicASCIIValue = NSString()
+
         guard characteristic == rxCharacteristic,
-              let characteristicValue = characteristic.value,
-              let _ = NSString(data: characteristicValue, encoding: String.Encoding.utf8.rawValue) else {
-            return
-        }
+            let characteristicValue = characteristic.value,
+            let ASCIIstring = NSString(data: characteristicValue, encoding: String.Encoding.utf8.rawValue) else { return }
         
+        characteristicASCIIValue = ASCIIstring
+
         print("Value Recieved: \((characteristicASCIIValue as String))")
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Notify"), object: "\((characteristicASCIIValue as String))")
+
+        NotificationCenter.default.post(name:NSNotification.Name(rawValue: "Notify"), object: "\((characteristicASCIIValue as String))")
     }
     
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
