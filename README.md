@@ -28,8 +28,8 @@ CustomComm allows for selection of different buttons through one flex movement, 
 - "Edit" Button to edit an existing option on the screen 
 - "Delete" Button to delete one or more existing options on the screen 
 - "Settings" Button to navigate to Settings screen 
-- "Help" Button to call for help
-- "Back" Button to go to previous screen
+- "Help" Button to call for help (activated by continuous flexing)
+- "Back" Button to go to previous screen (activated by 2 flexes)
 
 **Options Customization**
 - "Folder": Can make a folder to transition between screens
