@@ -10,17 +10,18 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var globals: GlobalVars
+    @ObservedObject var bleController = BLEController()
     @StateObject var globals_Nav = GlobalVars()
     @State private var responseTime = ""
     @State private var sliderValue  = GlobalVars().multiplier
     @State private var textToSpeech = false
+    
     init() {
         UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "SFProText-Thin", size: 50)!]
         sliderValue = GlobalVars_Unifier.multiplier_unifier //reinit the value
     }
 
     var body: some View {
-
         NavigationView {
             ZStack{
                 Color.white
@@ -86,7 +87,6 @@ struct SettingsView: View {
                         Text("Turn on Text to Speech:")
                             .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
                         Button("CHANGE", action: {
-
                             textToSpeech = !textToSpeech
                             globals_Nav.text = textToSpeech
                             GlobalVars_Unifier.text_unifier = textToSpeech
@@ -105,17 +105,20 @@ struct SettingsView: View {
                             Text("OFF").SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
 
                         }
-    
-                     
                     }
-                    
-                    
                     .SFProFont(style: .body, weight: .regular, multiplier: globals_Nav.multiplier)
                     .environmentObject(globals_Nav)
 
+                    // scan for peripherals
+                    // Connect to Flex Sensor               Scan
+                    // dicovered peripheral names
+                    
+                    // discovered peripherals
+                    // Connect to Flex Sensor               Scan
+                    // Connected to: ___________
+                    // Calibrate
                 }
             }
-   
             .navigationBarTitle(Text("Settings"), displayMode: .large)
         }
         .navigationViewStyle(StackNavigationViewStyle())
@@ -125,9 +128,7 @@ struct SettingsView: View {
             sliderValue = GlobalVars_Unifier.multiplier_unifier
             textToSpeech = GlobalVars_Unifier.text_unifier
         })
-    
     }
-    
 }
 
 struct SettingsView_Previews: PreviewProvider {
