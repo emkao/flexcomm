@@ -27,32 +27,32 @@ struct SettingsView: View {
             VStack(spacing: 40) {
                 Text("Settings")
                     .font(.custom("SFProText-Thin", size: 50))
-                Group {
-                    HStack{
-                        Text("Color Scheme:")
-                            .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
-                        Button(action: {
-                            print("Dark Mode tapped!")
-                        }) {
-                            Text("Dark Mode")
-                            .padding()
-                            .background(Color.black)
-                            .foregroundColor(.white)
-                            .cornerRadius(40)
-                        }
-                        Button(action: {
-                            print("Light Mode tapped!")
-                        }) {
-                            Text("Light Mode")
-                            .padding()
-                            .background(Color(UIColor.lightGray))
-                            .foregroundColor(.black)
-                            .cornerRadius(40)
-                        }
-                    }
-                    .SFProFont(style: .body, weight: .regular, multiplier: globals_Nav.multiplier)
-                    .padding()
-                }
+//                Group {
+//                    HStack{
+//                        Text("Color Scheme:")
+//                            .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
+//                        Button(action: {
+//                            print("Dark Mode tapped!")
+//                        }) {
+//                            Text("Dark Mode")
+//                            .padding()
+//                            .background(Color.black)
+//                            .foregroundColor(.white)
+//                            .cornerRadius(40)
+//                        }
+//                        Button(action: {
+//                            print("Light Mode tapped!")
+//                        }) {
+//                            Text("Light Mode")
+//                            .padding()
+//                            .background(Color(UIColor.lightGray))
+//                            .foregroundColor(.black)
+//                            .cornerRadius(40)
+//                        }
+//                    }
+//                    .SFProFont(style: .body, weight: .regular, multiplier: globals_Nav.multiplier)
+//                    .padding()
+//                }
                 Group {
                     HStack{
                         Text("Font Size:")
@@ -92,32 +92,32 @@ struct SettingsView: View {
                 .padding(.trailing, 30)
                 .padding(.leading, 30)
                 Group {
-                    HStack {
-                        Text("Turn on Text to Speech:")
-                            .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
-                        Button("CHANGE", action: {
-                            textToSpeech = !textToSpeech
-                            globals_Nav.text = textToSpeech
-                            GlobalVars_Unifier.text_unifier = textToSpeech
-                            print("chagned val to ", textToSpeech)
-                            
-                        })
-                        .background(Color(UIColor.lightGray))
-                        .foregroundColor(.black)
-                        
-
-                        if (textToSpeech) {
-                            Text("ON").SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
-
-                        }
-                        else {
-                            Text("OFF").SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
-
-                        }
-                    }
-                    .SFProFont(style: .body, weight: .regular, multiplier: globals_Nav.multiplier)
-                    .environmentObject(globals_Nav)
-                    
+//                    HStack {
+//                        Text("Turn on Text to Speech:")
+//                            .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
+//                        Button("CHANGE", action: {
+//                            textToSpeech = !textToSpeech
+//                            globals_Nav.text = textToSpeech
+//                            GlobalVars_Unifier.text_unifier = textToSpeech
+//                            print("chagned val to ", textToSpeech)
+//                            
+//                        })
+//                        .background(Color(UIColor.lightGray))
+//                        .foregroundColor(.black)
+//                        
+//
+//                        if (textToSpeech) {
+//                            Text("ON").SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
+//
+//                        }
+//                        else {
+//                            Text("OFF").SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
+//
+//                        }
+//                    }
+//                    .SFProFont(style: .body, weight: .regular, multiplier: globals_Nav.multiplier)
+//                    .environmentObject(globals_Nav)
+//                    
                     HStack {
                         if textToSpeech {
                             Text("Text to Speech On")
@@ -128,6 +128,7 @@ struct SettingsView: View {
                         Toggle("Text to Speech On", isOn: $textToSpeech)
                             .onChange(of: textToSpeech) { value in
                                 GlobalVars_Unifier.text_unifier = textToSpeech
+                                globals_Nav.text = textToSpeech
                                 print("change val to \(textToSpeech) using toggle")
                             }
                             .labelsHidden()
