@@ -24,10 +24,14 @@ class BLEController: UIViewController, ObservableObject {
     @Published var scanningBtnDisabled: Bool = false
     // bleConnected = true
     @Published var peripheralText: String = ""
+    @Published var peripheralName: String = ""
     @Published var rssiText: String = ""
     @Published var txText: String = ""
     @Published var rxText: String = ""
     @Published var value: Int = 0
+    
+    var timer: Timer?
+    var timeRemaining: Double = 100
     
     // before connection functions
     func loadBleController() {
@@ -36,12 +40,14 @@ class BLEController: UIViewController, ObservableObject {
     
     func connectToDevice() -> Void {
         centralManager?.connect(bluefruitPeripheral, options: nil)
+        bleConnected = true
     }
     
     func disconnectFromDevice() -> Void {
         if (bluefruitPeripheral != nil) {
             centralManager?.cancelPeripheralConnection(bluefruitPeripheral)
         }
+        bleConnected = false
     }
     
     func startScanning() -> Void {
@@ -66,6 +72,7 @@ class BLEController: UIViewController, ObservableObject {
     func selectPeripheral(index: Int) -> Void {
         bluefruitPeripheral = peripheralArray[index]
         BlePeripheral.connectedPeripheral = bluefruitPeripheral
+        peripheralName = bluefruitPeripheral.name ?? ""
         connectToDevice()
         bleConnected = true
     }
@@ -83,6 +90,24 @@ class BLEController: UIViewController, ObservableObject {
                 blePeripheral.writeValue(valueString!, for: txCharacteristic, type: CBCharacteristicWriteType.withResponse)
             }
         }
+    }
+    
+    func calibrateFlexSensor() {
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+            if self.timeRemaining > 0 {
+                self.timeRemaining -= 0.1
+            }
+        }
+        var collectedValues = [Int]()
+        while (self.timeRemaining != 0) {
+            collectedValues.append(value)
+        }
+        self.timer?.invalidate()
+        let max = String(collectedValues.max() ?? 0)
+        if (max == String(0)) {
+            print("no max, failed calibrating")
+        }
+        writeOutgoingValue(data: max)
     }
 }
 

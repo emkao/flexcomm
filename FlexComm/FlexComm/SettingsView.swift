@@ -22,10 +22,12 @@ struct SettingsView: View {
     }
 
     var body: some View {
-        NavigationView {
-            ZStack{
-                Color.white
-                VStack{
+        ZStack {
+            Color.white
+            VStack(spacing: 40) {
+                Text("Settings")
+                    .font(.custom("SFProText-Thin", size: 50))
+                Group {
                     HStack{
                         Text("Color Scheme:")
                             .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
@@ -50,6 +52,8 @@ struct SettingsView: View {
                     }
                     .SFProFont(style: .body, weight: .regular, multiplier: globals_Nav.multiplier)
                     .padding()
+                }
+                Group {
                     HStack{
                         Text("Font Size:")
                             .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
@@ -75,14 +79,19 @@ struct SettingsView: View {
                             .cornerRadius(40)
                         }
                     }
-                    HStack{
-                        Text("Response Time:")
-                            .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
-                        TextField("Number of Seconds", text: $responseTime)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        Text("Seconds")
-
-                    }
+                    .padding(.trailing, 30)
+                    .padding(.leading, 30)
+                }
+                HStack{
+                    Text("Response Time:")
+                        .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
+                    TextField("Number of Seconds", text: $responseTime)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Text("Seconds")
+                }
+                .padding(.trailing, 30)
+                .padding(.leading, 30)
+                Group {
                     HStack {
                         Text("Turn on Text to Speech:")
                             .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
@@ -108,27 +117,77 @@ struct SettingsView: View {
                     }
                     .SFProFont(style: .body, weight: .regular, multiplier: globals_Nav.multiplier)
                     .environmentObject(globals_Nav)
-
-                    // scan for peripherals
-                    // Connect to Flex Sensor               Scan
-                    // dicovered peripheral names
                     
-                    // discovered peripherals
-                    // Connect to Flex Sensor               Scan
-                    // Connected to: ___________
-                    // Calibrate
+                    HStack {
+                        if textToSpeech {
+                            Text("Text to Speech On")
+                        }
+                        else {
+                            Text("Text to Speech Off")
+                        }
+                        Toggle("Text to Speech On", isOn: $textToSpeech)
+                            .onChange(of: textToSpeech) { value in
+                                GlobalVars_Unifier.text_unifier = textToSpeech
+                                print("change val to \(textToSpeech) using toggle")
+                            }
+                            .labelsHidden()
+                            .padding(10)
+                    }
                 }
+                .padding(.trailing, 30)
+                .padding(.leading, 30)
+                
+                Group {
+                    // scan for peripherals
+                    HStack {
+                        Text("Connect to Flex Sensor")
+                        Spacer()
+                        Button(action: {
+                            bleController.startScanning()
+                        }, label: {
+                            Text("Scan")
+                        })
+                        .disabled(bleController.scanningBtnDisabled)
+                    }
+                    if (!bleController.bleConnected) {
+                        Text(bleController.scanningText)
+                        // dicovered peripheral names
+                        List {
+                            ForEach(0..<bleController.peripheralArray.count, id: \.self) { i in
+                                Button(action: {
+                                    bleController.selectPeripheral(index: i)
+                                }, label: {
+                                    Text(bleController.peripheralArray[i].name ?? "")
+                                })
+                            }
+                        }
+                    }
+                    else {
+                        // discovered peripherals
+                        Text("Connected to \(bleController.peripheralName)")
+                        Button(action: {
+                            bleController.calibrateFlexSensor()
+                        }, label: {
+                            Text("Calibrate Flex Sensor")
+                        })
+                    }
+                }
+                .padding(.trailing, 30)
+                .padding(.leading, 30)
             }
-            .navigationBarTitle(Text("Settings"), displayMode: .large)
         }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .environmentObject(globals_Nav)
-        
         .onAppear(perform: {
             sliderValue = GlobalVars_Unifier.multiplier_unifier
             textToSpeech = GlobalVars_Unifier.text_unifier
+            bleController.loadBleController()
         })
+        .padding(.top, 80)
+        .edgesIgnoringSafeArea(.top)
     }
+//    .navigationBarTitle(Text("Settings"), displayMode: .large)
+//    .navigationViewStyle(StackNavigationViewStyle())
+//    .edgesIgnoringSafeArea(.all)
+//    .environmentObject(globals_Nav)
 }
 
 struct SettingsView_Previews: PreviewProvider {

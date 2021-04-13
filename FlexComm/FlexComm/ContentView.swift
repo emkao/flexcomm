@@ -33,8 +33,11 @@ struct ContentView: View {
                     label: {
                         Text("Settings")
                             .font(.custom("SFProText-Thin", size: 35))
+//                            .navigationBarTitle(Text("Settings"), displayMode: .large)
+//                            .navigationViewStyle(StackNavigationViewStyle())
                             .navigationBarTitle("")
                             .navigationBarHidden(true)
+                            .edgesIgnoringSafeArea(.all)
                             .environmentObject(globals)
                     })
                 Spacer()
