@@ -37,7 +37,7 @@ struct ContentView: View {
 //                            .navigationViewStyle(StackNavigationViewStyle())
                             .navigationBarTitle("")
                             .navigationBarHidden(true)
-                            .edgesIgnoringSafeArea(.all)
+//                            .edgesIgnoringSafeArea(.all)
                             .environmentObject(globals)
                     })
                 Spacer()

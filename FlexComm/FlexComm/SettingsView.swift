@@ -15,6 +15,7 @@ struct SettingsView: View {
     @State private var responseTime = ""
     @State private var sliderValue  = GlobalVars().multiplier
     @State private var textToSpeech = false
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     init() {
         UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "SFProText-Thin", size: 50)!]
@@ -25,6 +26,16 @@ struct SettingsView: View {
         ZStack {
             Color.white
             VStack(spacing: 40) {
+                HStack {
+                    Button(action: { // back button
+                        presentationMode.wrappedValue.dismiss()
+                        print(presentationMode)
+                    }, label: {
+                        Image(systemName: "chevron.backward")
+                    })
+                    .padding(30)
+                    Spacer()
+                }
                 Text("Settings")
                     .font(.custom("SFProText-Thin", size: 50))
 //                Group {
@@ -176,14 +187,16 @@ struct SettingsView: View {
                 .padding(.trailing, 30)
                 .padding(.leading, 30)
             }
+            .edgesIgnoringSafeArea(.top)
+            .padding(.top, 5)
         }
         .onAppear(perform: {
             sliderValue = GlobalVars_Unifier.multiplier_unifier
             textToSpeech = GlobalVars_Unifier.text_unifier
             bleController.loadBleController()
         })
-        .padding(.top, 80)
-        .edgesIgnoringSafeArea(.top)
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 //    .navigationBarTitle(Text("Settings"), displayMode: .large)
 //    .navigationViewStyle(StackNavigationViewStyle())
