@@ -64,7 +64,6 @@ struct OptionsView: View {
                         })
                         .buttonStyle(PlainButtonStyle())
                         .navigationBarHidden(false)
-                        .navigationBarTitle("hi")
                 }
                 .SFProFont(style: .largeTitle, weight: .regular, multiplier: GlobalVars_Unifier.multiplier_unifier / 1.18) //made it not as extreme for text, but still changing
                 .foregroundColor(.black)

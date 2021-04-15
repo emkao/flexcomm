@@ -93,21 +93,21 @@ class BLEController: UIViewController, ObservableObject {
     }
     
     func calibrateFlexSensor() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-            if self.timeRemaining > 0 {
-                self.timeRemaining -= 0.1
-            }
-        }
-        var collectedValues = [Int]()
-        while (self.timeRemaining != 0) {
-            collectedValues.append(value)
-        }
-        self.timer?.invalidate()
-        let max = String(collectedValues.max() ?? 0)
-        if (max == String(0)) {
-            print("no max, failed calibrating")
-        }
-        writeOutgoingValue(data: max)
+//        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+//            if self.timeRemaining > 0 {
+//                self.timeRemaining -= 0.1
+//            }
+//        }
+//        var collectedValues = [Int]()
+//        while (self.timeRemaining != 0) {
+//            collectedValues.append(value)
+//        }
+//        self.timer?.invalidate()
+//        let max = String(collectedValues.max() ?? 0)
+//        if (max == String(0)) {
+//            print("no max, failed calibrating")
+//        }
+        writeOutgoingValue(data: value)
     }
 }
 

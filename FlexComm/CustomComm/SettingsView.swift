@@ -29,7 +29,6 @@ struct SettingsView: View {
                 HStack {
                     Button(action: { // back button
                         presentationMode.wrappedValue.dismiss()
-                        print(presentationMode)
                     }, label: {
                         Image(systemName: "chevron.backward")
                     })
@@ -108,6 +107,7 @@ struct SettingsView: View {
                 }
                 .padding(.trailing, 30)
                 .padding(.leading, 30)
+                
                 Group {
 //                    HStack {
 //                        Text("Turn on Text to Speech:")
@@ -183,11 +183,13 @@ struct SettingsView: View {
                     else {
                         // discovered peripherals
                         Text("Connected to \(bleController.peripheralName)")
-                        Button(action: {
-                            bleController.calibrateFlexSensor()
-                        }, label: {
-                            Text("Calibrate Flex Sensor")
-                        })
+                        NavigationLink(
+                            destination: CalibrateView().environmentObject(bleController),
+                            label: {
+                                Text("Calibrate Flex Sensor")
+                            })
+                            .buttonStyle(PlainButtonStyle())
+                            .navigationBarHidden(false)
                     }
                 }
                 .padding(.trailing, 30)
