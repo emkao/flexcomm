@@ -96,9 +96,15 @@ struct SettingsView: View {
                 HStack{
                     Text("Response Time:")
                         .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
-                    TextField("Number of Seconds", text: $responseTime)
+                    TextField("Number of Seconds", text: $responseTime).onChange(of: responseTime, perform: { value in
+                        GlobalVars_Unifier.time_unifier = Double(responseTime) ?? 2.0
+                        globals_Nav.time = Double(responseTime) ?? 2.0
+                        print("changed time to : ", GlobalVars_Unifier.time_unifier)
+                    })
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     Text("Seconds")
+                    
+                    
                 }
                 .padding(.trailing, 30)
                 .padding(.leading, 30)
