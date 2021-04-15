@@ -20,9 +20,7 @@ struct OptionsView: View {
     var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
     var player : AVAudioPlayer! = nil
 //    @State var helpSoundEffect = AVAudioPlayer()
-
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
     
     var body: some View {
         ZStack {
