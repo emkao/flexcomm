@@ -37,7 +37,9 @@ class BLEController: UIViewController, ObservableObject {
     
     // before connection functions
     func loadBleController() {
-        centralManager = CBCentralManager(delegate: self, queue: nil)
+        if (centralManager == nil) {
+            centralManager = CBCentralManager(delegate: self, queue: nil)
+        }
     }
     
     func connectToDevice() -> Void {

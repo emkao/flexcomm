@@ -10,17 +10,17 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var globals: GlobalVars
-    @EnvironmentObject var bleController: BLEController
+    @ObservedObject var bleController: BLEController
     @StateObject var globals_Nav = GlobalVars()
     @State private var responseTime = ""
     @State private var sliderValue = GlobalVars().multiplier
     @State private var textToSpeech = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    init() {
-        UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "SFProText-Thin", size: 50)!]
-        sliderValue = GlobalVars_Unifier.multiplier_unifier //reinit the value
-    }
+//    init() {
+//        UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "SFProText-Thin", size: 50)!]
+//        sliderValue = GlobalVars_Unifier.multiplier_unifier //reinit the value
+//    }
 
     var body: some View {
         ZStack {
@@ -32,11 +32,13 @@ struct SettingsView: View {
                     }, label: {
                         Image(systemName: "chevron.backward")
                     })
-                    .padding(30)
+                    .padding(.leading, 30)
+                    .padding(.top, 30)
                     Spacer()
                 }
                 Text("Settings")
                     .font(.custom("SFProText-Thin", size: 50))
+                    .padding(0)
 //                Group {
 //                    HStack{
 //                        Text("Color Scheme:")
@@ -181,6 +183,7 @@ struct SettingsView: View {
                             }
                         }
                         .border(Color.black)
+                        Spacer()
                     }
                     else {
                         // discovered peripherals
@@ -221,11 +224,10 @@ struct SettingsView: View {
 //    .environmentObject(globals_Nav)
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            SettingsView().environmentObject(GlobalVars())
-            SettingsView().environmentObject(GlobalVars())
-        }
-    }
-}
+//struct SettingsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            SettingsView(bleController: BLEController()).environmentObject(GlobalVars())
+//        }
+//    }
+//}

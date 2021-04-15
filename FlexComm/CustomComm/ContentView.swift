@@ -31,8 +31,7 @@ struct ContentView: View {
                             .environmentObject(globals)
                     })
                 NavigationLink(
-                    destination: SettingsView()
-                        .environmentObject(bleController)
+                    destination: SettingsView(bleController: bleController)
                         .environmentObject(globals),
                     label: {
                         Text("Settings")

@@ -12,6 +12,7 @@ struct OptionsView: View {
     @State var showAddModal: Bool = false
     @State var showDeleteModal: Bool = false
     @State var showEditModal: Bool = false
+    @State var viewBeingDisplayed: Bool = false
     @ObservedObject var currentOptions: CurrentOptions
     @ObservedObject var bleController: BLEController
 //    @StateObject var globals = GlobalVars()
@@ -19,7 +20,9 @@ struct OptionsView: View {
     var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
     var player : AVAudioPlayer! = nil
 //    @State var helpSoundEffect = AVAudioPlayer()
+
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
     
     var body: some View {
         ZStack {
@@ -62,7 +65,7 @@ struct OptionsView: View {
                         Spacer()
                     }
                     NavigationLink(
-                        destination: SettingsView().environmentObject(bleController),
+                        destination: SettingsView(bleController: bleController),
                         label: {
                             Image(systemName: "gearshape")
                         })
@@ -203,8 +206,16 @@ struct OptionsView: View {
                 .transition(.move(edge: .bottom))
             }
         }
+        .onAppear(perform: {
+            viewBeingDisplayed = true
+        })
+        .onDisappear(perform: {
+            viewBeingDisplayed = false
+        })
         .onReceive(bleController.$selected, perform: {_ in
-            if (currentOptions.options.count != 0) {
+            if (self.viewBeingDisplayed == true &&
+                    currentOptions.options.count != 0 &&
+                    bleController.selected == true) {
                 currentOptions.clickSelectedBtn()
             }
         })
@@ -216,7 +227,6 @@ struct OptionsView: View {
             selectedIdx = currentOptions.options.count - 1
         }
         let allOptions = currentOptions.allOptions
-        print(allOptions)
         let selectedBtn = allOptions[currentOptions.options[index]]!
         let isSelected = selectedBtn.selected
         var color: Color = (selectedIdx == index) ? Color.blue : Color.black
