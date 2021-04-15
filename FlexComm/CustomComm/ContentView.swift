@@ -9,8 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var globals = GlobalVars()
+    @StateObject var currentOptions = CurrentOptions()
+    @StateObject var bleController = BLEController()
+    
     var body: some View {
-        
         NavigationView {
             VStack (alignment: .center, spacing: nil) {
                 Spacer()
@@ -19,7 +21,7 @@ struct ContentView: View {
                     //.font(.custom("SFProText-Thin", size: CGFloat(90 * GlobalVars_Unifier.multiplier_unifier )))
                     .font(.custom("SFProText-Thin", size: 90))
                 NavigationLink(
-                    destination: OptionsView(),
+                    destination: OptionsView(currentOptions: currentOptions, bleController: bleController),
                     label: {
                         Text("Start")
                             .font(.custom("SFProText-Thin", size: 35 ))

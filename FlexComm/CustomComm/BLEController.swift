@@ -11,10 +11,10 @@ import UIKit
 
 class BLEController: UIViewController, ObservableObject {
     // data structures
-    private var centralManager: CBCentralManager!
-    private var bluefruitPeripheral: CBPeripheral!
-    private var txCharacteristic: CBCharacteristic!
-    private var rxCharacteristic: CBCharacteristic!
+    var centralManager: CBCentralManager!
+    var bluefruitPeripheral: CBPeripheral!
+    var txCharacteristic: CBCharacteristic!
+    var rxCharacteristic: CBCharacteristic!
 
     @Published var bleConnected: Bool = false
     // bleConnected = false
@@ -28,7 +28,9 @@ class BLEController: UIViewController, ObservableObject {
     @Published var rssiText: String = ""
     @Published var txText: String = ""
     @Published var rxText: String = ""
-    @Published var value: Int = 0
+    @Published var value: Int = 1
+    
+    @Published var selected: Bool = false
     
     var timer: Timer?
     var timeRemaining: Double = 100
@@ -107,7 +109,7 @@ class BLEController: UIViewController, ObservableObject {
 //        if (max == String(0)) {
 //            print("no max, failed calibrating")
 //        }
-        writeOutgoingValue(data: value)
+        writeOutgoingValue(data: String(value))
     }
 }
 
@@ -249,8 +251,16 @@ extension BLEController: CBPeripheralDelegate {
         characteristicASCIIValue = ASCIIstring
         
         // VALUE WE WANT
+        let prevVal = value
         value = characteristicASCIIValue .integerValue
-        print("Value Recieved: \(value)")
+        print("Value Recieved: \(value)") // 0 = true, 1 = false
+        
+        if (prevVal != value && value == 0) {
+            selected = true
+        }
+        else {
+            selected = false
+        }
 
 //        NotificationCenter.default.post(name:NSNotification.Name(rawValue: "Notify"), object: "\((characteristicASCIIValue as String))")
     }

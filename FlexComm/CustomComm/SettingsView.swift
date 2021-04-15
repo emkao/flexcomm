@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var globals: GlobalVars
-    @ObservedObject var bleController = BLEController()
+    @EnvironmentObject var bleController: BLEController
     @StateObject var globals_Nav = GlobalVars()
     @State private var responseTime = ""
     @State private var sliderValue  = GlobalVars().multiplier

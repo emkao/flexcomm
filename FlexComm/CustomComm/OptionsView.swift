@@ -12,9 +12,10 @@ struct OptionsView: View {
     @State var showAddModal: Bool = false
     @State var showDeleteModal: Bool = false
     @State var showEditModal: Bool = false
-    @ObservedObject var currentOptions = CurrentOptions()
+    @ObservedObject var currentOptions: CurrentOptions
+    @ObservedObject var bleController: BLEController
     @StateObject var globals = GlobalVars()
-    private var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
+    var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -58,7 +59,7 @@ struct OptionsView: View {
                         Spacer()
                     }
                     NavigationLink(
-                        destination: SettingsView(),
+                        destination: SettingsView().environmentObject(bleController),
                         label: {
                             Image(systemName: "gearshape")
                         })
@@ -186,6 +187,11 @@ struct OptionsView: View {
                 .transition(.move(edge: .bottom))
             }
         }
+        .onReceive(bleController.$selected, perform: {_ in
+            if (currentOptions.options.count != 0) {
+                currentOptions.clickSelectedBtn()
+            }
+        })
     }
     
     func returnOption(index: Int) -> some View {
@@ -238,7 +244,7 @@ struct OptionsView: View {
 
 struct OptionsView_Previews: PreviewProvider {
     static var previews: some View {
-        OptionsView()
+        OptionsView(currentOptions: CurrentOptions(), bleController: BLEController())
             .environmentObject(GlobalVars())
     }
 }
