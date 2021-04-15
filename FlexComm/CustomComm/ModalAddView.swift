@@ -18,7 +18,8 @@ enum activeSheet: Identifiable {
 struct ModalAddView: View {
     @EnvironmentObject var currentOptions: CurrentOptions
   //  @EnvironmentObject var globals_old
-    @StateObject var globals = GlobalVars()
+    @EnvironmentObject var globals: GlobalVars
+//    @StateObject var globals = GlobalVars()
     @Binding var showAddModal: Bool
     @State private var btnText: String = ""
     @State private var btnIsFolder: Int = 0

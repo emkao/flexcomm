@@ -13,7 +13,7 @@ struct SettingsView: View {
     @EnvironmentObject var bleController: BLEController
     @StateObject var globals_Nav = GlobalVars()
     @State private var responseTime = ""
-    @State private var sliderValue  = GlobalVars().multiplier
+    @State private var sliderValue = GlobalVars().multiplier
     @State private var textToSpeech = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     

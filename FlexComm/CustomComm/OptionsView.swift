@@ -14,7 +14,8 @@ struct OptionsView: View {
     @State var showEditModal: Bool = false
     @ObservedObject var currentOptions: CurrentOptions
     @ObservedObject var bleController: BLEController
-    @StateObject var globals = GlobalVars()
+//    @StateObject var globals = GlobalVars()
+    @ObservedObject var globals: GlobalVars
     var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -244,7 +245,7 @@ struct OptionsView: View {
 
 struct OptionsView_Previews: PreviewProvider {
     static var previews: some View {
-        OptionsView(currentOptions: CurrentOptions(), bleController: BLEController())
+        OptionsView(currentOptions: CurrentOptions(), bleController: BLEController(), globals: GlobalVars())
             .environmentObject(GlobalVars())
     }
 }

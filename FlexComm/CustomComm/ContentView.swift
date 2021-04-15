@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var globals = GlobalVars()
+    @StateObject var globals = GlobalVars()
     @StateObject var currentOptions = CurrentOptions()
     @StateObject var bleController = BLEController()
     
@@ -21,7 +21,7 @@ struct ContentView: View {
                     //.font(.custom("SFProText-Thin", size: CGFloat(90 * GlobalVars_Unifier.multiplier_unifier )))
                     .font(.custom("SFProText-Thin", size: 90))
                 NavigationLink(
-                    destination: OptionsView(currentOptions: currentOptions, bleController: bleController),
+                    destination: OptionsView(currentOptions: currentOptions, bleController: bleController, globals: globals),
                     label: {
                         Text("Start")
                             .font(.custom("SFProText-Thin", size: 35 ))
@@ -31,7 +31,9 @@ struct ContentView: View {
                             .environmentObject(globals)
                     })
                 NavigationLink(
-                    destination: SettingsView(),
+                    destination: SettingsView()
+                        .environmentObject(bleController)
+                        .environmentObject(globals),
                     label: {
                         Text("Settings")
                             .font(.custom("SFProText-Thin", size: 35))
