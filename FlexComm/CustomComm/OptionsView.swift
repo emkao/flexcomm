@@ -17,6 +17,8 @@ struct OptionsView: View {
 //    @StateObject var globals = GlobalVars()
     @ObservedObject var globals: GlobalVars
     var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
+    var player : AVAudioPlayer! = nil
+//    @State var helpSoundEffect = AVAudioPlayer()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -123,6 +125,19 @@ struct OptionsView: View {
                     
                     Button(action: { // help button
                         print("HELP")
+//                        print(self._helpSoundEffect)
+//                        let path = Bundle.main.path(forResource: "zapsplat_hospital_tone", ofType:"mp3")!
+//                        let url = URL(fileURLWithPath: path)
+//
+//                        do {
+//                            helpSoundEffect = try AVAudioPlayer(contentsOf: url)
+//                            helpSoundEffect.play()
+//                            print("works")
+//                        } catch {
+//                            // couldn't load file :(
+//                            print("does not work")
+//                        }
+                        
                     }, label:  {
                         HStack() {
                             Text("HELP")

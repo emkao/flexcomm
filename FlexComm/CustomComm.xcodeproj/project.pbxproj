@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6D6055FA25F7D80C00ABC5EC /* GlobalVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6055F925F7D80C00ABC5EC /* GlobalVars.swift */; };
+		6DA5FCF926289EA0009DF260 /* zapsplat_hospital_tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6DA5FCF826289EA0009DF260 /* zapsplat_hospital_tone.mp3 */; };
 		C50B9DE22611AF1900F7DC96 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50B9DE12611AF1900F7DC96 /* ImagePicker.swift */; };
 		C50CD77A2624F6E1001069D7 /* BLEController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50CD7792624F6E1001069D7 /* BLEController.swift */; };
 		C50CD77E2624FC43001069D7 /* CBUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50CD77D2624FC43001069D7 /* CBUUIDs.swift */; };
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		6D6055F925F7D80C00ABC5EC /* GlobalVars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVars.swift; sourceTree = "<group>"; };
+		6DA5FCF826289EA0009DF260 /* zapsplat_hospital_tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = zapsplat_hospital_tone.mp3; sourceTree = "<group>"; };
 		C50B9DE12611AF1900F7DC96 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		C50CD7792624F6E1001069D7 /* BLEController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEController.swift; sourceTree = "<group>"; };
 		C50CD77D2624FC43001069D7 /* CBUUIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBUUIDs.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				C5EA512D25F4AC59005E0C4C /* ButtonOption.swift */,
 				C5EA511425F17BBA005E0C4C /* CurrentOptions.swift */,
 				C5EA510F25F1344B005E0C4C /* OptionsView.swift */,
+				6DA5FCF826289EA0009DF260 /* zapsplat_hospital_tone.mp3 */,
 				C5EA512225F31B6E005E0C4C /* ModalAddView.swift */,
 				C5EA511825F1A4B8005E0C4C /* ModalEditView.swift */,
 				C5EA512625F4982A005E0C4C /* ButtonEditView.swift */,
@@ -251,6 +254,7 @@
 				C52AAD3725E62083002E90D9 /* SF-Pro-Text-BoldItalic.otf in Resources */,
 				C52AAD3E25E62083002E90D9 /* SF-Pro-Text-LightItalic.otf in Resources */,
 				C52AAD4425E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf in Resources */,
+				6DA5FCF926289EA0009DF260 /* zapsplat_hospital_tone.mp3 in Resources */,
 				C52AAD3A25E62083002E90D9 /* SF-Pro-Text-UltralightItalic.otf in Resources */,
 				C52AAD3325E62083002E90D9 /* SF-Pro-Text-Heavy.otf in Resources */,
 				C52AAD3425E62083002E90D9 /* SF-Pro-Text-Bold.otf in Resources */,
