@@ -16,12 +16,12 @@ class CurrentOptions: ObservableObject, Codable {
     
     @Published var parent: Int {
         didSet {
-            save_parent()
+            save_all_options()
         }
     }
     @Published var options = [Int]() {
         didSet {
-            save_options()
+            save_all_options()
         }
     }
     @Published var selectedBtn: Int = 0
@@ -61,7 +61,6 @@ class CurrentOptions: ObservableObject, Codable {
                 return
             }
         }
-        
         self.parent = 0
         allOptions[self.parent] = ButtonOption(text: "root", isFolder: true, index: self.parent)
         initializeOptions()
@@ -94,7 +93,6 @@ class CurrentOptions: ObservableObject, Codable {
             self.options = self.allOptions[0]!.children
             return
         }
-        
         self.parent = 0
         allOptions[self.parent] = ButtonOption(text: "root", isFolder: true, index: self.parent)
         initializeOptions()
@@ -198,6 +196,7 @@ class CurrentOptions: ObservableObject, Codable {
     func save_all_options() {
         if let encoded_all_options = try? PropertyListEncoder().encode(self.allOptions) {
             UserDefaults.standard.set(encoded_all_options, forKey: "saved_all")
+            print("saved all")
         }
     }
     

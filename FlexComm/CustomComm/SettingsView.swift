@@ -170,6 +170,7 @@ struct SettingsView: View {
                     if (!bleController.bleConnected) {
                         Text(bleController.scanningText)
                         // dicovered peripheral names
+                        Text("Discovered Devices: ")
                         List {
                             ForEach(0..<bleController.peripheralArray.count, id: \.self) { i in
                                 Button(action: {
@@ -179,6 +180,7 @@ struct SettingsView: View {
                                 })
                             }
                         }
+                        .border(Color.black)
                     }
                     else {
                         // discovered peripherals
@@ -190,6 +192,13 @@ struct SettingsView: View {
                             })
                             .buttonStyle(PlainButtonStyle())
                             .navigationBarHidden(false)
+                            .padding()
+                            .border(Color.black)
+                        Button(action: {
+                            bleController.disconnectFromDevice()
+                        }, label: {
+                            Text("Disconnect from Flex Sensor")
+                        })
                     }
                 }
                 .padding(.trailing, 30)

@@ -201,6 +201,7 @@ struct OptionsView: View {
             selectedIdx = currentOptions.options.count - 1
         }
         let allOptions = currentOptions.allOptions
+        print(allOptions)
         let selectedBtn = allOptions[currentOptions.options[index]]!
         let isSelected = selectedBtn.selected
         var color: Color = (selectedIdx == index) ? Color.blue : Color.black
