@@ -216,7 +216,7 @@ struct OptionsView: View {
                 numFlexes += 1
                 changed = true
                 if tapTimer == nil {
-                    tapTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
+                    tapTimer = Timer.scheduledTimer(withTimeInterval: 0.7, repeats: false) { timer in
                         checkTaps()
                     }
                 }
@@ -224,10 +224,12 @@ struct OptionsView: View {
                     tapTimer?.invalidate()
                     if numFlexes > 2 {
                         tapTimer = nil
-                        print("help")
+                        self.audioPlayer.play() //play the sound
+                        self.audioPlayer.play() //play the sound
+//                        print("help")
                     }
                     else {
-                        tapTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
+                        tapTimer = Timer.scheduledTimer(withTimeInterval: 0.7, repeats: false) { timer in
                             checkTaps()
                         }
                     }

@@ -170,14 +170,14 @@ struct SettingsView: View {
                 Group {
                     // scan for peripherals
                     HStack {
-                        Text("Connect to Flex Sensor")
-                            .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
+                        Text("Connect to Flex Sensor:")
+                            .SFProFont(style: .headline, weight:.bold, multiplier: sliderValue)
                         Spacer()
                         Button(action: {
                             bleController.startScanning()
                         }, label: {
                             Text("Scan")
-                                .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
+//                                .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
                         })
                         .disabled(bleController.scanningBtnDisabled)
                     }
@@ -195,7 +195,11 @@ struct SettingsView: View {
                                 })
                             }
                         }
-                        .border(Color.black)
+//                        .border(Color.black)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10.0)
+                                .stroke(lineWidth: 2.0)
+                        )
                         Spacer()
                     }
                     else {
