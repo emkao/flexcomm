@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AVFoundation
+import AVKit
 
 struct OptionsView: View {
     @State var showAddModal: Bool = false
@@ -17,8 +18,7 @@ struct OptionsView: View {
     @ObservedObject var bleController: BLEController
     @ObservedObject var globals: GlobalVars
     var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
-    var player : AVAudioPlayer! = nil
-//    @State var helpSoundEffect = AVAudioPlayer()
+    @State var audioPlayer : AVAudioPlayer! //define audio player
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State var numFlexes: Int = 0
@@ -130,17 +130,8 @@ struct OptionsView: View {
                     Button(action: { // help button
                         print("HELP")
 //                        print(self._helpSoundEffect)
-//                        let path = Bundle.main.path(forResource: "zapsplat_hospital_tone", ofType:"mp3")!
-//                        let url = URL(fileURLWithPath: path)
-//
-//                        do {
-//                            helpSoundEffect = try AVAudioPlayer(contentsOf: url)
-//                            helpSoundEffect.play()
-//                            print("works")
-//                        } catch {
-//                            // couldn't load file :(
-//                            print("does not work")
-//                        }
+                        self.audioPlayer.play() //play the sound
+
                         
                     }, label:  {
                         HStack() {
@@ -209,6 +200,10 @@ struct OptionsView: View {
         }
         .onAppear(perform: {
             viewBeingDisplayed = true
+            // find sound path and construct audioPlayer
+            let sound = Bundle.main.path(forResource: "zapsplat_hospital_tone", ofType: "mp3")
+            self.audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!))
+            
         })
         .onDisappear(perform: {
             viewBeingDisplayed = false
