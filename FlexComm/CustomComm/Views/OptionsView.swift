@@ -21,6 +21,8 @@ struct OptionsView: View {
     @State var audioPlayer : AVAudioPlayer! //define audio player
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @State var synthesizer =  AVSpeechSynthesizer()
+    @State var lastIndexSaid: Int = 0
     @State var numFlexes: Int = 0
     @State var changed: Bool = false
     @State var tapTimer: Timer?
@@ -208,6 +210,23 @@ struct OptionsView: View {
         .onDisappear(perform: {
             viewBeingDisplayed = false
         })
+        .onReceive(currentOptions.$selectedBtn, perform: {_ in
+            var selectedIdx = currentOptions.selectedBtn
+            if (selectedIdx >= currentOptions.options.count) {
+                selectedIdx = currentOptions.options.count - 1
+            }
+            let actualSelectedBtn = currentOptions.allOptions[currentOptions.options[selectedIdx]]!
+            let utterance = AVSpeechUtterance(string: actualSelectedBtn.text)
+            //self.synthesizer = AVSpeechSynthesizer()
+            if(GlobalVars_Unifier.text_unifier && !self.synthesizer.isSpeaking ){
+                self.synthesizer.speak(utterance)
+                self.lastIndexSaid = currentOptions.selectedBtn
+            }
+            
+            
+
+            
+        })
         .onReceive(bleController.$selected, perform: {_ in
             if (self.viewBeingDisplayed == true &&
                 currentOptions.options.count != 0 &&
@@ -274,11 +293,17 @@ struct OptionsView: View {
         var yOffset: CGFloat = 0
         var cornerRadius: CGFloat = 50
         // read out text of selected button
-        if(selectedIdx == index && GlobalVars_Unifier.text_unifier){
-            let utterance = AVSpeechUtterance(string: selectedBtn.text)
-            let synthesizer = AVSpeechSynthesizer()
-            synthesizer.speak(utterance)
-        }
+//        var wouldRepeat: Bool = (lastIndexSaid == selectedIdx && !isSelected)
+//        print("last index said: ", lastIndexSaid)
+//        if(selectedIdx == index && GlobalVars_Unifier.text_unifier && !self.synthesizer.isSpeaking && !wouldRepeat){
+//
+//            let utterance = AVSpeechUtterance(string: selectedBtn.text)
+            //self.synthesizer = AVSpeechSynthesizer()
+            //self.synthesizer.speak(utterance)
+            //self.lastIndexSaid = index
+            
+//        }
+        
        
         if (selectedBtn.isFolder) {
             cornerRadius = 20
