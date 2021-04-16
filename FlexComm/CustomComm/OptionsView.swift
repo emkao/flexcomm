@@ -22,6 +22,10 @@ struct OptionsView: View {
 //    @State var helpSoundEffect = AVAudioPlayer()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @State var numFlexes: Int = 0
+    @State var changed: Bool = false
+    @State var tapTimer: Timer?
+    
     var body: some View {
         ZStack {
             VStack {
@@ -212,11 +216,43 @@ struct OptionsView: View {
         })
         .onReceive(bleController.$selected, perform: {_ in
             if (self.viewBeingDisplayed == true &&
-                    currentOptions.options.count != 0 &&
-                    bleController.selected == true) {
-                currentOptions.clickSelectedBtn()
+                currentOptions.options.count != 0 &&
+                bleController.selected == true &&
+                changed == false) {
+                numFlexes += 1
+                changed = true
+                if tapTimer == nil {
+                    tapTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
+                        checkTaps()
+                    }
+                }
+            }
+            else {
+                changed = false
+                if tapTimer == nil {
+                    numFlexes = 0
+                }
             }
         })
+    }
+    
+    func checkTaps() {
+        if numFlexes == 1 {
+            currentOptions.clickSelectedBtn()
+        }
+        else if numFlexes == 2 {
+            if (currentOptions.parent != 0) {
+                currentOptions.prevOptions()
+            }
+            else {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+        else if numFlexes > 2 {
+            print("help")
+        }
+        tapTimer?.invalidate()
+        tapTimer = nil
     }
     
     func returnOption(index: Int) -> some View {
