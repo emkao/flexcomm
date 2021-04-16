@@ -256,9 +256,6 @@ struct OptionsView: View {
             if (currentOptions.parent != 0) {
                 currentOptions.prevOptions()
             }
-            else {
-                presentationMode.wrappedValue.dismiss()
-            }
         }
         else if numFlexes > 2 {
             print("help")

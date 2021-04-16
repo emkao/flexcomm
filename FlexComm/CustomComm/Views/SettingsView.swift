@@ -12,7 +12,7 @@ struct SettingsView: View {
     @EnvironmentObject var globals: GlobalVars
     @ObservedObject var bleController: BLEController
     @StateObject var globals_Nav = GlobalVars()
-    @State private var responseTime = ""
+    @State private var responseTime = "2"
     @State private var sliderValue = GlobalVars().multiplier
     @State private var textToSpeech = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -98,14 +98,24 @@ struct SettingsView: View {
                     Text("Response Time:")
                         .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
                     TextField("Number of Seconds", text: $responseTime).onChange(of: responseTime, perform: { value in
-                        GlobalVars_Unifier.time_unifier = Double(responseTime) ?? 2.0
-                        globals_Nav.time = Double(responseTime) ?? 2.0
-                        print("changed time to : ", GlobalVars_Unifier.time_unifier)
+//                        GlobalVars_Unifier.time_unifier = Double(responseTime) ?? 2.0
+//                        globals_Nav.time = Double(responseTime) ?? 2.0
+//                        print("changed time to : ", GlobalVars_Unifier.time_unifier)
                     })
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     Text("Seconds")
-                    
-                    
+                    Button(action: {
+                        GlobalVars_Unifier.time_unifier = Double(responseTime) ?? 2.0
+                        globals_Nav.time = Double(responseTime) ?? 2.0
+                        print("changed time to : ", GlobalVars_Unifier.time_unifier)
+                    }, label: {
+                        Text("Set Response Time")
+                    })
+                    .padding()
+                    .SFProFont(style: .body, weight: .bold, multiplier: globals_Nav.multiplier)
+                    .background(Color(UIColor.lightGray))
+                    .foregroundColor(.black)
+                    .cornerRadius(40)
                 }
                 .padding(.trailing, 30)
                 .padding(.leading, 30)
@@ -193,15 +203,17 @@ struct SettingsView: View {
                             label: {
                                 Text("Calibrate Flex Sensor")
                             })
-                            .buttonStyle(PlainButtonStyle())
-                            .navigationBarHidden(false)
+//                            .buttonStyle(PlainButtonStyle())
                             .padding()
                             .border(Color.black)
+                            .navigationBarTitle("")
+                            .navigationBarHidden(true)
                         Button(action: {
                             bleController.disconnectFromDevice()
                         }, label: {
                             Text("Disconnect from Flex Sensor")
                         })
+                        Spacer()
                     }
                 }
                 .padding(.trailing, 30)
@@ -213,6 +225,7 @@ struct SettingsView: View {
         .onAppear(perform: {
             sliderValue = GlobalVars_Unifier.multiplier_unifier
             textToSpeech = GlobalVars_Unifier.text_unifier
+            responseTime = String(GlobalVars_Unifier.time_unifier)
             bleController.loadBleController()
         })
         .navigationBarTitle("")
@@ -223,11 +236,3 @@ struct SettingsView: View {
 //    .edgesIgnoringSafeArea(.all)
 //    .environmentObject(globals_Nav)
 }
-
-//struct SettingsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            SettingsView(bleController: BLEController()).environmentObject(GlobalVars())
-//        }
-//    }
-//}

@@ -24,12 +24,15 @@ struct CalibrateView: View {
             }
             VStack {
                 Text("Flex Flex sensor to desired threshold for 'Yes'")
+                    .padding(.top, 40)
+                    .padding(.bottom, 20)
                 Button(action: {
                     bleController.calibrateFlexSensor()
                 }, label: {
                     Text("Set Flex Sensor Threshold")
                 })
             }
+            Spacer()
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)
