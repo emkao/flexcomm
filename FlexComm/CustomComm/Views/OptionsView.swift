@@ -15,7 +15,6 @@ struct OptionsView: View {
     @State var viewBeingDisplayed: Bool = false
     @ObservedObject var currentOptions: CurrentOptions
     @ObservedObject var bleController: BLEController
-//    @StateObject var globals = GlobalVars()
     @ObservedObject var globals: GlobalVars
     var gridItemLayout = Array(repeating: GridItem(.flexible()), count: 3)
     var player : AVAudioPlayer! = nil

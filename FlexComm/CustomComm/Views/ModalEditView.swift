@@ -23,7 +23,6 @@ struct ModalEditView: View {
     @State private var editButton: Bool = false
     @State private var selectedButton: Int = -1
     @EnvironmentObject var globals: GlobalVars
-//    @StateObject var globals = GlobalVars()
     @State var saved: [Int]
     
     var body: some View {
@@ -63,7 +62,6 @@ struct ModalEditView: View {
             })
             .padding(30)
         }
-        
         .sheet(isPresented: $editButton) {
             ButtonEditView(selectedButton: $selectedButton, editButton: $editButton)
                 .environmentObject(self.currentOptions)

@@ -97,20 +97,6 @@ class BLEController: UIViewController, ObservableObject {
     }
     
     func calibrateFlexSensor() {
-//        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-//            if self.timeRemaining > 0 {
-//                self.timeRemaining -= 0.1
-//            }
-//        }
-//        var collectedValues = [Int]()
-//        while (self.timeRemaining != 0) {
-//            collectedValues.append(value)
-//        }
-//        self.timer?.invalidate()
-//        let max = String(collectedValues.max() ?? 0)
-//        if (max == String(0)) {
-//            print("no max, failed calibrating")
-//        }
         writeOutgoingValue(data: String(value))
     }
 }
@@ -184,9 +170,6 @@ extension BLEController: CBCentralManagerDelegate {
         print("Peripheral Discovered: \(peripheral)")
         print("Peripheral Name: \(String(describing: peripheral.name))")
         print("Advertisement Data: \(advertisementData)")
-        
-//        centralManager?.connect(bluefruitPeripheral, options: nil)
-        // TODO: fix so that it doesnt immediately connect?
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -238,8 +221,6 @@ extension BLEController: CBPeripheralDelegate {
                 print("TX Characteristic: \(txCharacteristic.uuid)")
             }
         }
-        // comment this out so that it doesn't automatically connect when it finds something
-//        delayedConnection()
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -252,10 +233,9 @@ extension BLEController: CBPeripheralDelegate {
 
         characteristicASCIIValue = ASCIIstring
         
-        // VALUE WE WANT
         let prevVal = value
         value = characteristicASCIIValue .integerValue
-        print("Value Recieved: \(value)") // 0 = true, 1 = false
+        print("Value Recieved: \(value)")
         
         if (prevVal != value && value == 0) {
             selected = true
@@ -263,8 +243,6 @@ extension BLEController: CBPeripheralDelegate {
         else {
             selected = false
         }
-
-//        NotificationCenter.default.post(name:NSNotification.Name(rawValue: "Notify"), object: "\((characteristicASCIIValue as String))")
     }
 
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {

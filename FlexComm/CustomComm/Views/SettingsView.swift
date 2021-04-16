@@ -231,8 +231,4 @@ struct SettingsView: View {
         .navigationBarTitle("")
         .navigationBarHidden(true)
     }
-//    .navigationBarTitle(Text("Settings"), displayMode: .large)
-//    .navigationViewStyle(StackNavigationViewStyle())
-//    .edgesIgnoringSafeArea(.all)
-//    .environmentObject(globals_Nav)
 }
