@@ -226,6 +226,18 @@ struct OptionsView: View {
                         checkTaps()
                     }
                 }
+                else {
+                    tapTimer?.invalidate()
+                    if numFlexes > 2 {
+                        tapTimer = nil
+                        print("help")
+                    }
+                    else {
+                        tapTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
+                            checkTaps()
+                        }
+                    }
+                }
             }
             else {
                 changed = false
