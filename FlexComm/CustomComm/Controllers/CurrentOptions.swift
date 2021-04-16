@@ -126,7 +126,7 @@ class CurrentOptions: ObservableObject, Codable {
             allOptions[self.parent]!.addChild(allOptions: allOptions, child: newOption)
             self.options = allOptions[self.parent]!.children
             save_all_options()
-            save_options()
+//            save_options()
         }
     }
     
@@ -134,7 +134,7 @@ class CurrentOptions: ObservableObject, Codable {
         allOptions[self.parent]!.removeChildren(allOptions: allOptions, removeIndices: removeIndices)
         self.options = allOptions[self.parent]!.children
         save_all_options()
-        save_options()
+//        save_options()
     }
     
     func editOption(index: Int, text: String, image: UIImage, isFolder: Bool) {
@@ -147,7 +147,7 @@ class CurrentOptions: ObservableObject, Codable {
         }
         self.options = allOptions[self.parent]!.children
         save_all_options()
-        save_options()
+//        save_options()
     }
     
     func save_all_options() {
@@ -160,8 +160,8 @@ class CurrentOptions: ObservableObject, Codable {
         if (self.parent != 0) { // or isn't null?
             self.options = allOptions[self.parent]!.siblings
             self.parent = allOptions[self.options[0]]!.parent
-            save_options()
-            save_parent()
+//            save_options()
+//            save_parent()
         }
     }
     

@@ -16,11 +16,6 @@ struct SettingsView: View {
     @State private var sliderValue = GlobalVars().multiplier
     @State private var textToSpeech = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
-//    init() {
-//        UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "SFProText-Thin", size: 50)!]
-//        sliderValue = GlobalVars_Unifier.multiplier_unifier //reinit the value
-//    }
 
     var body: some View {
         ZStack {
@@ -66,6 +61,9 @@ struct SettingsView: View {
 //                    .padding()
 //                }
                 Group {
+                    Text("All sound effects obtained from https://www.zapsplat.com")
+                        .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
+                    
                     HStack{
                         Text("Font Size:")
                             .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
@@ -150,9 +148,11 @@ struct SettingsView: View {
                     HStack {
                         if textToSpeech {
                             Text("Text to Speech On")
+                                .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
                         }
                         else {
                             Text("Text to Speech Off")
+                                .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
                         }
                         Toggle("Text to Speech On", isOn: $textToSpeech)
                             .onChange(of: textToSpeech) { value in
@@ -171,11 +171,13 @@ struct SettingsView: View {
                     // scan for peripherals
                     HStack {
                         Text("Connect to Flex Sensor")
+                            .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
                         Spacer()
                         Button(action: {
                             bleController.startScanning()
                         }, label: {
                             Text("Scan")
+                                .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
                         })
                         .disabled(bleController.scanningBtnDisabled)
                     }
@@ -183,6 +185,7 @@ struct SettingsView: View {
                         Text(bleController.scanningText)
                         // dicovered peripheral names
                         Text("Discovered Devices: ")
+                            .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
                         List {
                             ForEach(0..<bleController.peripheralArray.count, id: \.self) { i in
                                 Button(action: {
@@ -198,10 +201,12 @@ struct SettingsView: View {
                     else {
                         // discovered peripherals
                         Text("Connected to \(bleController.peripheralName)")
+                            .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
                         NavigationLink(
                             destination: CalibrateView().environmentObject(bleController),
                             label: {
                                 Text("Calibrate Flex Sensor")
+                                    .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
                             })
 //                            .buttonStyle(PlainButtonStyle())
                             .padding()
@@ -212,6 +217,7 @@ struct SettingsView: View {
                             bleController.disconnectFromDevice()
                         }, label: {
                             Text("Disconnect from Flex Sensor")
+                                .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
                         })
                         Spacer()
                     }

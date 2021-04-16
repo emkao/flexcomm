@@ -131,7 +131,7 @@ struct OptionsView: View {
                         print("HELP")
 //                        print(self._helpSoundEffect)
                         self.audioPlayer.play() //play the sound
-
+                        self.audioPlayer.play() //play the sound
                         
                     }, label:  {
                         HStack() {
