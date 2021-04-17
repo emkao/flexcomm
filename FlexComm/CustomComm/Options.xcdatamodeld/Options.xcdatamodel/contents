@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ButtonOption" representedClassName="ButtonOption" syncable="YES" codeGenerationType="class">
+        <attribute name="children" optional="YES" attributeType="Transformable"/>
+        <attribute name="image" optional="YES" attributeType="Transformable"/>
+        <attribute name="index" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="isFolder" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="parent" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="siblings" optional="YES" attributeType="Transformable"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
+        <relationship name="hasImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CustomImage"/>
+    </entity>
+    <entity name="CurrentOptions" representedClassName="CurrentOptions" syncable="YES" codeGenerationType="class">
+        <attribute name="allOptions" optional="YES" attributeType="Transformable"/>
+        <attribute name="options" optional="YES" attributeType="Transformable"/>
+        <attribute name="parent" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="CustomImage" representedClassName="CustomImage" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="system" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+    </entity>
+    <elements>
+        <element name="ButtonOption" positionX="-63" positionY="-18" width="128" height="149"/>
+        <element name="CurrentOptions" positionX="-54" positionY="-9" width="128" height="14"/>
+        <element name="CustomImage" positionX="-36" positionY="0" width="128" height="59"/>
+    </elements>
+</model>
