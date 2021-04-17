@@ -72,6 +72,8 @@ class CurrentOptions: ObservableObject, Codable {
         self.timer = Timer.scheduledTimer(withTimeInterval: GlobalVars_Unifier.time_unifier, repeats: true) {_ in
             if self.options.count != 0 {
                 self.selectedBtn = (self.selectedBtn + 1) % self.options.count
+                print("the selected btn in start: ", self.selectedBtn)
+                // TODO: can't change it here pass in optinal var
             }
             else {
                 self.selectedBtn = 0
@@ -180,14 +182,21 @@ class CurrentOptions: ObservableObject, Codable {
                 // folder
                 self.parent = self.options[self.selectedBtn]
                 self.options = self.allOptions[self.parent]!.children
-                self.selectedBtn = 0
+      //          self.selectedBtn = 0
+//                print("folder chosen and selected btn is set to 0")
             }
             else {
                 // not folder
                 print(selectedBtn.text)
             }
             self.confirmSelected = false
+            print("pre self timer we have :", self.selectedBtn)
             self.startTimer()
+            if (selectedBtn.isFolder) {
+                self.selectedBtn = -1
+                print("moved------- selectedBtn si: ", self.selectedBtn)
+                self.selectedBtn = 0
+            }
         }
     }
 }

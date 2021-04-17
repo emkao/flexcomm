@@ -205,12 +205,14 @@ struct OptionsView: View {
             // find sound path and construct audioPlayer
             let sound = Bundle.main.path(forResource: "zapsplat_hospital_tone", ofType: "mp3")
             self.audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!))
+//            print("----on appear options view---")
             
         })
         .onDisappear(perform: {
             viewBeingDisplayed = false
         })
         .onReceive(currentOptions.$selectedBtn, perform: {_ in
+            print("on Receive gets: ",currentOptions.selectedBtn)
             var selectedIdx = currentOptions.selectedBtn + 1
             if (selectedIdx >= currentOptions.options.count) {
                 if(currentOptions.options.count != 0){
@@ -220,6 +222,7 @@ struct OptionsView: View {
                     selectedIdx = 0
                 }
             }
+            print("selected index we receive: ", selectedIdx)
             let actualSelectedBtn = currentOptions.allOptions[currentOptions.options[selectedIdx]]!
             let utterance = AVSpeechUtterance(string: actualSelectedBtn.text)
             //self.synthesizer = AVSpeechSynthesizer()
