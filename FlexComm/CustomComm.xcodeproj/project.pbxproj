@@ -33,8 +33,6 @@
 		C52AAD4325E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD3125E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf */; };
 		C52AAD4425E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD3225E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf */; };
 		C5381BD725E60EBA002C09C3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5381BD625E60EBA002C09C3 /* SettingsView.swift */; };
-		C560E0F7262AA30500EB1C92 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C560E0F6262AA30500EB1C92 /* SceneDelegate.swift */; };
-		C560E0FB262AA54800EB1C92 /* Options.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C560E0F9262AA54800EB1C92 /* Options.xcdatamodeld */; };
 		C5C3DAE825E6D3430070BBB5 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C3DAE725E6D3430070BBB5 /* CustomFont.swift */; };
 		C5C88DA325E2C464009BB751 /* FlexCommApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C88DA225E2C464009BB751 /* FlexCommApp.swift */; };
 		C5C88DA525E2C464009BB751 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C88DA425E2C464009BB751 /* ContentView.swift */; };
@@ -78,8 +76,6 @@
 		C52AAD3125E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-ThinItalic.otf"; sourceTree = "<group>"; };
 		C52AAD3225E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-HeavyItalic.otf"; sourceTree = "<group>"; };
 		C5381BD625E60EBA002C09C3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		C560E0F6262AA30500EB1C92 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C560E0FA262AA54800EB1C92 /* Options.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Options.xcdatamodel; sourceTree = "<group>"; };
 		C5C3DAE725E6D3430070BBB5 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		C5C88D9F25E2C464009BB751 /* CustomComm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomComm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5C88DA225E2C464009BB751 /* FlexCommApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexCommApp.swift; sourceTree = "<group>"; };
@@ -164,7 +160,6 @@
 				C5EA511425F17BBA005E0C4C /* CurrentOptions.swift */,
 				C50CD7792624F6E1001069D7 /* BLEController.swift */,
 				C50B9DE12611AF1900F7DC96 /* ImagePicker.swift */,
-				C560E0F6262AA30500EB1C92 /* SceneDelegate.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -204,7 +199,6 @@
 				C560E0EC2629615200EB1C92 /* Views */,
 				C560E0EF2629621100EB1C92 /* Controllers */,
 				C5C88DA425E2C464009BB751 /* ContentView.swift */,
-				C560E0F9262AA54800EB1C92 /* Options.xcdatamodeld */,
 				C5C88DA225E2C464009BB751 /* FlexCommApp.swift */,
 				6DA5FCF826289EA0009DF260 /* zapsplat_hospital_tone.mp3 */,
 				C52AAD4625E6208F002E90D9 /* Fonts */,
@@ -326,8 +320,6 @@
 				C5C88DA525E2C464009BB751 /* ContentView.swift in Sources */,
 				C5EA511525F17BBA005E0C4C /* CurrentOptions.swift in Sources */,
 				C50CD7822624FC6A001069D7 /* BlePeripheral.swift in Sources */,
-				C560E0FB262AA54800EB1C92 /* Options.xcdatamodeld in Sources */,
-				C560E0F7262AA30500EB1C92 /* SceneDelegate.swift in Sources */,
 				C5EA511925F1A4B8005E0C4C /* ModalEditView.swift in Sources */,
 				C50B9DE22611AF1900F7DC96 /* ImagePicker.swift in Sources */,
 				C5EA512325F31B6E005E0C4C /* ModalAddView.swift in Sources */,
@@ -520,19 +512,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		C560E0F9262AA54800EB1C92 /* Options.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				C560E0FA262AA54800EB1C92 /* Options.xcdatamodel */,
-			);
-			currentVersion = C560E0FA262AA54800EB1C92 /* Options.xcdatamodel */;
-			path = Options.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = C5C88D9725E2C464009BB751 /* Project object */;
 }
