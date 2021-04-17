@@ -211,9 +211,14 @@ struct OptionsView: View {
             viewBeingDisplayed = false
         })
         .onReceive(currentOptions.$selectedBtn, perform: {_ in
-            var selectedIdx = currentOptions.selectedBtn
+            var selectedIdx = currentOptions.selectedBtn + 1
             if (selectedIdx >= currentOptions.options.count) {
-                selectedIdx = currentOptions.options.count - 1
+                if(currentOptions.options.count != 0){
+                    selectedIdx = selectedIdx % currentOptions.options.count
+                }
+                else{
+                    selectedIdx = 0
+                }
             }
             let actualSelectedBtn = currentOptions.allOptions[currentOptions.options[selectedIdx]]!
             let utterance = AVSpeechUtterance(string: actualSelectedBtn.text)
