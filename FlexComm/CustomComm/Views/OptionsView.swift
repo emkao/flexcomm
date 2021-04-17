@@ -223,6 +223,8 @@ struct OptionsView: View {
             if (selectedIdx >= currentOptions.options.count) {
                 if(currentOptions.options.count != 0){
                     selectedIdx = selectedIdx % currentOptions.options.count
+                    selectedIdx = 0
+                    
                 }
                 else{
                     selectedIdx = 0
@@ -231,8 +233,10 @@ struct OptionsView: View {
             print("selected index we receive: ", selectedIdx)
             let actualSelectedBtn = currentOptions.allOptions[currentOptions.options[selectedIdx]]!
             let utterance = AVSpeechUtterance(string: actualSelectedBtn.text)
+            print("the text we decide to say: ", actualSelectedBtn.text)
             //self.synthesizer = AVSpeechSynthesizer()
             if(GlobalVars_Unifier.text_unifier && !self.synthesizer.isSpeaking ){
+                print("and then we speak the text")
                 self.synthesizer.speak(utterance)
                 self.lastIndexSaid = currentOptions.selectedBtn
             }

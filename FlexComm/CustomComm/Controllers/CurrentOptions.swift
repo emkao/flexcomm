@@ -72,14 +72,17 @@ class CurrentOptions: ObservableObject, Codable {
     
     func startTimer() {
         self.timer = Timer.scheduledTimer(withTimeInterval: GlobalVars_Unifier.time_unifier, repeats: true) {_ in
-            if self.options.count != 0 {
-                self.selectedBtn = (self.selectedBtn + 1) % self.options.count
-                print("the selected btn in start: ", self.selectedBtn)
-                // TODO: can't change it here pass in optinal var
-            }
-            else {
-                self.selectedBtn = 0
-            }
+
+                if (self.options.count != 0) {
+                    self.selectedBtn = (self.selectedBtn + 1) % self.options.count
+                    print("the selected btn in start: ", self.selectedBtn)
+                    // TODO: can't change it here pass in optinal var
+                }
+                else {
+                    self.selectedBtn = 0
+                }
+
+            
         }
     }
     
