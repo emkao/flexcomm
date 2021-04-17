@@ -14,24 +14,24 @@ class CurrentOptions: ObservableObject, Codable {
         case parent, options, allOptions
     }
     
-    @Published var parent: Int {
-        didSet {
-            save_all_options()
-        }
-    }
-    @Published var options = [Int]() {
-        didSet {
-            save_all_options()
-        }
-    }
+    @Published var parent: Int //{
+//        didSet {
+//            save_all_options()
+//        }
+//    }
+    @Published var options = [Int]()// {
+//        didSet {
+//            save_all_options()
+//        }
+//    }
     @Published var selectedBtn: Int = 0
     @Published var confirmSelected: Bool = false
     var timer: Timer?
-    var allOptions: [Int: ButtonOption] = [:] {
-        didSet {
-            save_all_options()
-        }
-    }
+    var allOptions: [Int: ButtonOption] = [:] // {
+//        didSet {
+//            save_all_options()
+//        }
+//    }
     
     init() {
         let property_decoder = PropertyListDecoder()
@@ -47,6 +47,7 @@ class CurrentOptions: ObservableObject, Codable {
         allOptions[self.parent] = ButtonOption(text: "root", isFolder: true, index: self.parent)
         initializeOptions()
         self.options = allOptions[0]!.children
+        save_all_options()
     }
     
     func encode(to encoder: Encoder) throws {
@@ -66,6 +67,7 @@ class CurrentOptions: ObservableObject, Codable {
         allOptions[self.parent] = ButtonOption(text: "root", isFolder: true, index: self.parent)
         initializeOptions()
         self.options = allOptions[0]!.children
+        save_all_options()
     }
     
     func startTimer() {
@@ -118,6 +120,7 @@ class CurrentOptions: ObservableObject, Codable {
     
     func addOption(text: String, image: UIImage, isFolder: Bool) {
         if (self.options.count < 6) {
+            print("adding")
             let newOption = allOptions.count
             allOptions[newOption] = ButtonOption(text: text, image: image, isFolder: isFolder, index: newOption)
             for child in allOptions[self.parent]!.children {
@@ -129,10 +132,12 @@ class CurrentOptions: ObservableObject, Codable {
             self.options = allOptions[self.parent]!.children
             save_all_options()
 //            save_options()
+            print("finished adding")
         }
     }
     
     func deleteOption(removeIndices: [Int]) {
+        print("deleting")
         allOptions[self.parent]!.removeChildren(allOptions: allOptions, removeIndices: removeIndices)
         self.options = allOptions[self.parent]!.children
         save_all_options()
@@ -140,6 +145,7 @@ class CurrentOptions: ObservableObject, Codable {
     }
     
     func editOption(index: Int, text: String, image: UIImage, isFolder: Bool) {
+        print("editing")
         let btn = allOptions[allOptions[self.parent]!.children[index]]!
         btn.text = text
         btn.image = CustomImage(withImage: image, withSystem: false)
@@ -155,6 +161,7 @@ class CurrentOptions: ObservableObject, Codable {
     func save_all_options() {
         if let encoded_all_options = try? PropertyListEncoder().encode(self.allOptions) {
             UserDefaults.standard.set(encoded_all_options, forKey: "saved_all")
+            print("finished saving")
         }
     }
     
@@ -162,6 +169,7 @@ class CurrentOptions: ObservableObject, Codable {
         if (self.parent != 0) { // or isn't null?
             self.options = allOptions[self.parent]!.siblings
             self.parent = allOptions[self.options[0]]!.parent
+            save_all_options()
 //            save_options()
 //            save_parent()
         }

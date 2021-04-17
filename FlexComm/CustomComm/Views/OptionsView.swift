@@ -163,7 +163,9 @@ struct OptionsView: View {
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .overlay(
                             ModalAddView(showAddModal: self.$showAddModal)
-                                .environmentObject(self.currentOptions)).animation(.easeInOut)
+                                .environmentObject(self.currentOptions))
+                                .environmentObject(self.globals)
+                                .animation(.easeInOut)
                 }
                 .transition(.move(edge: .bottom))
             }
@@ -179,7 +181,9 @@ struct OptionsView: View {
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .overlay(
                             ModalEditView(showEditModal: self.$showEditModal, saved: self.currentOptions.options)
-                                .environmentObject(self.currentOptions)).animation(.easeInOut)
+                                .environmentObject(self.currentOptions))
+                                .environmentObject(self.globals)
+                                .animation(.easeInOut)
                 }
                 .transition(.move(edge: .bottom))
             }
@@ -195,7 +199,9 @@ struct OptionsView: View {
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .overlay(
                             ModalDeleteView(showDeleteModal: self.$showDeleteModal)
-                                .environmentObject(self.currentOptions)).animation(.easeInOut)
+                                .environmentObject(self.currentOptions))
+                                .environmentObject(self.globals)
+                                .animation(.easeInOut)
                 }
                 .transition(.move(edge: .bottom))
             }
