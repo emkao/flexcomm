@@ -182,24 +182,28 @@ struct SettingsView: View {
                         .disabled(bleController.scanningBtnDisabled)
                     }
                     if (!bleController.bleConnected) {
-                        Text(bleController.scanningText)
+                        if bleController.scanningText != "" {
+                            Text(bleController.scanningText)
+                        }
                         // dicovered peripheral names
                         Text("Discovered Devices: ")
                             .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
-                        List {
-                            ForEach(0..<bleController.peripheralArray.count, id: \.self) { i in
-                                Button(action: {
-                                    bleController.selectPeripheral(index: i)
-                                }, label: {
-                                    Text(bleController.peripheralArray[i].name ?? "")
-                                })
+                        GeometryReader { geo in
+                            List {
+                                ForEach(0..<bleController.peripheralArray.count, id: \.self) { i in
+                                    Button(action: {
+                                        bleController.selectPeripheral(index: i)
+                                    }, label: {
+                                        Text(bleController.peripheralArray[i].name ?? "")
+                                    })
+                                }
                             }
+                            .frame(width: geo.size.width, height: geo.size.height * 2)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10.0)
+                                    .stroke(lineWidth: 2.0)
+                            )
                         }
-//                        .border(Color.black)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10.0)
-                                .stroke(lineWidth: 2.0)
-                        )
                         Spacer()
                     }
                     else {

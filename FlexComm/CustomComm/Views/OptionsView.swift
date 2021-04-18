@@ -278,7 +278,7 @@ struct OptionsView: View {
                 numFlexes += 1
                 changed = true
                 if tapTimer == nil {
-                    tapTimer = Timer.scheduledTimer(withTimeInterval: 0.7, repeats: false) { timer in
+                    tapTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
                         checkTaps()
                     }
                 }
@@ -291,7 +291,7 @@ struct OptionsView: View {
 //                        print("help")
                     }
                     else {
-                        tapTimer = Timer.scheduledTimer(withTimeInterval: 0.7, repeats: false) { timer in
+                        tapTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
                             checkTaps()
                         }
                     }
@@ -461,7 +461,7 @@ struct OptionsView: View {
         var yOffset: CGFloat = 0
         var cornerRadius: CGFloat = 50
         // read out text of selected button
-        var wouldRepeat: Bool = (GlobalVars_Unifier.last_text_said == options[index].text && !isSelected)
+        var wouldRepeat: Bool = (GlobalVars_Unifier.last_text_said == options[index].text)
         
         
         print("last index said: ", GlobalVars_Unifier.last_index)
