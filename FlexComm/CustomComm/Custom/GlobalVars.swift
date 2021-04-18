@@ -15,4 +15,6 @@ struct GlobalVars_Unifier{
     static var multiplier_unifier =  1.0;
     static var text_unifier = false
     static var time_unifier = 2.0
+    static var last_index = 0
+    static var last_text_said = ""
 }
