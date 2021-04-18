@@ -33,6 +33,10 @@
 		C52AAD4325E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD3125E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf */; };
 		C52AAD4425E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C52AAD3225E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf */; };
 		C5381BD725E60EBA002C09C3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5381BD625E60EBA002C09C3 /* SettingsView.swift */; };
+		C57AC5C4262C2FA100857842 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C57AC5C2262C2FA100857842 /* Model.xcdatamodeld */; };
+		C57AC5D1262C30A000857842 /* ButtonOption+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57AC5CF262C30A000857842 /* ButtonOption+CoreDataClass.swift */; };
+		C57AC5D2262C30A000857842 /* ButtonOption+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57AC5D0262C30A000857842 /* ButtonOption+CoreDataProperties.swift */; };
+		C57AC5D5262C30D500857842 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57AC5D4262C30D500857842 /* Persistence.swift */; };
 		C5C3DAE825E6D3430070BBB5 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C3DAE725E6D3430070BBB5 /* CustomFont.swift */; };
 		C5C88DA325E2C464009BB751 /* FlexCommApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C88DA225E2C464009BB751 /* FlexCommApp.swift */; };
 		C5C88DA525E2C464009BB751 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C88DA425E2C464009BB751 /* ContentView.swift */; };
@@ -46,7 +50,6 @@
 		C5EA511E25F1C67D005E0C4C /* ModalDeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA511D25F1C67D005E0C4C /* ModalDeleteView.swift */; };
 		C5EA512325F31B6E005E0C4C /* ModalAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA512225F31B6E005E0C4C /* ModalAddView.swift */; };
 		C5EA512725F4982A005E0C4C /* ButtonEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA512625F4982A005E0C4C /* ButtonEditView.swift */; };
-		C5EA512E25F4AC59005E0C4C /* ButtonOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA512D25F4AC59005E0C4C /* ButtonOption.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +79,10 @@
 		C52AAD3125E62083002E90D9 /* SF-Pro-Text-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-ThinItalic.otf"; sourceTree = "<group>"; };
 		C52AAD3225E62083002E90D9 /* SF-Pro-Text-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-HeavyItalic.otf"; sourceTree = "<group>"; };
 		C5381BD625E60EBA002C09C3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C57AC5C3262C2FA100857842 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		C57AC5CF262C30A000857842 /* ButtonOption+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ButtonOption+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C57AC5D0262C30A000857842 /* ButtonOption+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ButtonOption+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C57AC5D4262C30D500857842 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		C5C3DAE725E6D3430070BBB5 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		C5C88D9F25E2C464009BB751 /* CustomComm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomComm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5C88DA225E2C464009BB751 /* FlexCommApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexCommApp.swift; sourceTree = "<group>"; };
@@ -91,7 +98,6 @@
 		C5EA511D25F1C67D005E0C4C /* ModalDeleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDeleteView.swift; sourceTree = "<group>"; };
 		C5EA512225F31B6E005E0C4C /* ModalAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAddView.swift; sourceTree = "<group>"; };
 		C5EA512625F4982A005E0C4C /* ButtonEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonEditView.swift; sourceTree = "<group>"; };
-		C5EA512D25F4AC59005E0C4C /* ButtonOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonOption.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,12 +173,22 @@
 		C560E0F02629621700EB1C92 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C5EA512D25F4AC59005E0C4C /* ButtonOption.swift */,
 				C50CD77D2624FC43001069D7 /* CBUUIDs.swift */,
 				C50CD7812624FC6A001069D7 /* BlePeripheral.swift */,
 				C5DAA47825E6135B00178075 /* responseValidate.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		C57AC5DC262CB0CF00857842 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				C57AC5CF262C30A000857842 /* ButtonOption+CoreDataClass.swift */,
+				C57AC5D0262C30A000857842 /* ButtonOption+CoreDataProperties.swift */,
+				C57AC5D4262C30D500857842 /* Persistence.swift */,
+				C57AC5C2262C2FA100857842 /* Model.xcdatamodeld */,
+			);
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 		C5C88D9625E2C464009BB751 = {
@@ -195,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				6D4EFA0C25F9BB2300F58B91 /* Custom */,
+				C57AC5DC262CB0CF00857842 /* Core Data */,
 				C560E0F02629621700EB1C92 /* Models */,
 				C560E0EC2629615200EB1C92 /* Views */,
 				C560E0EF2629621100EB1C92 /* Controllers */,
@@ -305,18 +322,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5EA512E25F4AC59005E0C4C /* ButtonOption.swift in Sources */,
 				C5381BD725E60EBA002C09C3 /* SettingsView.swift in Sources */,
+				C57AC5D2262C30A000857842 /* ButtonOption+CoreDataProperties.swift in Sources */,
 				C5DAA47925E6135B00178075 /* responseValidate.swift in Sources */,
 				C5EA511025F1344B005E0C4C /* OptionsView.swift in Sources */,
 				6D6055FA25F7D80C00ABC5EC /* GlobalVars.swift in Sources */,
 				C50CD77A2624F6E1001069D7 /* BLEController.swift in Sources */,
+				C57AC5D1262C30A000857842 /* ButtonOption+CoreDataClass.swift in Sources */,
 				C50CD77E2624FC43001069D7 /* CBUUIDs.swift in Sources */,
+				C57AC5C4262C2FA100857842 /* Model.xcdatamodeld in Sources */,
 				C5C3DAE825E6D3430070BBB5 /* CustomFont.swift in Sources */,
 				C5EA512725F4982A005E0C4C /* ButtonEditView.swift in Sources */,
 				C50CD78B2627E3B0001069D7 /* CalibrateView.swift in Sources */,
 				C5EA510C25F13400005E0C4C /* CustomButton.swift in Sources */,
 				C5EA511E25F1C67D005E0C4C /* ModalDeleteView.swift in Sources */,
+				C57AC5D5262C30D500857842 /* Persistence.swift in Sources */,
 				C5C88DA525E2C464009BB751 /* ContentView.swift in Sources */,
 				C5EA511525F17BBA005E0C4C /* CurrentOptions.swift in Sources */,
 				C50CD7822624FC6A001069D7 /* BlePeripheral.swift in Sources */,
@@ -512,6 +532,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C57AC5C2262C2FA100857842 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C57AC5C3262C2FA100857842 /* Model.xcdatamodel */,
+			);
+			currentVersion = C57AC5C3262C2FA100857842 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C5C88D9725E2C464009BB751 /* Project object */;
 }

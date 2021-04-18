@@ -8,6 +8,7 @@
 import SwiftUI
 import AVFoundation
 import AVKit
+import CoreData
 
 struct OptionsView: View {
     @State var showAddModal: Bool = false
@@ -27,6 +28,11 @@ struct OptionsView: View {
     @State var changed: Bool = false
     @State var tapTimer: Timer?
     
+    @Environment(\.managedObjectContext) private var viewContext
+    @State var parent: ButtonOption?
+    @State var options: [ButtonOption]
+    @State var currentCount: Int = 0
+    
     var body: some View {
         ZStack {
             VStack {
@@ -39,9 +45,7 @@ struct OptionsView: View {
                     Spacer()
                     Group {
                         Button(action: {
-                            if (currentOptions.options.count != 0) {
-                                currentOptions.clickSelectedBtn()
-                            }
+                            clickSelectedButton()
                         }, label: {
                             Text("Moved Flex Sensor")
                         })
@@ -79,26 +83,26 @@ struct OptionsView: View {
                 .foregroundColor(.black)
                 .padding(10.0)
                 .onAppear{
-                    currentOptions.startTimer()
+                    currentOptions.startTimer(count: currentCount)
                 }
                 .onDisappear{
                     currentOptions.stopTimer()
                 }
 
                 Spacer()
-                let optionCount = currentOptions.options.count
+
                 VStack {
                     Spacer()
                     LazyVGrid(columns: gridItemLayout, alignment: .center, spacing: 0) {
-                        ForEach(0 ..< optionCount - (optionCount % 3), id: \.self) { index in
+                        ForEach(0 ..< currentCount - (currentCount % 3), id: \.self) { index in
                             returnOption(index: index)
                         }
                     }
                     .SFProFont(style: .largeTitle, weight: .regular, multiplier: GlobalVars_Unifier.multiplier_unifier)
                     Spacer()
-                    if (optionCount % 3 != 0) {
+                    if (currentCount % 3 != 0) {
                         LazyHStack(spacing: 0) {
-                            ForEach(optionCount - (optionCount % 3) ..< optionCount, id: \.self) { index in
+                            ForEach(currentCount - (currentCount % 3) ..< currentCount, id: \.self) { index in
                                 returnOption(index: index)
                             }
                         }
@@ -110,8 +114,13 @@ struct OptionsView: View {
                 
                 HStack() {
                     Button(action: {
-                        if (currentOptions.parent != 0) {
-                            currentOptions.prevOptions()
+                        if (self.parent?.level != 0) {
+                            self.parent = self.parent!.parent
+                            currentOptions.currLevel -= 1
+                            self.options = getOptions()
+                            self.currentCount = self.options.count
+                            currentOptions.stopTimer()
+                            currentOptions.startTimer(count: self.currentCount)
                         }
                         else {
                             presentationMode.wrappedValue.dismiss()
@@ -162,10 +171,15 @@ struct OptionsView: View {
                         .foregroundColor(.white)
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .overlay(
-                            ModalAddView(showAddModal: self.$showAddModal)
-                                .environmentObject(self.currentOptions))
+                            ModalAddView(showAddModal: self.$showAddModal, parent: $parent)
+                                .environment(\.managedObjectContext, viewContext)
+                                .environmentObject(self.currentOptions)
                                 .environmentObject(self.globals)
-                                .animation(.easeInOut)
+                                .animation(.easeInOut))
+                        .onDisappear {
+                            options = getOptions()
+                            currentCount = options.count
+                        }
                 }
                 .transition(.move(edge: .bottom))
             }
@@ -180,10 +194,15 @@ struct OptionsView: View {
                         .foregroundColor(.white)
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .overlay(
-                            ModalEditView(showEditModal: self.$showEditModal, saved: self.currentOptions.options)
-                                .environmentObject(self.currentOptions))
+                            ModalEditView(showEditModal: self.$showEditModal, options: options)
+                                .environment(\.managedObjectContext, viewContext)
+                                .environmentObject(self.currentOptions)
                                 .environmentObject(self.globals)
-                                .animation(.easeInOut)
+                                .animation(.easeInOut))
+                        .onDisappear{
+                            options = getOptions()
+                            currentCount = options.count
+                        }
                 }
                 .transition(.move(edge: .bottom))
             }
@@ -198,16 +217,22 @@ struct OptionsView: View {
                         .foregroundColor(.white)
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .overlay(
-                            ModalDeleteView(showDeleteModal: self.$showDeleteModal)
-                                .environmentObject(self.currentOptions))
+                            ModalDeleteView(showDeleteModal: self.$showDeleteModal, parent: parent, options: options)
+                                .environment(\.managedObjectContext, viewContext)
+                                .environmentObject(self.currentOptions)
                                 .environmentObject(self.globals)
-                                .animation(.easeInOut)
+                                .animation(.easeInOut))
+                        .onDisappear{
+                            options = getOptions()
+                            currentCount = options.count
+                        }
                 }
                 .transition(.move(edge: .bottom))
             }
         }
         .onAppear(perform: {
             viewBeingDisplayed = true
+            initializeOptions()
             // find sound path and construct audioPlayer
             let sound = Bundle.main.path(forResource: "zapsplat_hospital_tone", ofType: "mp3")
             self.audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!))
@@ -219,19 +244,22 @@ struct OptionsView: View {
         })
         .onReceive(currentOptions.$selectedBtn, perform: {_ in
             print("on Receive gets: ",currentOptions.selectedBtn)
+//            let options = getOptions()
             var selectedIdx = currentOptions.selectedBtn + 1
-            if (selectedIdx >= currentOptions.options.count) {
-                if(currentOptions.options.count != 0){
-                    selectedIdx = selectedIdx % currentOptions.options.count
+            if (options.count == 0) {
+                return
+            }
+            if (selectedIdx >= options.count) {
+                if(options.count != 0){
+                    selectedIdx = selectedIdx % options.count
                     selectedIdx = 0
-                    
                 }
                 else{
                     selectedIdx = 0
                 }
             }
             print("selected index we receive: ", selectedIdx)
-            let actualSelectedBtn = currentOptions.allOptions[currentOptions.options[selectedIdx]]!
+            let actualSelectedBtn = options[selectedIdx]
             let utterance = AVSpeechUtterance(string: actualSelectedBtn.text)
             print("the text we decide to say: ", actualSelectedBtn.text)
             //self.synthesizer = AVSpeechSynthesizer()
@@ -240,14 +268,10 @@ struct OptionsView: View {
                 self.synthesizer.speak(utterance)
                 self.lastIndexSaid = currentOptions.selectedBtn
             }
-            
-            
-
-            
         })
         .onReceive(bleController.$selected, perform: {_ in
             if (self.viewBeingDisplayed == true &&
-                currentOptions.options.count != 0 &&
+                options.count != 0 &&
                 bleController.selected == true &&
                 changed == false) {
                 numFlexes += 1
@@ -281,13 +305,131 @@ struct OptionsView: View {
         })
     }
     
+    func initializeOptions() {
+        print("init")
+        let fetchRequest = NSFetchRequest<ButtonOption>(entityName: "ButtonOption")
+        var entitiesCount = 0
+        do {
+            entitiesCount = try viewContext.count(for: fetchRequest)
+        } catch {
+            print("error executing fetch request: \(error)")
+        }
+        
+        if entitiesCount != 0 {
+            fetchRequest.predicate = NSPredicate(format: "level == %i", 0)
+            do {
+                try self.parent = viewContext.fetch(fetchRequest)[0]
+                self.options = getOptions()
+                self.currentCount = self.options.count
+            } catch {
+                self.parent = nil
+                print("no parent")
+            }
+            return
+        }
+        
+        let optionText = ["", "Responses", "Yes", "No", "Toys", "Juno", "Bumper Car", "Movies/Shows", "Frozen", "AlphaBlocks", "Classical", "Beethoven", "Mozart", "Mendelssohn", "Tchaikovsky", "Music", "Country", "Rock and Roll"]
+        let optionImages = ["scribble.variable", "bubble.left.fill", "checkmark.circle.fill", "xmark.circle.fill", "gamecontroller.fill", "hare.fill", "car.fill", "play.rectangle.fill", "snow", "abc", "music.quarternote.3", "", "", "", "", "music.note", "", "music.mic"]
+        let optionsIsFolder = [true, true, false, false, true, false, false, true, false, false, true, false, false, false, false, true, false, false]
+        let optionsLevel = [0, 1, 2, 2, 1, 2, 2, 1, 2, 2, 2, 3, 3, 3, 3, 1, 2, 2]
+        let optionsSystem = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+        var buttonOptions: [ButtonOption] = []
+        var image: UIImage
+        
+        for i in 0..<optionText.count {
+            let newOption = ButtonOption(context: viewContext)
+            print(optionText[i])
+            newOption.text = optionText[i]
+            let config = UIImage.SymbolConfiguration(pointSize: 24)
+            image = UIImage(systemName: optionImages[i]) ?? UIImage()
+                .withRenderingMode(.alwaysTemplate)
+                .withConfiguration(config)
+                .withTintColor(.white)
+            newOption.image = image.pngData()
+            newOption.isFolder = optionsIsFolder[i]
+            newOption.level = optionsLevel[i]
+            newOption.system = optionsSystem[i]
+            buttonOptions.append(newOption)
+        }
+        buttonOptions[0].addToChildren([buttonOptions[1], buttonOptions[4], buttonOptions[7], buttonOptions[15]])
+        buttonOptions[1].addToChildren([buttonOptions[2], buttonOptions[3]])
+        buttonOptions[4].addToChildren([buttonOptions[5], buttonOptions[6]])
+        buttonOptions[7].addToChildren([buttonOptions[8], buttonOptions[9]])
+        buttonOptions[10].addToChildren([buttonOptions[11], buttonOptions[12], buttonOptions[13], buttonOptions[14]])
+        buttonOptions[15].addToChildren([buttonOptions[10], buttonOptions[16], buttonOptions[17]])
+        
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+        
+        self.parent = buttonOptions[0]
+        self.options = getOptions()
+        currentCount = self.options.count
+    }
+    
+    func getOptions() -> [ButtonOption] {
+        let request = NSFetchRequest<ButtonOption>(entityName: "ButtonOption")
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \ButtonOption.text, ascending: true)]
+        if parent != nil {
+            request.predicate = NSPredicate(format: "level == %i AND parent == %@", currentOptions.currLevel + 1, parent! as ButtonOption)
+        }
+        do {
+            return try viewContext.fetch(request)
+        } catch {
+            return []
+        }
+    }
+    
+    func clickSelectedButton() {
+        if (options.count != 0) {
+            if (currentOptions.timer == nil) {
+                return
+            }
+            currentOptions.stopTimer()
+            currentOptions.timer = nil
+            let selectedBtn = options[currentOptions.selectedBtn]
+            selectedBtn.selected = true
+            currentOptions.confirmSelected = true
+            Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {_ in
+                selectedBtn.selected = false
+                currentOptions.confirmSelected = false
+                if (selectedBtn.isFolder) {
+                    // folder
+                    self.parent = options[currentOptions.selectedBtn]
+                    currentOptions.currLevel = self.parent!.level
+                    options = getOptions()
+                    self.currentCount = options.count
+                }
+                else {
+                    // not folder
+                    print(selectedBtn.text)
+                }
+                print("pre self timer we have :", currentOptions.selectedBtn)
+                if (selectedBtn.isFolder) {
+                    currentOptions.selectedBtn = -1
+                    print("moved------- selectedBtn si: ", currentOptions.selectedBtn)
+                    currentOptions.selectedBtn = 0
+                }
+                currentOptions.startTimer(count: self.currentCount)
+            }
+        }
+    }
+    
     func checkTaps() {
         if numFlexes == 1 {
-            currentOptions.clickSelectedBtn()
+            clickSelectedButton()
         }
         else if numFlexes == 2 {
-            if (currentOptions.parent != 0) {
-                currentOptions.prevOptions()
+            if (parent?.level != 0) {
+                self.parent = self.parent!.parent
+                currentOptions.currLevel -= 1
+                self.options = getOptions()
+                self.currentCount = self.options.count
+                currentOptions.stopTimer()
+                currentOptions.startTimer(count: self.currentCount)
             }
         }
         else if numFlexes > 2 {
@@ -299,11 +441,10 @@ struct OptionsView: View {
     
     func returnOption(index: Int) -> some View {
         var selectedIdx = currentOptions.selectedBtn
-        if (selectedIdx >= currentOptions.options.count) {
-            selectedIdx = currentOptions.options.count - 1
+        if (selectedIdx >= options.count) {
+            selectedIdx = options.count - 1
         }
-        let allOptions = currentOptions.allOptions
-        let selectedBtn = allOptions[currentOptions.options[index]]!
+        let selectedBtn = options[index]
         let isSelected = selectedBtn.selected
         var color: Color = (selectedIdx == index) ? Color.blue : Color.black
         color = isSelected ? Color.green : color
@@ -322,7 +463,6 @@ struct OptionsView: View {
             
 //        }
         
-       
         if (selectedBtn.isFolder) {
             cornerRadius = 20
             xOffset = -52
@@ -337,9 +477,28 @@ struct OptionsView: View {
                 VStack(spacing: 20) {
                     Text(selectedBtn.text)
                     Group {
-                        Image(uiImage: selectedBtn.image.getImage())
-                            .resizable()
-                            .scaledToFill()
+                        let data = options[index].image ?? nil
+                        let config = UIImage.SymbolConfiguration(pointSize: 24)
+                        if data != nil {
+                            if options[index].system {
+                                Image(uiImage: UIImage(data: data!)!
+                                        .withRenderingMode(.alwaysTemplate)
+                                        .withConfiguration(config)
+                                        .withTintColor(.white))
+                                    .resizable()
+                                    .scaledToFill()
+                            }
+                            else {
+                                Image(uiImage: UIImage(data: data!)!)
+                                    .resizable()
+                                    .scaledToFill()
+                            }
+                        }
+                        else {
+                            Image(uiImage: UIImage())
+                                .resizable()
+                                .scaledToFill()
+                        }
                     }
                     .frame(width: 100, height: 100, alignment: .center)
                 }
@@ -351,9 +510,9 @@ struct OptionsView: View {
     }
 }
 
-struct OptionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        OptionsView(currentOptions: CurrentOptions(), bleController: BLEController(), globals: GlobalVars())
-            .environmentObject(GlobalVars())
-    }
-}
+//struct OptionsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        OptionsView(currentOptions: CurrentOptions(), bleController: BLEController(), globals: GlobalVars())
+//            .environmentObject(GlobalVars())
+//    }
+//}

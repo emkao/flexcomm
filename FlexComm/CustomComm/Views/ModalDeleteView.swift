@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct ModalDeleteView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var currentOptions: CurrentOptions
     @Binding var showDeleteModal: Bool
-    @State var selections: [Int] = []
+    @State var selections: IndexSet = IndexSet()
+    var parent: ButtonOption?
+    var options: [ButtonOption]
     
     var body: some View {
         VStack {
@@ -19,13 +22,13 @@ struct ModalDeleteView: View {
                 .padding(20)
             
             List {
-                ForEach(self.currentOptions.options.indices, id: \.self) { index in
-                    MultipleSelectionRow(title: self.currentOptions.allOptions[self.currentOptions.options[index]]!.text, isSelected: self.selections.contains(index)) {
+                ForEach(options.indices, id: \.self) { index in
+                    MultipleSelectionRow(title: options[index].text, isSelected: self.selections.contains(index)) {
                         if self.selections.contains(index) {
-                            self.selections.removeAll(where: { $0 == index })
+                            self.selections.remove(index)
                         }
                         else {
-                            self.selections.append(index)
+                            self.selections.insert(index)
                         }
                     }
                 }
@@ -42,8 +45,15 @@ struct ModalDeleteView: View {
                 Spacer()
                 
                 Button(action: {
-                    self.selections.sort()
-                    currentOptions.deleteOption(removeIndices: self.selections)
+                    parent?.removeFromChildren(at: NSIndexSet(indexSet: self.selections))
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        let nsError = error as NSError
+                        fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                    }
+                    currentOptions.stopTimer()
+                    currentOptions.startTimer(count: options.count)
                     self.showDeleteModal.toggle()
                 }, label: {
                     Text("Delete")

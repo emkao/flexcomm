@@ -11,6 +11,7 @@ struct ContentView: View {
     @StateObject var globals = GlobalVars()
     @StateObject var currentOptions = CurrentOptions()
     @StateObject var bleController = BLEController()
+    @Environment(\.managedObjectContext) private var viewContext
     
     var body: some View {
         NavigationView {
@@ -21,7 +22,8 @@ struct ContentView: View {
                     //.font(.custom("SFProText-Thin", size: CGFloat(90 * GlobalVars_Unifier.multiplier_unifier)))
                     .font(.custom("SFProText-Thin", size: 90))
                 NavigationLink(
-                    destination: OptionsView(currentOptions: currentOptions, bleController: bleController, globals: globals),
+                    destination: OptionsView(currentOptions: currentOptions, bleController: bleController, globals: globals, options: [])
+                            .environment(\.managedObjectContext, viewContext),
                     label: {
                         Text("Start")
                             .font(.custom("SFProText-Thin", size: 35))

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ButtonEditView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var currentOptions: CurrentOptions
     @EnvironmentObject var globals: GlobalVars
     @Binding var selectedButton: Int
@@ -17,10 +18,11 @@ struct ButtonEditView: View {
     @State private var btnImage: UIImage = UIImage()
     @State private var imageSource: activeSheet?
     var isFolderOptions = ["Option", "Folder"]
+    var options: [ButtonOption]
     
     var body: some View {
         VStack {
-            Text("Edit \(currentOptions.allOptions[currentOptions.options[selectedButton]]!.text)" as String)
+            Text("Edit \(options[selectedButton].text)" as String)
                 .font(.custom("SFProText-Thin", size: 50))
                 .padding(20)
             Form {
@@ -102,7 +104,20 @@ struct ButtonEditView: View {
                 Spacer()
                 
                 Button(action: {
-                    currentOptions.editOption(index: selectedButton, text: btnText, image: btnImage, isFolder: (btnIsFolder == 1))
+                    options[selectedButton].text = btnText
+                    if btnImage == UIImage() {
+                        options[selectedButton].image = nil
+                    }
+                    else {
+                        options[selectedButton].image = btnImage.pngData()!
+                    }
+                    options[selectedButton].isFolder = (btnIsFolder == 1)
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        let nsError = error as NSError
+                        fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                    }
                     self.editButton.toggle()
                 }, label: {
                     Text("Done")
@@ -111,9 +126,15 @@ struct ButtonEditView: View {
             }
         }
         .onAppear(perform: {
-            btnText = currentOptions.allOptions[currentOptions.options[selectedButton]]!.text
-            btnImage = currentOptions.allOptions[currentOptions.options[selectedButton]]!.image.getImage()
-            if currentOptions.allOptions[currentOptions.options[selectedButton]]!.isFolder {
+            btnText = options[selectedButton].text
+            let data = options[selectedButton].image ?? nil
+            if data != nil {
+                btnImage = UIImage(data: data!)!
+            }
+            else {
+                btnImage = UIImage()
+            }
+            if options[selectedButton].isFolder {
                 btnIsFolder = 1
             }
             else {

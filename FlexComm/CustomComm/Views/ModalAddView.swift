@@ -16,6 +16,7 @@ enum activeSheet: Identifiable {
 }
 
 struct ModalAddView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var currentOptions: CurrentOptions
     @EnvironmentObject var globals: GlobalVars
     @Binding var showAddModal: Bool
@@ -24,6 +25,7 @@ struct ModalAddView: View {
     @State private var btnImage: UIImage = UIImage()
     @State private var imageSource: activeSheet?
     var isFolderOptions = ["Option", "Folder"]
+    @Binding var parent: ButtonOption?
     
     var body: some View {
         VStack {
@@ -109,7 +111,26 @@ struct ModalAddView: View {
                 Spacer()
                 
                 Button(action: {
-                    currentOptions.addOption(text: btnText, image: btnImage, isFolder: (btnIsFolder == 1))
+                    let newOption = ButtonOption(context: viewContext)
+                    newOption.text = btnText
+                    if btnImage == UIImage() {
+                        newOption.image = nil
+                    }
+                    else {
+                        newOption.image = btnImage.pngData()!
+                    }
+                    newOption.isFolder = (btnIsFolder == 1)
+                    newOption.level = parent!.level + 1
+                    newOption.system = false
+                    parent?.addToChildren(newOption)
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        let nsError = error as NSError
+                        fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                    }
+                    currentOptions.stopTimer()
+                    currentOptions.startTimer(count: (parent?.children!.count)!)
                     self.showAddModal.toggle()
                 }, label: {
                     Text("Add")

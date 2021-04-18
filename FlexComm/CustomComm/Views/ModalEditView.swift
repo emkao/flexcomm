@@ -18,23 +18,20 @@ extension AnyTransition {
 }
 
 struct ModalEditView: View {
-    @EnvironmentObject var currentOptions: CurrentOptions
+    @Environment(\.managedObjectContext) private var viewContext
     @Binding var showEditModal: Bool
     @State private var editButton: Bool = false
     @State private var selectedButton: Int = -1
     @EnvironmentObject var globals: GlobalVars
-    @State var saved: [Int]
+    @State var options: [ButtonOption]
     
     var body: some View {
         Text("Edit Options")
             .font(.custom("SFProText-Thin", size: 50))
             .padding(20)
-            .onAppear(perform: {
-                saved = currentOptions.options
-            })
-        List(currentOptions.options.indices, id: \.self) { index in
+        List(options.indices, id: \.self) { index in
             HStack {
-                Button(currentOptions.allOptions[currentOptions.options[index]]!.text) {
+                Button(options[index].text) {
                     withAnimation{
                         selectedButton = index
                         editButton.toggle()
@@ -47,7 +44,6 @@ struct ModalEditView: View {
         HStack {
             Button(action: {
                 self.showEditModal.toggle()
-                currentOptions.options = saved
             }, label: {
                 Text("Cancel")
             })
@@ -63,8 +59,8 @@ struct ModalEditView: View {
             .padding(30)
         }
         .sheet(isPresented: $editButton) {
-            ButtonEditView(selectedButton: $selectedButton, editButton: $editButton)
-                .environmentObject(self.currentOptions)
+            ButtonEditView(selectedButton: $selectedButton, editButton: $editButton, options: options)
+                .environment(\.managedObjectContext, viewContext)
                 .environmentObject(self.globals)
                 .transition(.moveAndFade)
         }
