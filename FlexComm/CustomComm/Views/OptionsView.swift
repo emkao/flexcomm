@@ -32,6 +32,7 @@ struct OptionsView: View {
     @State var parent: ButtonOption?
     @State var options: [ButtonOption]
     @State var currentCount: Int = 0
+    @State var initial: Bool = true
     
     var body: some View {
         ZStack {
@@ -82,10 +83,10 @@ struct OptionsView: View {
                 .SFProFont(style: .largeTitle, weight: .regular, multiplier: GlobalVars_Unifier.multiplier_unifier / 1.18) //made it not as extreme for text, but still changing
                 .foregroundColor(.black)
                 .padding(10.0)
-                .onAppear{
+                .onAppear {
                     currentOptions.startTimer(count: currentCount)
                 }
-                .onDisappear{
+                .onDisappear {
                     currentOptions.stopTimer()
                 }
 
@@ -307,6 +308,10 @@ struct OptionsView: View {
     
     func initializeOptions() {
         print("init")
+        if !initial {
+            return
+        }
+        initial = false
         let fetchRequest = NSFetchRequest<ButtonOption>(entityName: "ButtonOption")
         var entitiesCount = 0
         do {
@@ -316,7 +321,7 @@ struct OptionsView: View {
         }
         
         if entitiesCount != 0 {
-            fetchRequest.predicate = NSPredicate(format: "level == %i", 0)
+            fetchRequest.predicate = NSPredicate(format: "level == %i", currentOptions.currLevel)
             do {
                 try self.parent = viewContext.fetch(fetchRequest)[0]
                 self.options = getOptions()

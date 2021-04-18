@@ -11,7 +11,7 @@ struct ModalDeleteView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var currentOptions: CurrentOptions
     @Binding var showDeleteModal: Bool
-    @State var selections: IndexSet = IndexSet()
+    @State var selections: Set<ButtonOption> = Set<ButtonOption>()
     var parent: ButtonOption?
     var options: [ButtonOption]
     
@@ -22,13 +22,13 @@ struct ModalDeleteView: View {
                 .padding(20)
             
             List {
-                ForEach(options.indices, id: \.self) { index in
-                    MultipleSelectionRow(title: options[index].text, isSelected: self.selections.contains(index)) {
-                        if self.selections.contains(index) {
-                            self.selections.remove(index)
+                ForEach(options, id: \.self) { option in
+                    MultipleSelectionRow(title: option.text, isSelected: self.selections.contains(option)) {
+                        if self.selections.contains(option) {
+                            self.selections.remove(option)
                         }
                         else {
-                            self.selections.insert(index)
+                            self.selections.insert(option)
                         }
                     }
                 }
@@ -45,7 +45,7 @@ struct ModalDeleteView: View {
                 Spacer()
                 
                 Button(action: {
-                    parent?.removeFromChildren(at: NSIndexSet(indexSet: self.selections))
+                    parent?.removeFromChildren(NSOrderedSet(set: self.selections))
                     do {
                         try viewContext.save()
                     } catch {
