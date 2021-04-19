@@ -20,7 +20,7 @@ struct SettingsView: View {
     var body: some View {
         ZStack {
             Color.white
-            VStack(spacing: 40) {
+            VStack(spacing: 30) {
                 HStack {
                     Button(action: { // back button
                         presentationMode.wrappedValue.dismiss()
@@ -234,7 +234,7 @@ struct SettingsView: View {
                 .padding(.leading, 30)
             }
             .edgesIgnoringSafeArea(.top)
-            .padding(.top, 5)
+            .padding(.top, 0)
         }
         .onAppear(perform: {
             sliderValue = GlobalVars_Unifier.multiplier_unifier

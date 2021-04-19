@@ -28,7 +28,6 @@ struct ContentView: View {
                         Text("Start")
                             .font(.custom("SFProText-Thin", size: 35))
                             .padding(5)
-//                            .environmentObject(globals)
                     })
                     .navigationBarTitle("")
                     .navigationBarHidden(true)
@@ -38,17 +37,21 @@ struct ContentView: View {
                     label: {
                         Text("Settings")
                             .font(.custom("SFProText-Thin", size: 35))
-//                            .navigationBarTitle(Text("Settings"), displayMode: .large)
-//                            .navigationViewStyle(StackNavigationViewStyle())
-                            .navigationBarTitle("")
-                            .navigationBarHidden(true)
-//                            .edgesIgnoringSafeArea(.all)
-//                            .environmentObject(globals)
+                            .padding(.bottom, 15)
                     })
                     .navigationBarTitle("")
                     .navigationBarHidden(true)
                 Spacer()
                 Spacer()
+                Spacer()
+                NavigationLink(
+                    destination: HelpView(),
+                    label: {
+                        Text("Help")
+                            .font(.custom("SFProText-Thin", size: 20))
+                    })
+                    .navigationBarTitle("")
+                    .navigationBarHidden(true)
                 Spacer()
             }
         }

@@ -50,6 +50,7 @@
 		C5EA511E25F1C67D005E0C4C /* ModalDeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA511D25F1C67D005E0C4C /* ModalDeleteView.swift */; };
 		C5EA512325F31B6E005E0C4C /* ModalAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA512225F31B6E005E0C4C /* ModalAddView.swift */; };
 		C5EA512725F4982A005E0C4C /* ButtonEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EA512625F4982A005E0C4C /* ButtonEditView.swift */; };
+		C5F18293262D30B0004D18EA /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F18292262D30B0004D18EA /* HelpView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		C5EA511D25F1C67D005E0C4C /* ModalDeleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDeleteView.swift; sourceTree = "<group>"; };
 		C5EA512225F31B6E005E0C4C /* ModalAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAddView.swift; sourceTree = "<group>"; };
 		C5EA512625F4982A005E0C4C /* ButtonEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonEditView.swift; sourceTree = "<group>"; };
+		C5F18292262D30B0004D18EA /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 		C560E0EC2629615200EB1C92 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C5F18292262D30B0004D18EA /* HelpView.swift */,
 				C5381BD625E60EBA002C09C3 /* SettingsView.swift */,
 				C50CD78A2627E3B0001069D7 /* CalibrateView.swift */,
 				C5EA510F25F1344B005E0C4C /* OptionsView.swift */,
@@ -344,6 +347,7 @@
 				C50B9DE22611AF1900F7DC96 /* ImagePicker.swift in Sources */,
 				C5EA512325F31B6E005E0C4C /* ModalAddView.swift in Sources */,
 				C5C88DA325E2C464009BB751 /* FlexCommApp.swift in Sources */,
+				C5F18293262D30B0004D18EA /* HelpView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
