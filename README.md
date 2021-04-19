@@ -12,7 +12,7 @@ CustomComm provides a way for children with cerebral palsy, who are limited by a
 5. Rotate simulated iPad Pro to run in landscape mode 
 
 **Hardware**
-1. plug in battery to the Adafruit Feather 
+1. Plug battery into the Adafruit Feather 
 2. Wear glove 
 3. Connect to the app through the Settings screen and calibrate to desired sensitivity
 
