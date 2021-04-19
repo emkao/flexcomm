@@ -140,8 +140,6 @@ struct OptionsView: View {
                     Spacer()
                     
                     Button(action: { // help button
-                        print("HELP")
-//                        print(self._helpSoundEffect)
                         self.audioPlayer.play() //play the sound
                         self.audioPlayer.play() //play the sound
                         
@@ -237,38 +235,10 @@ struct OptionsView: View {
             // find sound path and construct audioPlayer
             let sound = Bundle.main.path(forResource: "zapsplat_hospital_tone", ofType: "mp3")
             self.audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!))
-//            print("----on appear options view---")
             
         })
         .onDisappear(perform: {
             viewBeingDisplayed = false
-        })
-        .onReceive(currentOptions.$selectedBtn, perform: {_ in
-            print("on Receive gets: ",currentOptions.selectedBtn)
-//            let options = getOptions()
-            var selectedIdx = currentOptions.selectedBtn + 1
-            if (options.count == 0) {
-                return
-            }
-            if (selectedIdx >= options.count) {
-                if(options.count != 0){
-                    selectedIdx = selectedIdx % options.count
-                    selectedIdx = 0
-                }
-                else{
-                    selectedIdx = 0
-                }
-            }
-            print("selected index we receive: ", selectedIdx)
-            let actualSelectedBtn = options[selectedIdx]
-            let utterance = AVSpeechUtterance(string: actualSelectedBtn.text)
-            print("the text we decide to say: ", actualSelectedBtn.text)
-            //self.synthesizer = AVSpeechSynthesizer()
-//            if(GlobalVars_Unifier.text_unifier && !self.synthesizer.isSpeaking ){
-//                print("and then we speak the text")
-//                self.synthesizer.speak(utterance)
-//                self.lastIndexSaid = currentOptions.selectedBtn
-//            }
         })
         .onReceive(bleController.$selected, perform: {_ in
             if (self.viewBeingDisplayed == true &&
@@ -278,7 +248,7 @@ struct OptionsView: View {
                 numFlexes += 1
                 changed = true
                 if tapTimer == nil {
-                    tapTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
+                    tapTimer = Timer.scheduledTimer(withTimeInterval: GlobalVars_Unifier.time_unifier / 4, repeats: false) { timer in
                         checkTaps()
                     }
                 }
@@ -288,10 +258,9 @@ struct OptionsView: View {
                         tapTimer = nil
                         self.audioPlayer.play() //play the sound
                         self.audioPlayer.play() //play the sound
-//                        print("help")
                     }
                     else {
-                        tapTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
+                        tapTimer = Timer.scheduledTimer(withTimeInterval: GlobalVars_Unifier.time_unifier / 4, repeats: false) { timer in
                             checkTaps()
                         }
                     }
@@ -307,7 +276,6 @@ struct OptionsView: View {
     }
     
     func initializeOptions() {
-        print("init")
         if !initial {
             return
         }
@@ -419,7 +387,6 @@ struct OptionsView: View {
                     currentOptions.selectedBtn = -1
                     print("moved------- selectedBtn si: ", currentOptions.selectedBtn)
                     currentOptions.selectedBtn = 0
-//                    currentOptions.startTimer(count: -1)
                 }
                
                 currentOptions.startTimer(count: self.currentCount)
@@ -461,19 +428,13 @@ struct OptionsView: View {
         var yOffset: CGFloat = 0
         var cornerRadius: CGFloat = 50
         // read out text of selected button
-        var wouldRepeat: Bool = (GlobalVars_Unifier.last_text_said == options[index].text)
-        
-        
-        print("last index said: ", GlobalVars_Unifier.last_index)
+        let wouldRepeat: Bool = (GlobalVars_Unifier.last_text_said == options[index].text)
         if(selectedIdx == index && GlobalVars_Unifier.text_unifier && !self.synthesizer.isSpeaking && !wouldRepeat){
-
             let utterance = AVSpeechUtterance(string: selectedBtn.text)
             self.synthesizer = AVSpeechSynthesizer()
             self.synthesizer.speak(utterance)
-          //  self.lastIndexSaid = index
             GlobalVars_Unifier.last_index = selectedIdx
             GlobalVars_Unifier.last_text_said = selectedBtn.text
-            
         }
         
         if (selectedBtn.isFolder) {
@@ -522,10 +483,3 @@ struct OptionsView: View {
         }
     }
 }
-
-//struct OptionsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        OptionsView(currentOptions: CurrentOptions(), bleController: BLEController(), globals: GlobalVars())
-//            .environmentObject(GlobalVars())
-//    }
-//}

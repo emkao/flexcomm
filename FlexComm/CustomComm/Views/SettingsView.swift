@@ -34,32 +34,7 @@ struct SettingsView: View {
                 Text("Settings")
                     .font(.custom("SFProText-Thin", size: 50))
                     .padding(0)
-//                Group {
-//                    HStack{
-//                        Text("Color Scheme:")
-//                            .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
-//                        Button(action: {
-//                            print("Dark Mode tapped!")
-//                        }) {
-//                            Text("Dark Mode")
-//                            .padding()
-//                            .background(Color.black)
-//                            .foregroundColor(.white)
-//                            .cornerRadius(40)
-//                        }
-//                        Button(action: {
-//                            print("Light Mode tapped!")
-//                        }) {
-//                            Text("Light Mode")
-//                            .padding()
-//                            .background(Color(UIColor.lightGray))
-//                            .foregroundColor(.black)
-//                            .cornerRadius(40)
-//                        }
-//                    }
-//                    .SFProFont(style: .body, weight: .regular, multiplier: globals_Nav.multiplier)
-//                    .padding()
-//                }
+                
                 Group {
                     Text("All sound effects obtained from https://www.zapsplat.com")
                         .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
@@ -73,11 +48,8 @@ struct SettingsView: View {
                                 .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
                         }
                         Button(action: {
-                            //slider updates the constant and this updates the page
-                            //so if user forgets to hit it it's not huge deal
-//                            print("Update Size")
-//                            print("new value: ", sliderValue)
-//                            print("old value: ", GlobalVars_Unifier.multiplier_unifier)
+                            // slider updates the constant and this updates the page
+                            // so if user forgets to hit it it's not huge deal
                             globals_Nav.multiplier = sliderValue
                             GlobalVars_Unifier.multiplier_unifier = sliderValue
                         }) {
@@ -95,17 +67,12 @@ struct SettingsView: View {
                 HStack{
                     Text("Response Time:")
                         .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
-                    TextField("Number of Seconds", text: $responseTime).onChange(of: responseTime, perform: { value in
-//                        GlobalVars_Unifier.time_unifier = Double(responseTime) ?? 2.0
-//                        globals_Nav.time = Double(responseTime) ?? 2.0
-//                        print("changed time to : ", GlobalVars_Unifier.time_unifier)
-                    })
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    TextField("Number of Seconds", text: $responseTime).onChange(of: responseTime, perform: {_ in })
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                     Text("Seconds")
                     Button(action: {
                         GlobalVars_Unifier.time_unifier = Double(responseTime) ?? 2.0
                         globals_Nav.time = Double(responseTime) ?? 2.0
-                        print("changed time to : ", GlobalVars_Unifier.time_unifier)
                     }, label: {
                         Text("Set Response Time")
                     })
@@ -119,32 +86,6 @@ struct SettingsView: View {
                 .padding(.leading, 30)
                 
                 Group {
-//                    HStack {
-//                        Text("Turn on Text to Speech:")
-//                            .SFProFont(style: .headline, weight: .bold, multiplier: globals_Nav.multiplier)
-//                        Button("CHANGE", action: {
-//                            textToSpeech = !textToSpeech
-//                            globals_Nav.text = textToSpeech
-//                            GlobalVars_Unifier.text_unifier = textToSpeech
-//                            print("chagned val to ", textToSpeech)
-//                            
-//                        })
-//                        .background(Color(UIColor.lightGray))
-//                        .foregroundColor(.black)
-//                        
-//
-//                        if (textToSpeech) {
-//                            Text("ON").SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
-//
-//                        }
-//                        else {
-//                            Text("OFF").SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
-//
-//                        }
-//                    }
-//                    .SFProFont(style: .body, weight: .regular, multiplier: globals_Nav.multiplier)
-//                    .environmentObject(globals_Nav)
-//                    
                     HStack {
                         if textToSpeech {
                             Text("Text to Speech On")
@@ -177,7 +118,6 @@ struct SettingsView: View {
                             bleController.startScanning()
                         }, label: {
                             Text("Scan")
-//                                .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
                         })
                         .disabled(bleController.scanningBtnDisabled)
                     }
@@ -216,7 +156,6 @@ struct SettingsView: View {
                                 Text("Calibrate Flex Sensor")
                                     .SFProFont(style: .body, weight:.regular, multiplier: sliderValue)
                             })
-//                            .buttonStyle(PlainButtonStyle())
                             .padding()
                             .border(Color.black)
                             .navigationBarTitle("")

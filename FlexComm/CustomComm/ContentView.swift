@@ -19,7 +19,6 @@ struct ContentView: View {
                 Spacer()
                 Text("CustomComm")
                     .padding(15)
-                    //.font(.custom("SFProText-Thin", size: CGFloat(90 * GlobalVars_Unifier.multiplier_unifier)))
                     .font(.custom("SFProText-Thin", size: 90))
                 NavigationLink(
                     destination: OptionsView(currentOptions: currentOptions, bleController: bleController, globals: globals, options: [])
