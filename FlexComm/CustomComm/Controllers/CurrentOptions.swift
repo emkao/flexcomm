@@ -21,6 +21,9 @@ class CurrentOptions: ObservableObject {
         if(count == -1 ){
             self.selectedBtn = -1
         }
+        if self.timer != nil {
+            stopTimer()
+        }
         self.timer = Timer.scheduledTimer(withTimeInterval: GlobalVars_Unifier.time_unifier, repeats: true) {_ in
             if (count > 0) {
                 self.selectedBtn = (self.selectedBtn + 1) % count
@@ -34,5 +37,6 @@ class CurrentOptions: ObservableObject {
     
     func stopTimer() {
         self.timer?.invalidate()
+        self.timer = nil
     }
 }
