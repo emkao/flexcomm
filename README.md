@@ -16,6 +16,10 @@ CustomComm provides a way for children with cerebral palsy, who are limited by a
 2. Wear glove 
 3. Connect to the app through the Settings screen and calibrate to desired sensitivity
 
+Be cautious and aware that the flex sensor is delicate, so try not to bend it in the wrong direction. The glove should only be worn on the left hand. Sometimes, the flex sensor may not accurately pick up the flexes. Double check to make sure that the center of the flex sensor aligns with where you are bending your wrist. Make sure to calibrate the flex sensor every time you start the application in order to ensure the best accuracy for selection. 
+
+If the flex sensor does break due to use over time, the flex sensor could be bought at https://www.sparkfun.com/products/8606. You will need to use a soldering iron to detach the current flex sensor and attach the new flex sensor. 
+
 ## Description  of Provided Functionality: 
 CustomComm allows for selection of different buttons through one flex movement, when integrated with expected hardware. When downloading and running this GitHub repository, you will be able to see the functionality of the app without hardware attached.   Solely downloading software allows for the user to see the screen and click through the application; these “clicks'' will be replaced by a flexing movement when the hardware is integrated. 
 
